@@ -16510,6 +16510,7 @@ body {
 .bg-img-full {
     background-position: center;
     background-repeat: no-repeat;
+    background-image: url('../../images/bg/monitoring.png');
 }
 
 @media (min-width: 576px) {
