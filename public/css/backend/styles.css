@@ -16526,6 +16526,7 @@ body {
 .bg-img-full {
     background-position: center;
     background-repeat: no-repeat;
+    background-size: 100% auto;
 }
 
 @media (min-width: 576px) {
