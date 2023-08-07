@@ -16501,6 +16501,35 @@ body {
   background-repeat: no-repeat;
 }
 
+.bg-img-contain {
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.bg-img-full {
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+@media (min-width: 576px) {
+    .bg-img-full {
+        background-size: auto 100%;
+    }
+}
+
+@media (min-width: 768px) {
+    .bg-img-full {
+        background-size: 100% auto;
+    }
+}
+
+@media (min-width: 992px) {
+    .bg-img-full {
+        background-size: 100% auto;
+    }
+}
+
 .bg-img-repeat {
   background-position: top left;
   background-repeat: repeat;
