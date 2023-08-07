@@ -6,7 +6,7 @@
 
 @section('content')
 <!-- Page Header-->
-<header class="page-header-ui page-header-ui-light" style="background-image: url({{ asset('images/bg/monitoring.png') }}); background-size: auto">
+<header class="page-header-ui page-header-ui-light" style="background-image: url({{ asset('images/bg/monitoring.png') }}); background-size: auto auto">
     <div class="page-header-ui-content">
         <div class="container px-5">
             <div class="row gx-5 justify-content-center">
