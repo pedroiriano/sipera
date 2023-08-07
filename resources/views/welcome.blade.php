@@ -10,7 +10,7 @@
     <div class="page-header-ui-content">
         <div class="container">
             <div class="row justify-content-end">
-                <div class="col-xl-8 col-lg-10 text-center">
+                <div class="col-xl-8 col-lg-10 text-end">
                     @include('inc.alert-message')
                     <h1 class="page-header-ui-title text-black">SIPERA</h1>
                     <p class="page-header-ui-text mb-5 text-black">Sistem Informasi Pelaporan Capaian Kinerja</p>
