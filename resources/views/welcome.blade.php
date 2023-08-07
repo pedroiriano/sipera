@@ -13,11 +13,10 @@
                 <div class="col-xl-8 col-lg-10 text-center">
                     @include('inc.alert-message')
                     <h1 class="page-header-ui-title fw-bold text-white" style="text-shadow: 2px 2px #000000">SIPERA</h1>
-                    <p class="page-header-ui-text fw-bold mb-5 text-white">Sistem Informasi Pelaporan Capaian Kinerja</p>
+                    <p class="page-header-ui-text fw-bold mb-5 text-white" style="text-shadow: 2px 2px #000000">Sistem Informasi Pelaporan Capaian Kinerja</p>
                     @auth
                     <a class="btn btn-teal fw-bold me-2" href="">Masuk Sistem</a>
                     @endauth
-                    <a class="btn btn-link fw-bold text-white" href="">Jelajahi</a>
                 </div>
             </div>
         </div>
