@@ -6,7 +6,7 @@
 
 @section('content')
 <!-- Page Header-->
-<header class="page-header-ui page-header-ui-light bg-img-full-height-sm bg-img-full-width-lg" style="background-image: url({{ asset('images/bg/monitoring.png') }})">
+<header class="page-header-ui page-header-ui-light bg-img-full-height-sm bg-img-full-width-md" style="background-image: url({{ asset('images/bg/monitoring.png') }})">
     <div class="page-header-ui-content">
         <div class="container px-5">
             <div class="row gx-5 justify-content-center">
