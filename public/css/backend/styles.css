@@ -16535,12 +16535,21 @@ body {
         background-repeat: no-repeat;
     }
 }
+@media (min-width: 576px) {
+    .bg-img-full-height-sm {
+        background-position: center;
+        background-size: auto 100%;
+        background-repeat: no-repeat;
+    }
+}
 @media (min-width: 768px) {
     .bg-img-full-width-md {
         background-position: center;
         background-size: 100% auto;
         background-repeat: no-repeat;
     }
+}
+@media (min-width: 768px) {
     .bg-img-full-height-md {
         background-position: center;
         background-size: auto 100%;
@@ -16553,6 +16562,8 @@ body {
         background-size: 100% auto;
         background-repeat: no-repeat;
     }
+}
+@media (min-width: 992px) {
     .bg-img-full-height-lg {
         background-position: center;
         background-size: auto 100%;
