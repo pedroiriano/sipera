@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->bigInteger('role_id');
+            $table->bigInteger('role_id')->default(1);
             $table->bigInteger('district_id')->nullable();
             $table->string('status')->default('Tidak Aktif');
             $table->rememberToken();
