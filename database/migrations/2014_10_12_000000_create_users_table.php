@@ -19,6 +19,9 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->bigInteger('role_id');
+            $table->bigInteger('district_id')->nullable();
+            $table->string('status')->default('Tidak Aktif');
             $table->rememberToken();
             $table->timestamps();
         });
