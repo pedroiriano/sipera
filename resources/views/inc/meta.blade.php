@@ -2,8 +2,8 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="REWAS Bagian Ekonomi SETDA Kota Depok">
-<meta name="keywords" content="aplikasi, rewas, aplikasi rewas, komoditas, pasar, harga, harga komoditas, komoditas pasar, harga komoditas pasar, bagian ekonomi, setda, kota depok">
+<meta name="description" content="SIPERA Kecamatan Pancoran Mas Kota Depok">
+<meta name="keywords" content="aplikasi, sipera, aplikasi sipera, kinerja, capaian kinerja, kecamatan pancoran mas, kota depok">
 {{-- END::Google Search Meta --}}
 
 {{-- BEGIN::Style --}}
@@ -27,7 +27,7 @@
 {{-- END::CSRF Token --}}
 
 {{-- BEGIN::Title --}}
-<title>{{ config('app.name', 'REWAS') }}</title>
+<title>{{ config('app.name', 'SIPERA') }}</title>
 {{-- END::Title --}}
 
 {{-- BEGIN::Data Tables --}}
@@ -50,31 +50,27 @@
 {{-- END::Date Time Lite Picker --}}
 
 {{-- BEGIN::Canonical --}}
-<link rel="canonical" href="https://rewas.depok.go.id" />
+<link rel="canonical" href="https://sipera.web.id" />
 {{-- END::Canonical --}}
 
 {{-- BEGIN::Facebook Meta --}}
-<meta property="og:title" content="REWAS | Sistem Manajemen Komoditas Pasar dan Laporan Peringatan Secara Realtime tentang Kenaikan & Penurunan Harga Komoditas Pasar - Bagian Ekonomi - SETDA - Kota Depok">
+<meta property="og:title" content="SIPERA | Sistem Informasi Pelaporan Capaian Kinerja - Kecamatan Pancoran Mas - Kota Depok">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://rewas.depok.go.id">
-<meta property="og:site_name" content="REWAS">
-<meta property="og:description" content="REWAS Sistem Manajemen Komoditas Pasar dan Laporan Peringatan Secara Realtime tentang Kenaikan & Penurunan Harga Komoditas Pasar berbasis Website">
+<meta property="og:url" content="https://sipera.web.id">
+<meta property="og:site_name" content="SIPERA">
+<meta property="og:description" content="SIPERA Sistem Informasi Pelaporan Capaian Kinerja berbasis Website">
 <meta property="og:image" content="">
 {{-- END::Facebook Meta --}}
 
 {{-- BEGIN::Twitter Meta --}}
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="REWAS | Sistem Manajemen Komoditas Pasar dan Laporan Peringatan Secara Realtime tentang Kenaikan & Penurunan Harga Komoditas Pasar - Bagian Ekonomi - SETDA - Kota Depok">
-<meta name="twitter:description" content="REWAS Sistem Manajemen Komoditas Pasar dan Laporan Peringatan Secara Realtime tentang Kenaikan & Penurunan Harga Komoditas Pasar berbasis Website">
+<meta name="twitter:title" content="SIPERA | Sistem Informasi Pelaporan Capaian Kinerja - Kecamatan Pancoran Mas - Kota Depok">
+<meta name="twitter:description" content="SIPERA Sistem Informasi Pelaporan Capaian Kinerja berbasis Website">
 <meta name="twitter:image" content="">
 {{-- END::Twitter Meta --}}
 
-{{-- BEGIN::Masonry CDN --}}
-{{-- <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script> --}}
-{{-- END::Masonry CDN --}}
-
 {{-- BEGIN::Favicons --}}
-<link rel="apple-touch-icon" href="{{ asset('images/brand/idea-001-(180X180)-01.png') }}" sizes="180x180">
-<link rel="icon" href="{{ asset('images/brand/idea-001-(32X32)-01.png') }}" sizes="32x32" type="image/png">
-<link rel="icon" href="{{ asset('images/brand/idea-001-(16X16)-01.png') }}" sizes="16x16" type="image/png">
+<link rel="apple-touch-icon" href="{{ asset('images/brand/lambang-depok.png') }}" sizes="180x180">
+<link rel="icon" href="{{ asset('images/brand/lambang-depok.png') }}" sizes="32x32" type="image/png">
+<link rel="icon" href="{{ asset('images/brand/lambang-depok.png') }}" sizes="16x16" type="image/png">
 {{-- END::Favicons --}}

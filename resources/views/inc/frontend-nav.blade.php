@@ -2,8 +2,13 @@
 <nav class="navbar navbar-marketing navbar-expand-lg bg-white navbar-light">
     <div class="container px-5">
         <a class="navbar-brand text-dark" href="/">
-            <img src="{{ asset('images/brand/idea-001.png') }}" alt="" class="d-inline-block align-text-top">
-            SIPERA
+            <div class="brand-container">
+                <img src="{{ asset('images/brand/lambang-depok.png') }}" alt="" class="d-inline-block align-text-top" style="height: 48px">
+                <div class="brand-text fs-6">
+                    Sistem Informasi Pelaporan Capaian Kinerja <br>
+                    Kecamatan Pancoran Mas
+                </div>
+            </div>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i data-feather="menu"></i></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">

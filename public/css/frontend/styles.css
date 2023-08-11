@@ -20263,3 +20263,12 @@ section {
     border-right: 0.0625rem solid #e0e5ec;
   }
 }
+
+.brand-container {
+    display: flex;
+    align-items: center;
+}
+
+.brand-text {
+    margin-left: 10px; /* Adjust the spacing as needed */
+}
