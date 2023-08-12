@@ -40,13 +40,52 @@ class UserController extends Controller
         if(($user->role_id) == 1) {
             $rols = Role::all();
 
-            $regs = Region::select(
-                DB::raw("CONCAT('Kecamatan ',
-                           CASE WHEN parent_id IS NOT NULL THEN CONCAT(name, ' - Kelurahan ') ELSE '' END,
-                           name) AS district_info"), 'id')
-                ->whereNotNull('parent_id')
-                ->orWhereNull('parent_id')
-                ->pluck('district_info', 'id');
+            // $regs = Region::select(
+            //     DB::raw("CONCAT('Kecamatan ',
+            //                CASE WHEN parent_id IS NOT NULL THEN CONCAT(name, ' - Kelurahan ') ELSE '' END,
+            //                name) AS district_info"), 'id')
+            //     ->whereNotNull('parent_id')
+            //     ->orWhereNull('parent_id')
+            //     ->pluck('district_info', 'id');
+
+            // $pars = Region::select(
+            //     'regions.id',
+            //     'regions.name',
+            //     'regions.address',
+            //     'regions.parent_id',
+            //     DB::raw("IFNULL(parent.name, '') as parent_name")
+            // )
+            // ->leftJoin('regions as parent', 'regions.parent_id', '=', 'parent.id')
+            // ->get();
+
+            // $regs = Region::select(
+            //     DB::raw("CONCAT('Kecamatan ', $pars->parent_name, ' - Kelurahan', name) AS district_info"), 'id')
+            //     ->whereNotNull('parent_id')
+            //     ->where('id', $pars->id)
+            //     ->pluck('district_info', 'id');
+
+            $pars = Region::select(
+                'regions.id',
+                'regions.name',
+                'regions.address',
+                'regions.parent_id',
+                DB::raw("IFNULL(parent.name, '') as parent_name")
+                )
+                ->leftJoin('regions as parent', 'regions.parent_id', '=', 'parent.id')
+                ->get();
+
+            $regs = collect();
+
+            foreach ($pars as $par) {
+                if ($par->parent_id !== null) {
+                    $districtInfo = "Kecamatan {$par->parent_name} - Kelurahan {$par->name}";
+                    $regs->put($par->id, $districtInfo);
+                }
+                else {
+                    $districtInfo = "Kecamatan {$par->name}";
+                    $regs->put($par->id, $districtInfo);
+                }
+            }
 
             return view('backend.user.create')->with('user', $user)->with('rols', $rols)->with('regs', $regs);
         }
@@ -67,6 +106,7 @@ class UserController extends Controller
         $user->name = $request->input('user');
         $user->email = $request->input('email');
         $user->password = Hash::make($request->input('password'));
+        $user->region_id = $request->input('region');
         $user->role_id = $request->input('role');
         $user->status = $request->input('status');
 
@@ -99,7 +139,30 @@ class UserController extends Controller
             $use = User::findOrFail($id);
             $rols = Role::all();
 
-            return view('backend.user.edit')->with('user', $user)->with('use', $use)->with('rols', $rols);
+            $pars = Region::select(
+                'regions.id',
+                'regions.name',
+                'regions.address',
+                'regions.parent_id',
+                DB::raw("IFNULL(parent.name, '') as parent_name")
+                )
+                ->leftJoin('regions as parent', 'regions.parent_id', '=', 'parent.id')
+                ->get();
+
+            $regs = collect();
+
+            foreach ($pars as $par) {
+                if ($par->parent_id !== null) {
+                    $districtInfo = "Kecamatan {$par->parent_name} - Kelurahan {$par->name}";
+                    $regs->put($par->id, $districtInfo);
+                }
+                else {
+                    $districtInfo = "Kecamatan {$par->name}";
+                    $regs->put($par->id, $districtInfo);
+                }
+            }
+
+            return view('backend.user.edit')->with('user', $user)->with('use', $use)->with('rols', $rols)->with('regs', $regs);
         }
         else if(($user->role_id) == 2) {
             $use = User::findOrFail($id);
@@ -128,6 +191,7 @@ class UserController extends Controller
         $account = User::findOrFail($id);
         $account->name = $request->input('user');
         $account->email = $request->input('email');
+        $account->region_id = $request->input('region');
         if ($request->input('password') <> NULL) {
             $account->password = Hash::make($request->input('password'));
         }

@@ -58,6 +58,16 @@
                     <input class="form-control" id="password-confirm" name="password_confirmation" type="password" placeholder="Masukkan Kata Sandi Minimal 9 Karakter (contoh: 123456789)" />
                 </div>
             </div>
+            <div class="card mb-4">
+                <div class="card-header">Kecamatan atau Kelurahan</div>
+                <div class="card-body">
+                    <select class="form-control" id="region" name="region">
+                        @foreach ($regs as $reg_id => $reg)
+                        <option value="{{ $reg_id }}" {{ $reg_id == $use->region_id ? 'selected' : '' }}>{{ $reg }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
             @if ($user->role_id == 1)
             <div class="card mb-4">
                 <div class="card-header">Wewenang</div>
