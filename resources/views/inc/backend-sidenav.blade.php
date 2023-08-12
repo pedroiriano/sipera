@@ -16,7 +16,7 @@
                             Statistik Umum
                         </a>
                         <a class="nav-link" href="">
-                            Statistik Retribusi
+                            Statistik Capaian Kinerja
                         </a>
                     </nav>
                 </div>
@@ -25,17 +25,17 @@
                 <!-- Sidenav Accordion (Commodity)-->
                 <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseCommodities" aria-expanded="false" aria-controls="collapseCommodities">
                     <div class="nav-link-icon"><i data-feather="package"></i></div>
-                    Retribusi
+                    Sub Kegiatan
                     <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
                 <div class="collapse" id="collapseCommodities" data-bs-parent="#accordionSidenav">
                     <nav class="sidenav-menu-nested nav accordion">
                         <a class="nav-link" href="">
-                            Tabel Retribusi
+                            Tabel Sub Kegiatan
                         </a>
                         @if (auth()->user()->role_id == 1)
                         <a class="nav-link" href="">
-                            Perbarui Retribusi
+                            Perbarui Sub Kegiatan
                         </a>
                         @endif
                     </nav>
@@ -44,54 +44,54 @@
                 <!-- Sidenav Accordion (Rent)-->
                 <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseRents" aria-expanded="false" aria-controls="collapseRents">
                     <div class="nav-link-icon"><i data-feather="dollar-sign"></i></div>
-                    Sewa
+                    Kegiatan
                     <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
                 <div class="collapse" id="collapseRents" data-bs-parent="#accordionSidenav">
                     <nav class="sidenav-menu-nested nav accordion">
                         <a class="nav-link" href="">
-                            Tabel Sewa
+                            Tabel Kegiatan
                         </a>
                         <a class="nav-link" href="">
-                            Tambah Sewa
+                            Tambah Kegiatan
                         </a>
                     </nav>
                 </div>
                 <!-- Sidenav Accordion (Merchant)-->
                 <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseMerchants" aria-expanded="false" aria-controls="collapseMerchants">
                     <div class="nav-link-icon"><i data-feather="briefcase"></i></div>
-                    Pedagang
+                    Program
                     <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
                 <div class="collapse" id="collapseMerchants" data-bs-parent="#accordionSidenav">
                     <nav class="sidenav-menu-nested nav accordion">
                         <a class="nav-link" href="">
-                            Tabel Pedagang
+                            Tabel Program
                         </a>
                         <a class="nav-link" href="">
-                            Tambah Pedagang
+                            Tambah Program
                         </a>
                     </nav>
                 </div>
                 <!-- Sidenav Accordion (Stall)-->
                 <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseStalls" aria-expanded="false" aria-controls="collapseStalls">
                     <div class="nav-link-icon"><i data-feather="map"></i></div>
-                    Kios atau Los
+                    Wilayah
                     <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
                 <div class="collapse" id="collapseStalls" data-bs-parent="#accordionSidenav">
                     <nav class="sidenav-menu-nested nav accordion">
-                        <a class="nav-link" href="">
-                            Tabel Jenis
+                        <a class="nav-link" href="{{ route('district') }}">
+                            Tabel Kecamatan
                         </a>
-                        <a class="nav-link" href="">
-                            Tambah Jenis
+                        <a class="nav-link" href="{{ route('district-form') }}">
+                            Tambah Kecamatan
                         </a>
-                        <a class="nav-link" href="">
-                            Tabel Tempat
+                        <a class="nav-link" href="{{ route('ward') }}">
+                            Tabel Kelurahan
                         </a>
-                        <a class="nav-link" href="">
-                            Tambah Tempat
+                        <a class="nav-link" href="{{ route('ward-form') }}">
+                            Tambah Kelurahan
                         </a>
                     </nav>
                 </div>
