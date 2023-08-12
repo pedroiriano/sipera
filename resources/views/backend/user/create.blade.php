@@ -58,6 +58,16 @@
                 </div>
             </div>
             <div class="card mb-4">
+                <div class="card-header">Kecamatan atau Kelurahan</div>
+                <div class="card-body">
+                    <select class="form-control" id="region" name="region">
+                        @foreach ($regs as $reg_id => $reg)
+                        <option value="{{ $reg_id }}">{{ $reg }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="card mb-4">
                 <div class="card-header">Wewenang</div>
                 <div class="card-body">
                     <select class="form-control" id="role" name="role">

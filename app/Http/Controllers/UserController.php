@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Region;
 
 class UserController extends Controller
 {
@@ -39,7 +40,15 @@ class UserController extends Controller
         if(($user->role_id) == 1) {
             $rols = Role::all();
 
-            return view('backend.user.create')->with('user', $user)->with('rols', $rols);
+            $regs = Region::select(
+                DB::raw("CONCAT('Kecamatan ',
+                           CASE WHEN parent_id IS NOT NULL THEN CONCAT(name, ' - Kelurahan ') ELSE '' END,
+                           name) AS district_info"), 'id')
+                ->whereNotNull('parent_id')
+                ->orWhereNull('parent_id')
+                ->pluck('district_info', 'id');
+
+            return view('backend.user.create')->with('user', $user)->with('rols', $rols)->with('regs', $regs);
         }
         else {
             return back()->with('status', 'Tidak Punya Akses');
