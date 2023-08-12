@@ -18,12 +18,9 @@ class WardController extends Controller
         $user = auth()->user();
 
         if(($user->role_id) == 1) {
-            $stas = DB::table('stalls')
-                ->join('stall_types', 'stalls.stall_type_id', '=', 'stall_types.id')
-                ->select('stalls.*', 'stall_types.stall_type', 'stall_types.area as stall_area', 'stall_types.retribution')
-                ->get();
+            $wars = Region::whereNotNull('parent_id')->get();
 
-            return view('backend.stall.index')->with('user', $user)->with('stas', $stas);
+            return view('backend.ward.index')->with('user', $user)->with('wars', $wars);
         }
         else {
             return back()->with('status', 'Tidak Punya Akses');
@@ -35,11 +32,12 @@ class WardController extends Controller
         $user = auth()->user();
 
         if(($user->role_id) == 1) {
-            $stys = StallType::select(
-                DB::raw("CONCAT(stall_type, ' ', area) AS stall_info"), 'id')
-                ->pluck('stall_info', 'id');
+            $wars = Region::select(
+                DB::raw("name AS district_info"), 'id')
+                ->whereNull('parent_id')
+                ->pluck('district_info', 'id');
 
-            return view('backend.stall.create')->with('user', $user)->with('stys', $stys);
+            return view('backend.ward.create')->with('user', $user)->with('wars', $wars);
         }
         else {
             return back()->with('status', 'Tidak Punya Akses');
@@ -49,78 +47,38 @@ class WardController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'location' => 'required',
-            'area' => 'required',
+            'district' => 'required',
+            'ward' => 'required',
         ]);
-
-        $type = $request->input('stall');
-        $area = $request->input('area');
-        $type = StallType::where('id', $type)->first()->stall_type;
-        if ($type === 'Kios')
-        {
-            $cost = 600000 * $area;
-        }
-        else if ($type === 'Los')
-        {
-            $cost = 360000 * $area;
-        }
-        else
-        {
-            $cost = 0 * $area;
-        }
 
         $user = auth()->user();
 
-        $max_id = Stall::max('id');
-
-        if ($max_id === NULL)
-        {
-            $image = QrCode::format('png')->size(200)->errorCorrection('H')->generate('https://pasarkemiridepok.pepeve.id/stall/1');
-        }
-        else
-        {
-            $max_id = $max_id + 1;
-            $image = QrCode::format('png')->size(200)->errorCorrection('H')->generate('https://pasarkemiridepok.pepeve.id/stall/'.$max_id);
-        }
-
-        $image_name = 'img-'.time().'.png';
-        $image_path = '/img/qr-code/';
-        $output_image = $image_path.$image_name;
-        Storage::disk('public')->put($output_image, $image);
-
-        if ((DB::table('stalls')
-        ->where('stall_type_id', $request->input('stall'))
-        ->where('location', $request->input('location'))
+        if ((DB::table('regions')
+        ->where('parent_id', $request->input('district'))
+        ->where('name', $request->input('ward'))
         ->first()) === NULL)
         {
-            $stall = new Stall;
-            $stall->stall_type_id = $request->input('stall');
-            $stall->location = $request->input('location');
-            $stall->area = $request->input('area');
-            $stall->cost = $cost;
-            $stall->qr = $image_name;
-            $stall->occupy = 'Tidak';
+            $war = new Region;
+            $war->parent_id = $request->input('district');
+            $war->name = $request->input('ward');
+            $war->address = $request->input('address');
         }
         else
         {
             return back()->with('status', 'Maaf Data Sudah Ada');
         }
 
-        $stall->save();
+        $war->save();
 
-        return redirect()->route('stall')->with('success', 'Kios/Los Berhasil Disimpan');
+        return redirect()->route('ward')->with('success', 'Kelurahan Berhasil Disimpan');
     }
 
     public function show($id)
     {
         try {
-            $sta = DB::table('stalls')
-                ->join('stall_types', 'stalls.stall_type_id', '=', 'stall_types.id')
-                ->select('stalls.*', 'stall_types.id as stall_id', 'stall_types.stall_type', 'stall_types.area as stall_area', 'stall_types.retribution')
-                ->where('stalls.id', $id)
-                ->first();
+            $war = Region::where('id', $id)->first();
 
-            return view('backend.stall.show')->with('sta', $sta);
+            return view('backend.ward.show')->with('war', $war);
         } catch (\Exception $e) {
             return back()->with('error', 'Maaf Data Tidak Sesuai');
         }
@@ -131,13 +89,14 @@ class WardController extends Controller
         $user = auth()->user();
 
         if(($user->role_id) == 1) {
-            $sta = Stall::findOrFail($id);
+            $war = Region::findOrFail($id);
 
-            $stys = StallType::select(
-                DB::raw("CONCAT(stall_type, ' ', area) AS stall_info"), 'id')
-                ->pluck('stall_info', 'id');
+            $diss = Region::select(
+                DB::raw("name AS district_info"), 'id')
+                ->whereNull('parent_id')
+                ->pluck('district_info', 'id');
 
-            return view('backend.stall.edit')->with('sta', $sta)->with('stys', $stys);
+            return view('backend.ward.edit')->with('war', $war)->with('diss', $diss);
         }
         else {
             return back()->with('status', 'Tidak Punya Akses');
@@ -147,46 +106,32 @@ class WardController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'location' => 'required',
-            'area' => 'required',
+            'district' => 'required',
+            'ward' => 'required',
         ]);
 
-        $type = $request->input('stall');
-        $area = $request->input('area');
-        $type = StallType::where('id', $type)->first()->stall_type;
-        if ($type === 'Kios')
+        if ((DB::table('regions')
+        ->where('parent_id', $request->input('district'))
+        ->where('name', $request->input('ward'))
+        ->first()) === NULL)
         {
-            $cost = 600000 * $area;
-        }
-        else if ($type === 'Los')
-        {
-            $cost = 360000 * $area;
-        }
-        else
-        {
-            $cost = 0 * $area;
-        }
-
-        if ((DB::table('stalls')->select('stall_type_id')->where('id', $id)->first()->stall_type_id == $request->input('stall')) && (DB::table('stalls')->select('location')->where('id', $id)->first()->location == $request->input('location')))
-        {
-            $stall = Stall::findOrFail($id);
-            $stall->stall_type_id = $request->input('stall');
-            $stall->location = $request->input('location');
-            $stall->area = $request->input('area');
-            $stall->cost = $cost;
+            $war = Region::findOrFail($id);
+            $war->parent_id = $request->input('district');
+            $war->name = $request->input('ward');
+            $war->address = $request->input('address');
         }
         else
         {
-            if ((DB::table('stalls')
-            ->where('stall_type_id', $request->input('stall'))
-            ->where('location', $request->input('location'))
+            if ((DB::table('regions')
+            ->where('parent_id', $request->input('district'))
+            ->where('name', $request->input('ward'))
+            ->where('address', $request->input('address'))
             ->first()) === NULL)
             {
-                $stall = Stall::findOrFail($id);
-                $stall->stall_type_id = $request->input('stall');
-                $stall->location = $request->input('location');
-                $stall->area = $request->input('area');
-                $stall->cost = $cost;
+                $war = Region::findOrFail($id);
+                $war->parent_id = $request->input('district');
+                $war->name = $request->input('ward');
+                $war->address = $request->input('address');
             }
             else
             {
@@ -194,18 +139,18 @@ class WardController extends Controller
             }
         }
 
-        $stall->save();
+        $war->save();
 
-        return redirect()->route('stall')->with('success', 'Kios/Los Berhasil Diubah');
+        return redirect()->route('ward')->with('success', 'Kelurahan Berhasil Diubah');
     }
 
     public function destroy($id)
     {
         try {
-            $sta = Stall::findOrFail($id);
-            $sta->delete();
+            $war = Region::findOrFail($id);
+            $war->delete();
 
-            return redirect()->route('stall')->with('success', 'Kios/Los Berhasil Dihapus');
+            return redirect()->route('ward')->with('success', 'Kelurahan Berhasil Dihapus');
         } catch (\Exception $e) {
             return back()->with('error', 'Maaf Data Tidak Sesuai');
         }

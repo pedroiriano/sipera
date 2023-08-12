@@ -13,13 +13,13 @@
                 <div class="col-auto mb-3">
                     <h1 class="page-header-title">
                         <div class="page-header-icon"><i data-feather="file-plus"></i></div>
-                        Ubah Kios/Los
+                        Ubah Kelurahan
                     </h1>
                 </div>
                 <div class="col-12 col-xl-auto mb-3">
-                    <a class="btn btn-sm btn-light text-primary" href="{{ route('stall') }}">
+                    <a class="btn btn-sm btn-light text-primary" href="{{ route('ward') }}">
                         <i class="me-1" data-feather="arrow-left"></i>
-                        Kembali ke Tabel Kios/Los
+                        Kembali ke Tabel Kelurahan
                     </a>
                 </div>
             </div>
@@ -27,7 +27,7 @@
     </div>
 </header>
 <!-- Main page content-->
-<form action="{{ route('stall-update', $sta->id) }}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('ward-update', $war->id) }}" method="POST" enctype="multipart/form-data">
 @csrf
 @method('PUT')
 <div class="container-fluid px-4">
@@ -35,23 +35,25 @@
     <div class="row gx-4">
         <div class="col-lg-8">
             <div class="card mb-4">
-                <div class="card-header">Jenis Tempat</div>
+                <div class="card-header">Kecamatan</div>
                 <div class="card-body">
-                    <select class="form-control" id="stall" name="stall">
-                        @foreach ($stys as $sty_id => $sty)
-                        <option value="{{ $sty_id }}" {{ $sty_id == $sta->stall_type_id ? 'selected' : '' }}>{{ $sty }}</option>
+                    <select class="form-control" id="district" name="district">
+                        @foreach ($diss as $dis_id => $dis)
+                        <option value="{{ $dis_id }}" {{ $dis_id == $war->parent_id ? 'selected' : '' }}>{{ $dis }}</option>
                         @endforeach
                     </select>
                 </div>
             </div>
             <div class="card mb-4">
-                <div class="card-header">Lokasi</div>
-                <div class="card-body"><input class="form-control" id="location" name="location" type="text" placeholder="Lokasi Jualan" value="{{ $sta->location }}" /></div>
+                <div class="card-header">Kelurahan</div>
+                <div class="card-body">
+                    <input class="form-control" id="ward" name="ward" type="text" placeholder="Masukkan Nama Kelurahan (contoh: Depok Jaya)" value="{{ $war->name }}" />
+                </div>
             </div>
             <div class="card mb-4">
-                <div class="card-header">Luas</div>
+                <div class="card-header">Alamat</div>
                 <div class="card-body">
-                    <input class="form-control" id="area" name="area" type="number" placeholder="Masukkan Luas Kios/Los dalam M2 (contoh: 5)" value="{{ $sta->area }}" />
+                    <textarea class="form-control" id="address" name="address" rows="4" placeholder="Masukkan Alamat Kelurahan (contoh: Jl. Nusantara Raya No. 1 Kota Depok)">{{ $war->address }}</textarea>
                 </div>
             </div>
         </div>

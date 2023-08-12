@@ -18,7 +18,7 @@ class DistrictController extends Controller
         $user = auth()->user();
 
         if(($user->role_id) == 1) {
-            $diss = DB::table('regions')->get();
+            $diss = Region::whereNull('parent_id')->get();
 
             return view('backend.district.index')->with('user', $user)->with('diss', $diss);
         }

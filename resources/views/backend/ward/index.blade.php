@@ -13,9 +13,9 @@
                 <div class="col-auto mt-4">
                     <h1 class="page-header-title">
                         <div class="page-header-icon"><i data-feather="filter"></i></div>
-                        Tabel Kios/Los
+                        Tabel Kelurahan
                     </h1>
-                    <div class="page-header-subtitle">Data Utama Kios/Los</div>
+                    <div class="page-header-subtitle">Data Utama Kelurahan</div>
                 </div>
             </div>
         </div>
@@ -28,12 +28,12 @@
         <div class="card-header">
             <div class="row">
                 <div class="col-6 text-start">
-                    Kios/Los
+                    Kelurahan
                 </div>
                 <div class="col-6 text-end">
-                    <a class="btn btn-sm btn-light text-primary" href="{{ route('stall-form') }}">
+                    <a class="btn btn-sm btn-light text-primary" href="{{ route('ward-form') }}">
                         <i class="me-1" data-feather="plus"></i>
-                        Tambah Kios/Los
+                        Tambah Kelurahan
                         <i class="ms-1" data-feather="plus"></i>
                     </a>
                 </div>
@@ -43,52 +43,40 @@
             <table id="datatablesSimple">
                 <thead>
                     <tr>
-                        <th class="text-center">ID</th>
-                        <th class="text-center">Jenis Tempat</th>
-                        <th class="text-center">Lokasi</th>
-                        <th class="text-center">Luas</th>
-                        <th class="text-center">Biaya Tahunan</th>
-                        <th class="text-center">Terpakai</th>
+                        <th class="text-center">Kecamatan</th>
+                        <th class="text-center">Kelurahan</th>
+                        <th class="text-center">Alamat</th>
                         <th class="text-center">Aksi</th>
                     </tr>
                 </thead>
                 <tfoot>
                     <tr>
-                        <th class="text-center">ID</th>
-                        <th class="text-center">Jenis Tempat</th>
-                        <th class="text-center">Lokasi</th>
-                        <th class="text-center">Luas</th>
-                        <th class="text-center">Biaya Tahunan</th>
-                        <th class="text-center">Terpakai</th>
+                        <th class="text-center">Kecamatan</th>
+                        <th class="text-center">Kelurahan</th>
+                        <th class="text-center">Alamat</th>
                         <th class="text-center">Aksi</th>
                     </tr>
                 </tfoot>
                 <tbody>
                     @if ((auth()->user()->role_id) == 1)
-                        @if (count($stas) > 0)
-                            @foreach ($stas as $sta)
-                                @php
-                                    $cost = "Rp. " . number_format($sta->cost, 0, ',', '.');
-                                @endphp
+                        @if (count($wars) > 0)
+                            @foreach ($wars as $war)
                                 <tr>
-                                    <td>{{ $sta->id }}</td>
-                                    <td>{{ $sta->stall_type }}</td>
-                                    <td>{{ $sta->location }}</td>
-                                    <td>{{ $sta->area }} m2</td>
-                                    <td>{{ $cost }}</td>
-                                    <td>{{ $sta->occupy }}</td>
+                                    <td>{{ $war->parent->name }}</td>
+                                    <td>{{ $war->name }}</td>
+                                    <td>{{ $war->address }}</td>
                                     <td class="text-center">
                                         <button class="btn btn-datatable btn-icon btn-transparent-dark ms-2 me-2">
-                                            <a class="text-decoration-none text-muted" href="/stall/{{ $sta->id }}">
+                                            <a class="text-decoration-none text-muted" href="/ward/{{ $war->id }}">
                                                 <i data-feather="eye"></i>
                                             </a>
                                         </button>
                                         <button class="btn btn-datatable btn-icon btn-transparent-dark ms-2 me-2">
-                                            <a class="text-decoration-none text-muted" href="/stall/{{ $sta->id }}/edit">
+                                            <a class="text-decoration-none text-muted" href="/ward/{{ $war->id }}/edit">
                                                 <i data-feather="edit"></i>
                                             </a>
                                         </button>
-                                        <button class="btn btn-datatable btn-icon btn-transparent-dark ms-2 me-2 delete-stall" data-bs-toggle="modal" data-bs-target="#deleteModal" data-url="{{ route('stall-delete', $sta->id) }}">
+                                        <button class="btn btn-datatable btn-icon btn-transparent-dark ms-2 me-2 delete-ward" data-bs-toggle="modal" data-bs-target="#deleteModal" data-url="{{ route('ward-delete', $war->id) }}">
                                             <a class="text-decoration-none text-muted">
                                                 <i data-feather="trash-2"></i>
                                             </a>
@@ -98,7 +86,7 @@
                             @endforeach
                         @else
                         <tr>
-                            <td colspan="7" class="text-center">Data Masih Kosong</td>
+                            <td colspan="4" class="text-center">Data Masih Kosong</td>
                         </tr>
                         @endif
                     @else
@@ -139,7 +127,7 @@
 
 @section('js')
 <script>
-    $("#datatablesSimple").on("click", ".delete-stall", function() {
+    $("#datatablesSimple").on("click", ".delete-ward", function() {
         var url = $(this).attr('data-url');
         $("#deleteForm").attr("action", url);
     });
