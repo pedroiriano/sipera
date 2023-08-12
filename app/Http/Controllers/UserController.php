@@ -21,8 +21,7 @@ class UserController extends Controller
         $user = auth()->user();
 
         if(($user->role_id) == 1) {
-            $uses = DB::table('users')
-                ->leftJoin('roles', 'users.role_id', '=', 'roles.id')
+            $uses = User::leftJoin('roles', 'users.role_id', '=', 'roles.id')
                 ->select('users.*', 'roles.name as role_name')
                 ->get();
 
@@ -38,7 +37,7 @@ class UserController extends Controller
         $user = auth()->user();
 
         if(($user->role_id) == 1) {
-            $rols = DB::table('roles')->get();
+            $rols = Role::all();
 
             return view('backend.user.create')->with('user', $user)->with('rols', $rols);
         }
@@ -72,8 +71,7 @@ class UserController extends Controller
         try {
             $user = auth()->user();
 
-            $use = DB::table('users')
-            ->leftJoin('roles', 'users.role_id', '=', 'roles.id')
+            $use = User::leftJoin('roles', 'users.role_id', '=', 'roles.id')
             ->where('users.id', $id)
             ->select('users.*', 'roles.name as role_name')
             ->first();
@@ -90,14 +88,14 @@ class UserController extends Controller
 
         if(($user->role_id) == 1) {
             $use = User::findOrFail($id);
-            $rols = DB::table('roles')->get();
+            $rols = Role::all();
 
             return view('backend.user.edit')->with('user', $user)->with('use', $use)->with('rols', $rols);
         }
         else if(($user->role_id) == 2) {
             $use = User::findOrFail($id);
             if ($user->id == $use->id) {
-                $rols = DB::table('roles')->get();
+                $rols = Role::all();
 
                 return view('backend.user.edit')->with('user', $user)->with('use', $use)->with('rols', $rols);
             } else {
