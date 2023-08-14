@@ -13,13 +13,13 @@
                 <div class="col-auto mb-3">
                     <h1 class="page-header-title">
                         <div class="page-header-icon"><i data-feather="file-plus"></i></div>
-                        Tambah Program
+                        Ubah Kegiatan
                     </h1>
                 </div>
                 <div class="col-12 col-xl-auto mb-3">
-                    <a class="btn btn-sm btn-light text-primary" href="{{ route('program') }}">
+                    <a class="btn btn-sm btn-light text-primary" href="{{ route('activity') }}">
                         <i class="me-1" data-feather="arrow-left"></i>
-                        Kembali ke Tabel Program
+                        Kembali ke Tabel Kegiatan
                     </a>
                 </div>
             </div>
@@ -27,43 +27,38 @@
     </div>
 </header>
 <!-- Main page content-->
-<form action="{{ route('program-store') }}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('activity-update', $act->id) }}" method="POST" enctype="multipart/form-data">
 @csrf
+@method('PUT')
 <div class="container-fluid px-4">
     @include('inc.alert-message')
     <div class="row gx-4">
         <div class="col-lg-8">
             <div class="card mb-4">
-                <div class="card-header">Program</div>
+                <div class="card-header">Kegiatan</div>
                 <div class="card-body">
-                    <input class="form-control" id="program" name="program" type="text" placeholder="Masukkan Nama Program (contoh: Program Kota)" />
+                    <input class="form-control" id="activity" name="activity" type="text" placeholder="Masukkan Nama Kegiatan (contoh: Penyediaan Gaji)" value="{{ $act->activity }}" />
                 </div>
             </div>
             <div class="card mb-4">
                 <div class="card-header">Anggaran</div>
                 <div class="card-body">
-                    <input class="form-control" id="budget" name="budget" type="number" placeholder="Masukkan Anggaran dalam Rupiah (contoh: 1000000)" required />
-                </div>
-            </div>
-            <div class="card mb-4">
-                <div class="card-header">Tahun</div>
-                <div class="card-body">
-                    <input class="form-control" id="year" name="year" type="number" placeholder="Masukkan Tahun Anggaran (contoh: 2023)" required />
+                    <input class="form-control" id="budget" name="budget" type="number" placeholder="Masukkan Anggaran dalam Rupiah (contoh: 1000000)" value="{{ $act->budget }}" required />
                 </div>
             </div>
             @if ($user->role_id == 1)
             <div class="card mb-4">
-                <div class="card-header">Perangkat Daerah</div>
+                <div class="card-header">Program</div>
                 <div class="card-body">
-                    <select class="form-control" id="region" name="region">
-                        @foreach ($regs as $reg_id => $reg)
-                        <option value="{{ $reg_id }}">{{ $reg }}</option>
+                    <select class="form-control" id="program" name="program">
+                        @foreach ($pros as $pro_id => $pro)
+                        <option value="{{ $pro_id }}" {{ $pro_id == $act->program_id ? 'selected' : '' }}>{{ $pro }}</option>
                         @endforeach
                     </select>
                 </div>
             </div>
             @else
-            <input type="hidden" value="{{ $user->region_id }}" name="region">
+            {{-- Other Users --}}
             @endif
         </div>
         <!-- Sticky Navigation-->

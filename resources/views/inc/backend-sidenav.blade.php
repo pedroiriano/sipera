@@ -24,46 +24,61 @@
                 <div class="sidenav-menu-heading">Manajemen Data</div>
                 <!-- Sidenav Accordion (Commodity)-->
                 <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseCommodities" aria-expanded="false" aria-controls="collapseCommodities">
-                    <div class="nav-link-icon"><i data-feather="package"></i></div>
-                    Sub Kegiatan
+                    <div class="nav-link-icon"><i data-feather="dollar-sign"></i></div>
+                    Realisasi
                     <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
                 <div class="collapse" id="collapseCommodities" data-bs-parent="#accordionSidenav">
                     <nav class="sidenav-menu-nested nav accordion">
                         <a class="nav-link" href="">
-                            Tabel Sub Kegiatan
+                            Tabel Realisasi
                         </a>
                         @if (auth()->user()->role_id == 1)
                         <a class="nav-link" href="">
-                            Perbarui Sub Kegiatan
+                            Perbarui Realisasi
                         </a>
                         @endif
                     </nav>
                 </div>
-                @if (auth()->user()->role_id == 1)
-                <!-- Sidenav Accordion (Rent)-->
-                <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseRents" aria-expanded="false" aria-controls="collapseRents">
-                    <div class="nav-link-icon"><i data-feather="dollar-sign"></i></div>
+                <!-- Sidenav Accordion (Sub)-->
+                <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseSubs" aria-expanded="false" aria-controls="collapseSubs">
+                    <div class="nav-link-icon"><i data-feather="package"></i></div>
+                    Sub Kegiatan
+                    <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="collapseSubs" data-bs-parent="#accordionSidenav">
+                    <nav class="sidenav-menu-nested nav accordion">
+                        <a class="nav-link" href="{{ route('sub') }}">
+                            Tabel Sub Kegiatan
+                        </a>
+                        <a class="nav-link" href="{{ route('sub-form') }}">
+                            Tambah Sub Kegiatan
+                        </a>
+                    </nav>
+                </div>
+                <!-- Sidenav Accordion (Act)-->
+                <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseActs" aria-expanded="false" aria-controls="collapseActs">
+                    <div class="nav-link-icon"><i data-feather="package"></i></div>
                     Kegiatan
                     <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
-                <div class="collapse" id="collapseRents" data-bs-parent="#accordionSidenav">
+                <div class="collapse" id="collapseActs" data-bs-parent="#accordionSidenav">
                     <nav class="sidenav-menu-nested nav accordion">
-                        <a class="nav-link" href="">
+                        <a class="nav-link" href="{{ route('activity') }}">
                             Tabel Kegiatan
                         </a>
-                        <a class="nav-link" href="">
+                        <a class="nav-link" href="{{ route('activity-form') }}">
                             Tambah Kegiatan
                         </a>
                     </nav>
                 </div>
-                <!-- Sidenav Accordion (Merchant)-->
-                <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseMerchants" aria-expanded="false" aria-controls="collapseMerchants">
+                <!-- Sidenav Accordion (Program)-->
+                <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapsePrograms" aria-expanded="false" aria-controls="collapsePrograms">
                     <div class="nav-link-icon"><i data-feather="briefcase"></i></div>
                     Program
                     <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
-                <div class="collapse" id="collapseMerchants" data-bs-parent="#accordionSidenav">
+                <div class="collapse" id="collapsePrograms" data-bs-parent="#accordionSidenav">
                     <nav class="sidenav-menu-nested nav accordion">
                         <a class="nav-link" href="{{ route('program') }}">
                             Tabel Program
@@ -73,13 +88,14 @@
                         </a>
                     </nav>
                 </div>
-                <!-- Sidenav Accordion (Stall)-->
-                <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseStalls" aria-expanded="false" aria-controls="collapseStalls">
+                @if (auth()->user()->role_id == 1)
+                <!-- Sidenav Accordion (Region)-->
+                <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseRegions" aria-expanded="false" aria-controls="collapseRegions">
                     <div class="nav-link-icon"><i data-feather="map"></i></div>
                     Wilayah
                     <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
-                <div class="collapse" id="collapseStalls" data-bs-parent="#accordionSidenav">
+                <div class="collapse" id="collapseRegions" data-bs-parent="#accordionSidenav">
                     <nav class="sidenav-menu-nested nav accordion">
                         <a class="nav-link" href="{{ route('district') }}">
                             Tabel Kecamatan

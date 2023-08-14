@@ -37,7 +37,7 @@
             <div class="card mb-4">
                 <div class="card-header">Program</div>
                 <div class="card-body">
-                    <input class="form-control" id="program" name="program" type="text" placeholder="Masukkan Nama Program (contoh: Pancoran Mas)" value="{{ $pro->program }}" />
+                    <input class="form-control" id="program" name="program" type="text" placeholder="Masukkan Nama Program (contoh: Program Kota)" value="{{ $pro->program }}" />
                 </div>
             </div>
             <div class="card mb-4">

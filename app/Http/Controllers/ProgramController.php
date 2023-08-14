@@ -112,7 +112,6 @@ class ProgramController extends Controller
 
         if(($user->role_id) == 1) {
             $pro = Program::findOrFail($id);
-            // dd($pro->region_id);
 
             $pars = Region::select(
                 'regions.id',
@@ -155,6 +154,7 @@ class ProgramController extends Controller
         if ((DB::table('programs')
         ->where('program', $request->input('program'))
         ->where('year', $request->input('year'))
+        ->where('region_id', $request->input('region'))
         ->first()) === NULL)
         {
             $pro = Program::findOrFail($id);
@@ -165,22 +165,7 @@ class ProgramController extends Controller
         }
         else
         {
-            if ((DB::table('programs')
-            ->where('program', $request->input('program'))
-            ->where('year', $request->input('year'))
-            ->where('region_id', $request->input('region'))
-            ->first()) === NULL)
-            {
-                $pro = Program::findOrFail($id);
-                $pro->program = $request->input('program');
-                $pro->budget = $request->input('budget');
-                $pro->year = $request->input('year');
-                $pro->region_id = $request->input('region');
-            }
-            else
-            {
-                return back()->with('status', 'Maaf Data Sudah Ada');
-            }
+            return back()->with('status', 'Maaf Data Sudah Ada');
         }
 
         $pro->save();
