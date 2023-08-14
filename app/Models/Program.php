@@ -16,4 +16,9 @@ class Program extends Model
     {
         return $this->belongsTo(Region::class);
     }
+
+    public function activity()
+    {
+        return $this->hasMany(Activity::class);
+    }
 }

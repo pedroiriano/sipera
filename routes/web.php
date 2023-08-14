@@ -9,6 +9,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\DistrictController;
 use App\Http\Controllers\WardController;
 use App\Http\Controllers\ProgramController;
+use App\Http\Controllers\ActivityController;
+use App\Http\Controllers\SubActivityController;
 
 Route::get('/', [PagesController::class, 'index'])->name('home');
 
@@ -55,3 +57,19 @@ Route::get('/program/{program}', [ProgramController::class, 'show'])->name('prog
 Route::get('/program/{program}/edit', [ProgramController::class, 'edit'])->name('program-edit');
 Route::put('/program/{program}', [ProgramController::class, 'update'])->name('program-update');
 Route::delete('/program/{program}', [ProgramController::class, 'destroy'])->name('program-delete');
+
+Route::get('/activity', [ActivityController::class, 'index'])->name('activity');
+Route::get('/activity/create', [ActivityController::class, 'create'])->name('activity-form');
+Route::post('/activity', [ActivityController::class, 'store'])->name('activity-store');
+Route::get('/activity/{activity}', [ActivityController::class, 'show'])->name('activity-show');
+Route::get('/activity/{activity}/edit', [ActivityController::class, 'edit'])->name('activity-edit');
+Route::put('/activity/{activity}', [ActivityController::class, 'update'])->name('activity-update');
+Route::delete('/activity/{activity}', [ActivityController::class, 'destroy'])->name('activity-delete');
+
+Route::get('/sub', [SubActivityController::class, 'index'])->name('sub');
+Route::get('/sub/create', [SubActivityController::class, 'create'])->name('sub-form');
+Route::post('/sub', [SubActivityController::class, 'store'])->name('sub-store');
+Route::get('/sub/{sub}', [SubActivityController::class, 'show'])->name('sub-show');
+Route::get('/sub/{sub}/edit', [SubActivityController::class, 'edit'])->name('sub-edit');
+Route::put('/sub/{sub}', [SubActivityController::class, 'update'])->name('sub-update');
+Route::delete('/sub/{sub}', [SubActivityController::class, 'destroy'])->name('sub-delete');
