@@ -65,10 +65,10 @@
                 </a>
                 <div class="collapse" id="collapseMerchants" data-bs-parent="#accordionSidenav">
                     <nav class="sidenav-menu-nested nav accordion">
-                        <a class="nav-link" href="">
+                        <a class="nav-link" href="{{ route('program') }}">
                             Tabel Program
                         </a>
-                        <a class="nav-link" href="">
+                        <a class="nav-link" href="{{ route('program-form') }}">
                             Tambah Program
                         </a>
                     </nav>

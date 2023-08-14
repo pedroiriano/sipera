@@ -40,30 +40,6 @@ class UserController extends Controller
         if(($user->role_id) == 1) {
             $rols = Role::all();
 
-            // $regs = Region::select(
-            //     DB::raw("CONCAT('Kecamatan ',
-            //                CASE WHEN parent_id IS NOT NULL THEN CONCAT(name, ' - Kelurahan ') ELSE '' END,
-            //                name) AS district_info"), 'id')
-            //     ->whereNotNull('parent_id')
-            //     ->orWhereNull('parent_id')
-            //     ->pluck('district_info', 'id');
-
-            // $pars = Region::select(
-            //     'regions.id',
-            //     'regions.name',
-            //     'regions.address',
-            //     'regions.parent_id',
-            //     DB::raw("IFNULL(parent.name, '') as parent_name")
-            // )
-            // ->leftJoin('regions as parent', 'regions.parent_id', '=', 'parent.id')
-            // ->get();
-
-            // $regs = Region::select(
-            //     DB::raw("CONCAT('Kecamatan ', $pars->parent_name, ' - Kelurahan', name) AS district_info"), 'id')
-            //     ->whereNotNull('parent_id')
-            //     ->where('id', $pars->id)
-            //     ->pluck('district_info', 'id');
-
             $pars = Region::select(
                 'regions.id',
                 'regions.name',
@@ -78,7 +54,7 @@ class UserController extends Controller
 
             foreach ($pars as $par) {
                 if ($par->parent_id !== null) {
-                    $districtInfo = "Kecamatan {$par->parent_name} - Kelurahan {$par->name}";
+                    $districtInfo = "Kelurahan {$par->name} - Kecamatan {$par->parent_name}";
                     $regs->put($par->id, $districtInfo);
                 }
                 else {
@@ -153,7 +129,7 @@ class UserController extends Controller
 
             foreach ($pars as $par) {
                 if ($par->parent_id !== null) {
-                    $districtInfo = "Kecamatan {$par->parent_name} - Kelurahan {$par->name}";
+                    $districtInfo = "Kelurahan {$par->name} - Kecamatan {$par->parent_name}";
                     $regs->put($par->id, $districtInfo);
                 }
                 else {

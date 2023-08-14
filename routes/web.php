@@ -8,6 +8,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DistrictController;
 use App\Http\Controllers\WardController;
+use App\Http\Controllers\ProgramController;
 
 Route::get('/', [PagesController::class, 'index'])->name('home');
 
@@ -46,3 +47,11 @@ Route::get('/ward/{ward}', [WardController::class, 'show'])->name('ward-show');
 Route::get('/ward/{ward}/edit', [WardController::class, 'edit'])->name('ward-edit');
 Route::put('/ward/{ward}', [WardController::class, 'update'])->name('ward-update');
 Route::delete('/ward/{ward}', [WardController::class, 'destroy'])->name('ward-delete');
+
+Route::get('/program', [ProgramController::class, 'index'])->name('program');
+Route::get('/program/create', [ProgramController::class, 'create'])->name('program-form');
+Route::post('/program', [ProgramController::class, 'store'])->name('program-store');
+Route::get('/program/{program}', [ProgramController::class, 'show'])->name('program-show');
+Route::get('/program/{program}/edit', [ProgramController::class, 'edit'])->name('program-edit');
+Route::put('/program/{program}', [ProgramController::class, 'update'])->name('program-update');
+Route::delete('/program/{program}', [ProgramController::class, 'destroy'])->name('program-delete');
