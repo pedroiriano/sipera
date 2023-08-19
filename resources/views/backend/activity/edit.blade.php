@@ -40,12 +40,6 @@
                     <input class="form-control" id="activity" name="activity" type="text" placeholder="Masukkan Nama Kegiatan (contoh: Penyediaan Gaji)" value="{{ $act->activity }}" />
                 </div>
             </div>
-            <div class="card mb-4">
-                <div class="card-header">Anggaran</div>
-                <div class="card-body">
-                    <input class="form-control" id="budget" name="budget" type="number" placeholder="Masukkan Anggaran dalam Rupiah (contoh: 1000000)" value="{{ $act->budget }}" required />
-                </div>
-            </div>
             @if ($user->role_id == 1)
             <div class="card mb-4">
                 <div class="card-header">Program</div>

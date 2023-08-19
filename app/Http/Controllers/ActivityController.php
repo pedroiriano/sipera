@@ -50,7 +50,6 @@ class ActivityController extends Controller
     {
         $this->validate($request, [
             'activity' => 'required',
-            'budget' => 'required',
             'program' => 'required',
         ]);
 
@@ -63,7 +62,6 @@ class ActivityController extends Controller
         {
             $act = new Activity;
             $act->activity = $request->input('activity');
-            $act->budget = $request->input('budget');
             $act->program_id = $request->input('program');
         }
         else
@@ -110,7 +108,6 @@ class ActivityController extends Controller
     {
         $this->validate($request, [
             'activity' => 'required',
-            'budget' => 'required',
         ]);
 
         if ((DB::table('activities')
@@ -120,7 +117,6 @@ class ActivityController extends Controller
         {
             $act = Activity::findOrFail($id);
             $act->activity = $request->input('activity');
-            $act->budget = $request->input('budget');
             $act->program_id = $request->input('program');
         }
         else

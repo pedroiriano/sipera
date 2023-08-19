@@ -41,12 +41,6 @@
                 </div>
             </div>
             <div class="card mb-4">
-                <div class="card-header">Anggaran</div>
-                <div class="card-body">
-                    <input class="form-control" id="budget" name="budget" type="number" placeholder="Masukkan Anggaran dalam Rupiah (contoh: 1000000)" value="{{ $pro->budget }}" required />
-                </div>
-            </div>
-            <div class="card mb-4">
                 <div class="card-header">Tahun</div>
                 <div class="card-body">
                     <input class="form-control" id="year" name="year" type="number" placeholder="Masukkan Tahun Anggaran (contoh: 2023)" value="{{ $pro->year }}" required />

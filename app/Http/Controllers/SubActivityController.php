@@ -21,7 +21,10 @@ class SubActivityController extends Controller
         $user = auth()->user();
 
         if(($user->role_id) == 1) {
-            $subs = SubActivity::all();
+            $subs = SubActivity::select('*')
+                ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09 + budget_10 + budget_11 + budget_12) AS budget')
+                ->groupBy('id', 'sub_activity')
+                ->get();
 
             return view('backend.subactivity.index')->with('user', $user)->with('subs', $subs);
         }
@@ -35,7 +38,7 @@ class SubActivityController extends Controller
         $user = auth()->user();
 
         $acts = Activity::select(
-            DB::raw("CONCAT(activities.activity, ' - ', programs.program, ' - ', programs.year, ' - ', regions.name) AS activity_info"), 'programs.id')
+            DB::raw("CONCAT(activities.activity, ' - ', programs.program, ' - ', programs.year, ' - ', regions.name) AS activity_info"), 'activities.id')
             ->leftJoin('programs', 'activities.program_id', '=', 'programs.id')
             ->leftJoin('regions', 'programs.region_id', '=', 'regions.id')
             ->pluck('activity_info', 'activities.id');
@@ -52,7 +55,18 @@ class SubActivityController extends Controller
     {
         $this->validate($request, [
             'subact' => 'required',
-            'budget' => 'required',
+            'budget_01' => 'required',
+            'budget_02' => 'required',
+            'budget_03' => 'required',
+            'budget_04' => 'required',
+            'budget_05' => 'required',
+            'budget_06' => 'required',
+            'budget_07' => 'required',
+            'budget_08' => 'required',
+            'budget_09' => 'required',
+            'budget_10' => 'required',
+            'budget_11' => 'required',
+            'budget_12' => 'required',
             'physic' => 'required',
         ]);
 
@@ -65,9 +79,34 @@ class SubActivityController extends Controller
         {
             $sub = new SubActivity;
             $sub->sub_activity = $request->input('subact');
-            $sub->budget = $request->input('budget');
+            $sub->budget_01 = $request->input('budget_01');
+            $sub->budget_02 = $request->input('budget_02');
+            $sub->budget_03 = $request->input('budget_03');
+            $sub->budget_04 = $request->input('budget_04');
+            $sub->budget_05 = $request->input('budget_05');
+            $sub->budget_06 = $request->input('budget_06');
+            $sub->budget_07 = $request->input('budget_07');
+            $sub->budget_08 = $request->input('budget_08');
+            $sub->budget_09 = $request->input('budget_09');
+            $sub->budget_10 = $request->input('budget_10');
+            $sub->budget_11 = $request->input('budget_11');
+            $sub->budget_12 = $request->input('budget_12');
             $sub->physic = $request->input('physic');
             $sub->activity_id = $request->input('activity');
+
+            $act_sum = $request->input('budget_01') + $request->input('budget_02') + $request->input('budget_03') + $request->input('budget_04') + $request->input('budget_05') + $request->input('budget_06') + $request->input('budget_07') + $request->input('budget_08') + $request->input('budget_09') + $request->input('budget_10') + $request->input('budget_11') + $request->input('budget_12');
+
+            $act = Activity::findOrFail($request->input('activity'));
+            $act->budget = $act->budget + $act_sum;
+
+            $act->save();
+
+            $pro_sum = Activity::where('program_id', $sub->activity->program->id)->sum('budget');
+
+            $pro = Program::findOrFail($sub->activity->program->id);
+            $pro->budget = $pro_sum;
+
+            $pro->save();
         }
         else
         {
@@ -82,7 +121,13 @@ class SubActivityController extends Controller
     public function show($id)
     {
         try {
-            $sub = SubActivity::where('id', $id)->first();
+            // $sub = SubActivity::where('id', $id)->first();
+
+            $sub = SubActivity::where('id', $id)
+                ->select('*')
+                ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09 + budget_10 + budget_11 + budget_12) AS budget')
+                ->groupBy('id', 'sub_activity')
+                ->first();
 
             return view('backend.subactivity.show')->with('sub', $sub);
         } catch (\Exception $e) {
@@ -98,7 +143,7 @@ class SubActivityController extends Controller
             $sub = SubActivity::findOrFail($id);
 
             $acts = Activity::select(
-                DB::raw("CONCAT(activities.activity, ' - ', programs.program, ' - ', programs.year, ' - ', regions.name) AS activity_info"), 'programs.id')
+                DB::raw("CONCAT(activities.activity, ' - ', programs.program, ' - ', programs.year, ' - ', regions.name) AS activity_info"), 'activities.id')
                 ->leftJoin('programs', 'activities.program_id', '=', 'programs.id')
                 ->leftJoin('regions', 'programs.region_id', '=', 'regions.id')
                 ->pluck('activity_info', 'activities.id');
@@ -114,24 +159,108 @@ class SubActivityController extends Controller
     {
         $this->validate($request, [
             'subact' => 'required',
-            'budget' => 'required',
+            'budget_01' => 'required',
+            'budget_02' => 'required',
+            'budget_03' => 'required',
+            'budget_04' => 'required',
+            'budget_05' => 'required',
+            'budget_06' => 'required',
+            'budget_07' => 'required',
+            'budget_08' => 'required',
+            'budget_09' => 'required',
+            'budget_10' => 'required',
+            'budget_11' => 'required',
+            'budget_12' => 'required',
             'physic' => 'required',
         ]);
 
-        if ((DB::table('sub_activities')
-        ->where('sub_activity', $request->input('subact'))
-        ->where('activity_id', $request->input('activity'))
-        ->first()) === NULL)
+        $sub = SubActivity::findOrFail($id);
+
+        if (($sub->sub_activity == $request->input('subact')) && ($sub->activity_id == $request->input('activity')))
         {
-            $sub = SubActivity::findOrFail($id);
             $sub->sub_activity = $request->input('subact');
-            $sub->budget = $request->input('budget');
+            $sub->budget_01 = $request->input('budget_01');
+            $sub->budget_02 = $request->input('budget_02');
+            $sub->budget_03 = $request->input('budget_03');
+            $sub->budget_04 = $request->input('budget_04');
+            $sub->budget_05 = $request->input('budget_05');
+            $sub->budget_06 = $request->input('budget_06');
+            $sub->budget_07 = $request->input('budget_07');
+            $sub->budget_08 = $request->input('budget_08');
+            $sub->budget_09 = $request->input('budget_09');
+            $sub->budget_10 = $request->input('budget_10');
+            $sub->budget_11 = $request->input('budget_11');
+            $sub->budget_12 = $request->input('budget_12');
             $sub->physic = $request->input('physic');
             $sub->activity_id = $request->input('activity');
+
+            $sub_sum = SubActivity::where('id', $id)
+                ->select('*')
+                ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09 + budget_10 + budget_11 + budget_12) AS budget')
+                ->groupBy('id', 'sub_activity')
+                ->first();
+
+            $act_sum = $request->input('budget_01') + $request->input('budget_02') + $request->input('budget_03') + $request->input('budget_04') + $request->input('budget_05') + $request->input('budget_06') + $request->input('budget_07') + $request->input('budget_08') + $request->input('budget_09') + $request->input('budget_10') + $request->input('budget_11') + $request->input('budget_12');
+
+            $act = Activity::findOrFail($request->input('activity'));
+            $act->budget = $act->budget - $sub_sum->budget + $act_sum;
+
+            $act->save();
+
+            $pro_sum = Activity::where('program_id', $sub->activity->program->id)->sum('budget');
+
+            $pro = Program::findOrFail($sub->activity->program->id);
+            $pro->budget = $pro_sum;
+
+            $pro->save();
         }
         else
         {
-            return back()->with('status', 'Maaf Data Sudah Ada');
+            if ((DB::table('sub_activities')
+            ->where('sub_activity', $request->input('subact'))
+            ->where('activity_id', $request->input('activity'))
+            ->first()) === NULL)
+            {
+                $sub->sub_activity = $request->input('subact');
+                $sub->budget_01 = $request->input('budget_01');
+                $sub->budget_02 = $request->input('budget_02');
+                $sub->budget_03 = $request->input('budget_03');
+                $sub->budget_04 = $request->input('budget_04');
+                $sub->budget_05 = $request->input('budget_05');
+                $sub->budget_06 = $request->input('budget_06');
+                $sub->budget_07 = $request->input('budget_07');
+                $sub->budget_08 = $request->input('budget_08');
+                $sub->budget_09 = $request->input('budget_09');
+                $sub->budget_10 = $request->input('budget_10');
+                $sub->budget_11 = $request->input('budget_11');
+                $sub->budget_12 = $request->input('budget_12');
+                $sub->physic = $request->input('physic');
+                $sub->activity_id = $request->input('activity');
+
+                $sub_sum = SubActivity::where('id', $id)
+                    ->select('*')
+                    ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09 + budget_10 + budget_11 + budget_12) AS budget')
+                    ->groupBy('id', 'sub_activity')
+                    ->first();
+
+                $act_sum = $request->input('budget_01') + $request->input('budget_02') + $request->input('budget_03') + $request->input('budget_04') + $request->input('budget_05') + $request->input('budget_06') + $request->input('budget_07') + $request->input('budget_08') + $request->input('budget_09') + $request->input('budget_10') + $request->input('budget_11') + $request->input('budget_12');
+
+                $act = Activity::findOrFail($request->input('activity'));
+                $act->budget = $act->budget - $sub_sum->budget + $act_sum;
+
+                $act->save();
+
+                $pro_sum = Activity::where('program_id', $sub->activity->program->id)->sum('budget');
+
+                $pro = Program::findOrFail($sub->activity->program->id);
+                $pro->budget = $pro_sum;
+
+                $pro->save();
+            }
+            else
+            {
+                return back()->with('status', 'Maaf Data Sudah Ada');
+            }
         }
 
         $sub->save();

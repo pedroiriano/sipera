@@ -9,8 +9,6 @@ class Activity extends Model
 {
     use HasFactory;
 
-    use HasFactory;
-
     protected $table = 'activities';
     public $primaryKey = 'id';
 

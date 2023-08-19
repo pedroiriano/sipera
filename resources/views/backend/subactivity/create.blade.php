@@ -39,16 +39,108 @@
                     <input class="form-control" id="subact" name="subact" type="text" placeholder="Masukkan Nama Sub Kegiatan (contoh: Belanja Pegawai)" />
                 </div>
             </div>
-            <div class="card mb-4">
-                <div class="card-header">Anggaran</div>
-                <div class="card-body">
-                    <input class="form-control" id="budget" name="budget" type="number" placeholder="Masukkan Anggaran dalam Rupiah (contoh: 1000000)" required />
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card mb-4">
+                        <div class="card-header">Anggaran bulan Januari</div>
+                        <div class="card-body">
+                            <input class="form-control" id="budget_01" name="budget_01" type="number" placeholder="Dalam Rupiah (contoh: 1000000)" required />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card mb-4">
+                        <div class="card-header">Anggaran bulan Februari</div>
+                        <div class="card-body">
+                            <input class="form-control" id="budget_02" name="budget_02" type="number" placeholder="Dalam Rupiah (contoh: 1000000)" required />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card mb-4">
+                        <div class="card-header">Anggaran bulan Maret</div>
+                        <div class="card-body">
+                            <input class="form-control" id="budget_03" name="budget_03" type="number" placeholder="Dalam Rupiah (contoh: 1000000)" required />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card mb-4">
+                        <div class="card-header">Anggaran bulan April</div>
+                        <div class="card-body">
+                            <input class="form-control" id="budget_04" name="budget_04" type="number" placeholder="Dalam Rupiah (contoh: 1000000)" required />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card mb-4">
+                        <div class="card-header">Anggaran bulan Mei</div>
+                        <div class="card-body">
+                            <input class="form-control" id="budget_05" name="budget_05" type="number" placeholder="Dalam Rupiah (contoh: 1000000)" required />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card mb-4">
+                        <div class="card-header">Anggaran bulan Juni</div>
+                        <div class="card-body">
+                            <input class="form-control" id="budget_06" name="budget_06" type="number" placeholder="Dalam Rupiah (contoh: 1000000)" required />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card mb-4">
+                        <div class="card-header">Anggaran bulan Juli</div>
+                        <div class="card-body">
+                            <input class="form-control" id="budget_07" name="budget_07" type="number" placeholder="Dalam Rupiah (contoh: 1000000)" required />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card mb-4">
+                        <div class="card-header">Anggaran bulan Agustus</div>
+                        <div class="card-body">
+                            <input class="form-control" id="budget_08" name="budget_08" type="number" placeholder="Dalam Rupiah (contoh: 1000000)" required />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card mb-4">
+                        <div class="card-header">Anggaran bulan September</div>
+                        <div class="card-body">
+                            <input class="form-control" id="budget_09" name="budget_09" type="number" placeholder="Dalam Rupiah (contoh: 1000000)" required />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card mb-4">
+                        <div class="card-header">Anggaran bulan Oktober</div>
+                        <div class="card-body">
+                            <input class="form-control" id="budget_10" name="budget_10" type="number" placeholder="Dalam Rupiah (contoh: 1000000)" required />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card mb-4">
+                        <div class="card-header">Anggaran bulan November</div>
+                        <div class="card-body">
+                            <input class="form-control" id="budget_11" name="budget_11" type="number" placeholder="Dalam Rupiah (contoh: 1000000)" required />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card mb-4">
+                        <div class="card-header">Anggaran bulan Desember</div>
+                        <div class="card-body">
+                            <input class="form-control" id="budget_12" name="budget_12" type="number" placeholder="Dalam Rupiah (contoh: 1000000)" required />
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="card mb-4">
                 <div class="card-header">Fisik</div>
                 <div class="card-body">
-                    <input class="form-control" id="physic" name="physic" type="number" placeholder="Masukkan Jumlah Fisik (contoh: 83)" required />
+                    <input class="form-control" id="physic" name="physic" type="text" placeholder="Masukkan Jumlah Fisik (contoh: 83 Orang atau 17 Dokumen)" required />
                 </div>
             </div>
             @if ($user->role_id == 1)

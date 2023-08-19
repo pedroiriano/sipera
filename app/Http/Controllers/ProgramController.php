@@ -67,7 +67,6 @@ class ProgramController extends Controller
     {
         $this->validate($request, [
             'program' => 'required',
-            'budget' => 'required',
             'year' => 'required',
         ]);
 
@@ -81,7 +80,6 @@ class ProgramController extends Controller
         {
             $pro = new Program;
             $pro->program = $request->input('program');
-            $pro->budget = $request->input('budget');
             $pro->year = $request->input('year');
             $pro->region_id = $request->input('region');
         }
@@ -147,7 +145,6 @@ class ProgramController extends Controller
     {
         $this->validate($request, [
             'program' => 'required',
-            'budget' => 'required',
             'year' => 'required',
         ]);
 
@@ -159,7 +156,6 @@ class ProgramController extends Controller
         {
             $pro = Program::findOrFail($id);
             $pro->program = $request->input('program');
-            $pro->budget = $request->input('budget');
             $pro->year = $request->input('year');
             $pro->region_id = $request->input('region');
         }

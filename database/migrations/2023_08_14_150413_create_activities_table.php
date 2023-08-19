@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('activities', function (Blueprint $table) {
             $table->id();
             $table->string('activity');
-            $table->double('budget');
+            $table->double('budget')->nullable();
             $table->bigInteger('program_id');
             $table->timestamps();
         });

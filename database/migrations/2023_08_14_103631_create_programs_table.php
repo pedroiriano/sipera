@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('programs', function (Blueprint $table) {
             $table->id();
             $table->string('program');
-            $table->double('budget');
+            $table->double('budget')->nullable();
             $table->year('year');
             $table->bigInteger('region_id');
             $table->timestamps();

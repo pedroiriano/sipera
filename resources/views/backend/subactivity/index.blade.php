@@ -73,6 +73,7 @@
                                     <td>{{ $sub->sub_activity }}</td>
                                     <td>{{ $sub->budget }}</td>
                                     <td>{{ $sub->physic }}</td>
+                                    <td>{{ $sub->activity->activity }}</td>
                                     <td>{{ $sub->activity->program->program }}</td>
                                     <td>{{ $sub->activity->program->year }}</td>
                                     <td>{{ $sub->activity->program->region->name }}</td>
@@ -87,17 +88,17 @@
                                                 <i data-feather="edit"></i>
                                             </a>
                                         </button>
-                                        <button class="btn btn-datatable btn-icon btn-transparent-dark ms-2 me-2 delete-sub" data-bs-toggle="modal" data-bs-target="#deleteModal" data-url="{{ route('sub-delete', $sub->id) }}">
+                                        {{-- <button class="btn btn-datatable btn-icon btn-transparent-dark ms-2 me-2 delete-sub" data-bs-toggle="modal" data-bs-target="#deleteModal" data-url="{{ route('sub-delete', $sub->id) }}">
                                             <a class="text-decoration-none text-muted">
                                                 <i data-feather="trash-2"></i>
                                             </a>
-                                        </button>
+                                        </button> --}}
                                     </td>
                                 </tr>
                             @endforeach
                         @else
                         <tr>
-                            <td colspan="7" class="text-center">Data Masih Kosong</td>
+                            <td colspan="8" class="text-center">Data Masih Kosong</td>
                         </tr>
                         @endif
                     @else
