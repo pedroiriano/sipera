@@ -138,9 +138,9 @@
                 </div>
             </div>
             <div class="card mb-4">
-                <div class="card-header">Fisik</div>
+                <div class="card-header">Target Kinerja</div>
                 <div class="card-body">
-                    <input class="form-control" id="physic" name="physic" type="text" placeholder="Masukkan Jumlah Fisik (contoh: 83 Orang atau 17 Dokumen)" required />
+                    <input class="form-control" id="physic" name="physic" type="text" placeholder="Masukkan Target Kinerja (contoh: 83 Orang atau 17 Dokumen)" required />
                 </div>
             </div>
             @if ($user->role_id == 1)
