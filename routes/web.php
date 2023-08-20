@@ -11,6 +11,7 @@ use App\Http\Controllers\WardController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\SubActivityController;
+use App\Http\Controllers\RealizationController;
 
 Route::get('/', [PagesController::class, 'index'])->name('home');
 
@@ -73,3 +74,11 @@ Route::get('/sub/{sub}', [SubActivityController::class, 'show'])->name('sub-show
 Route::get('/sub/{sub}/edit', [SubActivityController::class, 'edit'])->name('sub-edit');
 Route::put('/sub/{sub}', [SubActivityController::class, 'update'])->name('sub-update');
 Route::delete('/sub/{sub}', [SubActivityController::class, 'destroy'])->name('sub-delete');
+
+Route::get('/realization', [RealizationController::class, 'index'])->name('realization');
+Route::get('/realization/create', [RealizationController::class, 'create'])->name('realization-form');
+Route::post('/realization', [RealizationController::class, 'store'])->name('realization-store');
+Route::get('/realization/{realization}', [RealizationController::class, 'show'])->name('realization-show');
+Route::get('/realization/{realization}/edit', [RealizationController::class, 'edit'])->name('realization-edit');
+Route::put('/realization/{realization}', [RealizationController::class, 'update'])->name('realization-update');
+Route::delete('/realization/{realization}', [RealizationController::class, 'destroy'])->name('realization-delete');

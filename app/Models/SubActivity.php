@@ -9,13 +9,16 @@ class SubActivity extends Model
 {
     use HasFactory;
 
-    use HasFactory;
-
     protected $table = 'sub_activities';
     public $primaryKey = 'id';
 
     public function activity()
     {
         return $this->belongsTo(Activity::class);
+    }
+
+    public function realization()
+    {
+        return $this->hasMany(Realization::class);
     }
 }

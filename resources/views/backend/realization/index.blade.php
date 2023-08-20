@@ -13,9 +13,9 @@
                 <div class="col-auto mt-4">
                     <h1 class="page-header-title">
                         <div class="page-header-icon"><i data-feather="filter"></i></div>
-                        Tabel Sub Kegiatan
+                        Tabel Realisasi
                     </h1>
-                    <div class="page-header-subtitle">Data Utama Sub Kegiatan</div>
+                    <div class="page-header-subtitle">Data Utama Realisasi</div>
                 </div>
             </div>
         </div>
@@ -28,12 +28,12 @@
         <div class="card-header">
             <div class="row">
                 <div class="col-6 text-start">
-                    Sub Kegiatan
+                    Realisasi
                 </div>
                 <div class="col-6 text-end">
-                    <a class="btn btn-sm btn-light text-primary" href="{{ route('sub-form') }}">
+                    <a class="btn btn-sm btn-light text-primary" href="{{ route('realization-form') }}">
                         <i class="me-1" data-feather="plus"></i>
-                        Tambah Sub Kegiatan
+                        Tambah Realisasi
                         <i class="ms-1" data-feather="plus"></i>
                     </a>
                 </div>
@@ -44,10 +44,11 @@
                 <thead>
                     <tr>
                         <th class="text-center">Sub Kegiatan</th>
-                        <th class="text-center">Anggaran</th>
-                        <th class="text-center">Target Kinerja</th>
-                        <th class="text-center">Kegiatan</th>
-                        <th class="text-center">Program</th>
+                        <th class="text-center">Realisasi Anggaran</th>
+                        <th class="text-center">Realisasi Kinerja</th>
+                        <th class="text-center">Fisik</th>
+                        <th class="text-center">Sisa Anggaran</th>
+                        <th class="text-center">Bulan</th>
                         <th class="text-center">Tahun</th>
                         <th class="text-center">Perangkat Daerah</th>
                         <th class="text-center">Aksi</th>
@@ -56,10 +57,11 @@
                 <tfoot>
                     <tr>
                         <th class="text-center">Sub Kegiatan</th>
-                        <th class="text-center">Anggaran</th>
-                        <th class="text-center">Target Kinerja</th>
-                        <th class="text-center">Kegiatan</th>
-                        <th class="text-center">Program</th>
+                        <th class="text-center">Realisasi Anggaran</th>
+                        <th class="text-center">Realisasi Kinerja</th>
+                        <th class="text-center">Fisik</th>
+                        <th class="text-center">Sisa Anggaran</th>
+                        <th class="text-center">Bulan</th>
                         <th class="text-center">Tahun</th>
                         <th class="text-center">Perangkat Daerah</th>
                         <th class="text-center">Aksi</th>
@@ -67,28 +69,29 @@
                 </tfoot>
                 <tbody>
                     @if ((auth()->user()->role_id) == 1)
-                        @if (count($subs) > 0)
-                            @foreach ($subs as $sub)
+                        @if (count($reas) > 0)
+                            @foreach ($reas as $rea)
                                 <tr>
-                                    <td>{{ $sub->sub_activity }}</td>
-                                    <td>{{ $sub->budget }}</td>
-                                    <td>{{ $sub->physic }}</td>
-                                    <td>{{ $sub->activity->activity }}</td>
-                                    <td>{{ $sub->activity->program->program }}</td>
-                                    <td>{{ $sub->activity->program->year }}</td>
-                                    <td>{{ $sub->activity->program->region->name }}</td>
+                                    <td>{{ $rea->subactivity->sub_activity }}</td>
+                                    <td>{{ $rea->budget_use }}</td>
+                                    <td>{{ $rea->physic_use }}</td>
+                                    <td>{{ $rea->performance }}</td>
+                                    <td>{{ $rea->budget_remaining }}</td>
+                                    <td>{{ $rea->month }}</td>
+                                    <td>{{ $rea->subactivity->activity->program->year }}</td>
+                                    <td>{{ $rea->subactivity->activity->program->region->name }}</td>
                                     <td class="text-center">
                                         <button class="btn btn-datatable btn-icon btn-transparent-dark ms-2 me-2">
-                                            <a class="text-decoration-none text-muted" href="/sub/{{ $sub->id }}">
+                                            <a class="text-decoration-none text-muted" href="/realization/{{ $rea->id }}">
                                                 <i data-feather="eye"></i>
                                             </a>
                                         </button>
                                         <button class="btn btn-datatable btn-icon btn-transparent-dark ms-2 me-2">
-                                            <a class="text-decoration-none text-muted" href="/sub/{{ $sub->id }}/edit">
+                                            <a class="text-decoration-none text-muted" href="/realization/{{ $rea->id }}/edit">
                                                 <i data-feather="edit"></i>
                                             </a>
                                         </button>
-                                        {{-- <button class="btn btn-datatable btn-icon btn-transparent-dark ms-2 me-2 delete-sub" data-bs-toggle="modal" data-bs-target="#deleteModal" data-url="{{ route('sub-delete', $sub->id) }}">
+                                        {{-- <button class="btn btn-datatable btn-icon btn-transparent-dark ms-2 me-2 delete-realization" data-bs-toggle="modal" data-bs-target="#deleteModal" data-url="{{ route('realization-delete', $rea->id) }}">
                                             <a class="text-decoration-none text-muted">
                                                 <i data-feather="trash-2"></i>
                                             </a>
@@ -98,7 +101,7 @@
                             @endforeach
                         @else
                         <tr>
-                            <td colspan="8" class="text-center">Data Masih Kosong</td>
+                            <td colspan="9" class="text-center">Data Masih Kosong</td>
                         </tr>
                         @endif
                     @else
@@ -139,7 +142,7 @@
 
 @section('js')
 <script>
-    $("#datatablesSimple").on("click", ".delete-sub", function() {
+    $("#datatablesSimple").on("click", ".delete-realization", function() {
         var url = $(this).attr('data-url');
         $("#deleteForm").attr("action", url);
     });

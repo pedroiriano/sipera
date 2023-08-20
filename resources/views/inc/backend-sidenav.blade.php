@@ -30,14 +30,12 @@
                 </a>
                 <div class="collapse" id="collapseCommodities" data-bs-parent="#accordionSidenav">
                     <nav class="sidenav-menu-nested nav accordion">
-                        <a class="nav-link" href="">
+                        <a class="nav-link" href="{{ route('realization') }}">
                             Tabel Realisasi
                         </a>
-                        @if (auth()->user()->role_id == 1)
-                        <a class="nav-link" href="">
-                            Perbarui Realisasi
+                        <a class="nav-link" href="{{ route('realization-form') }}">
+                            Tambah Realisasi
                         </a>
-                        @endif
                     </nav>
                 </div>
                 <!-- Sidenav Accordion (Sub)-->
