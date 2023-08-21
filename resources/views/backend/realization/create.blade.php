@@ -33,19 +33,13 @@
     @include('inc.alert-message')
     <div class="row gx-4">
         <div class="col-lg-8">
-            <div class="card mb-4">
-                <div class="card-header">Realisasi</div>
-                <div class="card-body">
-                    <input class="form-control" id="realization" name="realization" type="text" placeholder="Masukkan Nama Realisasi (contoh: Penyediaan Gaji)" />
-                </div>
-            </div>
             @if ($user->role_id == 1)
             <div class="card mb-4">
-                <div class="card-header">Program</div>
+                <div class="card-header">Sub Kegiatan</div>
                 <div class="card-body">
-                    <select class="form-control" id="program" name="program">
-                        @foreach ($pros as $pro_id => $pro)
-                        <option value="{{ $pro_id }}">{{ $pro }}</option>
+                    <select class="form-control" id="subact" name="subact">
+                        @foreach ($subs as $sub_id => $sub)
+                        <option value="{{ $sub_id }}">{{ $sub }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -53,6 +47,31 @@
             @else
             {{-- Other Users --}}
             @endif
+            <div class="card mb-4">
+                <div class="card-header">Bulan</div>
+                <div class="card-body">
+                    <select class="form-control" id="month" name="month">
+                        <option value="1">Januari</option>
+                        <option value="2">Februari</option>
+                        <option value="3">Maret</option>
+                        <option value="4">April</option>
+                        <option value="5">Mei</option>
+                        <option value="6">Juni</option>
+                        <option value="7">Juli</option>
+                        <option value="8">Agustus</option>
+                        <option value="9">September</option>
+                        <option value="10">Oktober</option>
+                        <option value="11">November</option>
+                        <option value="12">Desember</option>
+                    </select>
+                </div>
+            </div>
+            <div class="card mb-4">
+                <div class="card-header">Realisasi</div>
+                <div class="card-body">
+                    <input class="form-control" id="realization" name="realization" type="text" placeholder="Masukkan Nama Realisasi (contoh: Penyediaan Gaji)" />
+                </div>
+            </div>
         </div>
         <!-- Sticky Navigation-->
         <div class="col-lg-4">

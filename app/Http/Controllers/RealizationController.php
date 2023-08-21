@@ -30,4 +30,23 @@ class RealizationController extends Controller
             return back()->with('status', 'Tidak Punya Akses');
         }
     }
+
+    public function create()
+    {
+        $user = auth()->user();
+
+        $subs = SubActivity::select(
+            DB::raw("CONCAT(sub_activities.sub_activity, ' - ', activities.activity, ' - ', programs.program, ' - ', programs.year, ' - ', regions.name) AS sub_activity_info"), 'sub_activities.id')
+            ->leftJoin('activities', 'sub_activities.activity_id', '=', 'activities.id')
+            ->leftJoin('programs', 'activities.program_id', '=', 'programs.id')
+            ->leftJoin('regions', 'programs.region_id', '=', 'regions.id')
+            ->pluck('sub_activity_info', 'activities.id');
+
+        if(($user->role_id) == 1) {
+            return view('backend.realization.create')->with('user', $user)->with('subs', $subs);
+        }
+        else {
+            return back()->with('status', 'Tidak Punya Akses');
+        }
+    }
 }
