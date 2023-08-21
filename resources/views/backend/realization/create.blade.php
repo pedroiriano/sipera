@@ -99,7 +99,7 @@
             <div class="card mb-4">
                 <div class="card-header">Fisik (%)</div>
                 <div class="card-body">
-                    <input class="form-control" id="performance" name="performance" type="text" placeholder="Masukkan Realisasi Fisik dalam Persentase (contoh: 15)" />
+                    <input class="form-control" id="performance" name="performance" type="number" placeholder="Masukkan Realisasi Fisik dalam Persentase (contoh: 15)" />
                 </div>
             </div>
             <div class="card mb-4">
