@@ -40,7 +40,7 @@ class RealizationController extends Controller
             ->leftJoin('activities', 'sub_activities.activity_id', '=', 'activities.id')
             ->leftJoin('programs', 'activities.program_id', '=', 'programs.id')
             ->leftJoin('regions', 'programs.region_id', '=', 'regions.id')
-            ->pluck('sub_activity_info', 'activities.id');
+            ->pluck('sub_activity_info', 'sub_activities.id');
 
         if(($user->role_id) == 1) {
             return view('backend.realization.create')->with('user', $user)->with('subs', $subs);

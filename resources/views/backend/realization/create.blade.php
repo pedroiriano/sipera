@@ -73,6 +73,12 @@
                 </div>
             </div>
             <div class="card mb-4">
+                <div class="card-header">Target Kinerja</div>
+                <div class="card-body">
+                    <input class="form-control" id="physic" name="physic" type="text" placeholder="Target Kinerja" disabled />
+                </div>
+            </div>
+            <div class="card mb-4">
                 <div class="card-header">Realisasi Kinerja</div>
                 <div class="card-body">
                     <input class="form-control" id="physic_use" name="physic_use" type="text" placeholder="Masukkan Realisasi Kinerja (contoh: 17 Dokumen atau 45 Pegawai)" />
