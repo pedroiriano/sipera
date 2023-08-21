@@ -67,9 +67,33 @@
                 </div>
             </div>
             <div class="card mb-4">
-                <div class="card-header">Realisasi</div>
+                <div class="card-header">Realisasi Anggaran</div>
                 <div class="card-body">
-                    <input class="form-control" id="realization" name="realization" type="text" placeholder="Masukkan Nama Realisasi (contoh: Penyediaan Gaji)" />
+                    <input class="form-control" id="budget_use" name="budget_use" type="number" placeholder="Masukkan Realisasi Anggaran (contoh: 15000000)" />
+                </div>
+            </div>
+            <div class="card mb-4">
+                <div class="card-header">Realisasi Kinerja</div>
+                <div class="card-body">
+                    <input class="form-control" id="physic_use" name="physic_use" type="text" placeholder="Masukkan Realisasi Kinerja (contoh: 17 Dokumen atau 45 Pegawai)" />
+                </div>
+            </div>
+            <div class="card mb-4">
+                <div class="card-header">Kategori Masalah</div>
+                <div class="card-body">
+                    <input class="form-control" id="problem_category" name="problem_category" type="text" placeholder="Masukkan Kategori Masalah (contoh: Lain-lain)" />
+                </div>
+            </div>
+            <div class="card mb-4">
+                <div class="card-header">Deskripsi Masalah</div>
+                <div class="card-body">
+                    <input class="form-control" id="problem_description" name="problem_description" type="text" placeholder="Masukkan Deskripsi Masalah (contoh: Dibayarkan sesuai kebutuhan)" />
+                </div>
+            </div>
+            <div class="card mb-4">
+                <div class="card-header">Solusi Masalah</div>
+                <div class="card-body">
+                    <input class="form-control" id="problem_solution" name="problem_solution" type="text" placeholder="Masukkan Solusi Masalah (contoh: Dibayarkan sesuai kebutuhan)" />
                 </div>
             </div>
         </div>
