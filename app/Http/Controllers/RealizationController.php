@@ -55,6 +55,7 @@ class RealizationController extends Controller
         $this->validate($request, [
             'subact' => 'required',
             'month' => 'required',
+            'performance' => 'required',
         ]);
 
         $user = auth()->user();
@@ -78,7 +79,7 @@ class RealizationController extends Controller
                     $rea->month = $request->input('month');
                     $rea->budget_use = $request->input('budget_use');
                     $rea->physic_use = $request->input('physic_use');
-                    $rea->performance = 0;
+                    $rea->performance = $request->input('performance');
                     $rea->budget_remaining = 0;
                     $rea->problem_category = $request->input('problem_category');
                     $rea->problem_description = $request->input('problem_description');
@@ -122,7 +123,7 @@ class RealizationController extends Controller
                     $rea->month = $request->input('month');
                     $rea->budget_use = $request->input('budget_use');
                     $rea->physic_use = $request->input('physic_use');
-                    $rea->performance = 0;
+                    $rea->performance = $request->input('performance');
                     $rea->budget_remaining = 0;
                     $rea->problem_category = $request->input('problem_category');
                     $rea->problem_description = $request->input('problem_description');

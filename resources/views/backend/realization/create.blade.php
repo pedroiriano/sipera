@@ -97,6 +97,12 @@
                 </div>
             </div>
             <div class="card mb-4">
+                <div class="card-header">Fisik (%)</div>
+                <div class="card-body">
+                    <input class="form-control" id="performance" name="performance" type="text" placeholder="Masukkan Realisasi Fisik dalam Persentase (contoh: 15)" />
+                </div>
+            </div>
+            <div class="card mb-4">
                 <div class="card-header">Kategori Masalah</div>
                 <div class="card-body">
                     <input class="form-control" id="problem_category" name="problem_category" type="text" placeholder="Masukkan Kategori Masalah (contoh: Lain-lain)" />
