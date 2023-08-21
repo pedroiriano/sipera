@@ -48,6 +48,12 @@
             {{-- Other Users --}}
             @endif
             <div class="card mb-4">
+                <div class="card-header">Jumlah Bulan yang Telah Diinput Realisasi</div>
+                <div class="card-body">
+                    <input class="form-control" id="realization_count" name="realization_count" type="number" placeholder="Jumlah Bulan yang Sudah Realisasi (contoh: 3)" disabled />
+                </div>
+            </div>
+            <div class="card mb-4">
                 <div class="card-header">Bulan</div>
                 <div class="card-body">
                     <select class="form-control" id="month" name="month">
@@ -64,6 +70,12 @@
                         <option value="11">November</option>
                         <option value="12">Desember</option>
                     </select>
+                </div>
+            </div>
+            <div class="card mb-4">
+                <div class="card-header">Anggaran Kas yang Telah Digunakan</div>
+                <div class="card-body">
+                    <input class="form-control" id="budget_cash" name="budget_cash" type="text" placeholder="Anggaran Kas Sampai dengan Bulan Realisasi" disabled />
                 </div>
             </div>
             <div class="card mb-4">
@@ -132,7 +144,7 @@ $.ajaxSetup({
 });
 
 $("#subact").change(function() {
-    var subID = $(this).val();
+    var subId = $(this).val();
 
     $.ajax({
         url: "{{ route('get-target') }}",
@@ -143,6 +155,9 @@ $("#subact").change(function() {
             // var formattedDailyRetribution = formatToRupiah(response.daily_retribution);
             // $('#due_amount').val(formattedDueAmount);
             // $('#daily_retribution').val(formattedDailyRetribution);
+            $('#physic').val(response.performance_target);
+            $('#budget_cash').val(response.sum_budget);
+            $('#realization_count').val(response.realization_count);
         },
         error: function(xhr, status, error) {
             console.error(error);

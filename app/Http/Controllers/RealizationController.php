@@ -50,6 +50,115 @@ class RealizationController extends Controller
         }
     }
 
+    public function store(Request $request)
+    {
+        $this->validate($request, [
+            'subact' => 'required',
+            'month' => 'required',
+        ]);
+
+        $user = auth()->user();
+
+        $subId = $request->input('subact');
+        $month = $request->input('month');
+        $count = Realization::where('sub_activity_id', $subId)->count('budget_use');
+
+        if ($count > 0)
+        {
+            $max = Realization::where('sub_activity_id', $subId)->max('month');
+            $maxx = $max + 1;
+            if ($month == $maxx)
+            {
+                if ((DB::table('realizations')
+                ->where('sub_activity_id', $request->input('subact'))
+                ->where('month', $request->input('month'))
+                ->first()) === NULL)
+                {
+                    $rea = new Realization;
+                    $rea->month = $request->input('month');
+                    $rea->budget_use = $request->input('budget_use');
+                    $rea->physic_use = $request->input('physic_use');
+                    $rea->performance = 0;
+                    $rea->budget_remaining = 0;
+                    $rea->problem_category = $request->input('problem_category');
+                    $rea->problem_description = $request->input('problem_description');
+                    $rea->problem_solution = $request->input('problem_solution');
+                    $rea->sub_activity_id = $request->input('subact');
+
+                    // $act_sum = $request->input('budget_01') + $request->input('budget_02') + $request->input('budget_03') + $request->input('budget_04') + $request->input('budget_05') + $request->input('budget_06') + $request->input('budget_07') + $request->input('budget_08') + $request->input('budget_09') + $request->input('budget_10') + $request->input('budget_11') + $request->input('budget_12');
+
+                    // $act = Activity::findOrFail($request->input('activity'));
+                    // $act->budget = $act->budget + $act_sum;
+
+                    // $act->save();
+
+                    // $pro_sum = Activity::where('program_id', $sub->activity->program->id)->sum('budget');
+
+                    // $pro = Program::findOrFail($sub->activity->program->id);
+                    // $pro->budget = $pro_sum;
+
+                    // $pro->save();
+                }
+                else
+                {
+                    return back()->with('status', 'Maaf Data Sudah Ada');
+                }
+            }
+            else
+            {
+                return back()->with('status', 'Tolong Isi Bulan ke-'. $maxx);
+            }
+        }
+        else
+        {
+            if ($month == 1)
+            {
+                if ((DB::table('realizations')
+                ->where('sub_activity_id', $request->input('subact'))
+                ->where('month', $request->input('month'))
+                ->first()) === NULL)
+                {
+                    $rea = new Realization;
+                    $rea->month = $request->input('month');
+                    $rea->budget_use = $request->input('budget_use');
+                    $rea->physic_use = $request->input('physic_use');
+                    $rea->performance = 0;
+                    $rea->budget_remaining = 0;
+                    $rea->problem_category = $request->input('problem_category');
+                    $rea->problem_description = $request->input('problem_description');
+                    $rea->problem_solution = $request->input('problem_solution');
+                    $rea->sub_activity_id = $request->input('subact');
+
+                    // $act_sum = $request->input('budget_01') + $request->input('budget_02') + $request->input('budget_03') + $request->input('budget_04') + $request->input('budget_05') + $request->input('budget_06') + $request->input('budget_07') + $request->input('budget_08') + $request->input('budget_09') + $request->input('budget_10') + $request->input('budget_11') + $request->input('budget_12');
+
+                    // $act = Activity::findOrFail($request->input('activity'));
+                    // $act->budget = $act->budget + $act_sum;
+
+                    // $act->save();
+
+                    // $pro_sum = Activity::where('program_id', $sub->activity->program->id)->sum('budget');
+
+                    // $pro = Program::findOrFail($sub->activity->program->id);
+                    // $pro->budget = $pro_sum;
+
+                    // $pro->save();
+                }
+                else
+                {
+                    return back()->with('status', 'Maaf Data Sudah Ada');
+                }
+            }
+            else
+            {
+                return back()->with('status', 'Tolong Isi Bulan ke-1');
+            }
+        }
+
+        $rea->save();
+
+        return redirect()->route('realization')->with('success', 'Data Realisasi Berhasil Disimpan');
+    }
+
     public function getTarget(Request $request)
     {
         $subId = $request->input('sub_id');
@@ -67,15 +176,15 @@ class RealizationController extends Controller
         // $retribution = StallType::where('id', $stall_type_id)->first()->retribution;
         // $due = $difference * $retribution;
 
-        $target = SubActivity::where('id', $subId)->first();
         $existingBudget = Realization::where('sub_activity_id', $subId)->first();
         $performanceTarget = SubActivity::where('id', $subId)->first()->physic;
         $sumBudget = Realization::where('sub_activity_id', $subId)->sum('budget_use');
+        $realizationCount = Realization::where('sub_activity_id', $subId)->count('budget_use');
 
         if ($existingBudget) {
-            return response()->json(['performance_target' => $performanceTarget, 'sum_budget' => $sumBudget]);
+            return response()->json(['performance_target' => $performanceTarget, 'sum_budget' => $sumBudget, 'realization_count' => $realizationCount]);
         } else {
-            return response()->json(['performance_target' => $performanceTarget, 'sum_budget' => $sumBudget]);
+            return response()->json(['performance_target' => $performanceTarget, 'sum_budget' => $sumBudget, 'realization_count' => $realizationCount]);
         }
 
         // if ($existingRetribution) {

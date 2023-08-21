@@ -14,6 +14,6 @@ class Realization extends Model
 
     public function subactivity()
     {
-        return $this->belongsTo(SubActivity::class);
+        return $this->belongsTo(SubActivity::class, 'sub_activity_id');
     }
 }
