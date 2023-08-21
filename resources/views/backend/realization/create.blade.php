@@ -122,3 +122,38 @@
 </div>
 </form>
 @endsection
+
+@section('js')
+<script>
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
+$("#subact").change(function() {
+    var subID = $(this).val();
+
+    $.ajax({
+        url: "{{ route('get-target') }}",
+        type: "POST",
+        data: { sub_id: subId },
+        success: function(response) {
+            // var formattedDueAmount = formatToRupiah(response.due_amount);
+            // var formattedDailyRetribution = formatToRupiah(response.daily_retribution);
+            // $('#due_amount').val(formattedDueAmount);
+            // $('#daily_retribution').val(formattedDailyRetribution);
+        },
+        error: function(xhr, status, error) {
+            console.error(error);
+        }
+    });
+});
+
+$("#subact").trigger("change");
+
+function formatToRupiah(number) {
+    return number.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' });
+}
+</script>
+@endsection
