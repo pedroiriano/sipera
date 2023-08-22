@@ -170,7 +170,7 @@ $("#subact").change(function() {
             $('#physic').val(response.performance_target);
             $('#budget_cash').val(response.sum_budget);
             $('#realization_count').val(response.realization_count);
-            $('#budget_available').val(response.subs_sum);
+            $('#budget_available').val(response.budget_available);
         },
         error: function(xhr, status, error) {
             console.error(error);
