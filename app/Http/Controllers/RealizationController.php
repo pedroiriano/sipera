@@ -85,20 +85,6 @@ class RealizationController extends Controller
                     $rea->problem_description = $request->input('problem_description');
                     $rea->problem_solution = $request->input('problem_solution');
                     $rea->sub_activity_id = $request->input('subact');
-
-                    // $act_sum = $request->input('budget_01') + $request->input('budget_02') + $request->input('budget_03') + $request->input('budget_04') + $request->input('budget_05') + $request->input('budget_06') + $request->input('budget_07') + $request->input('budget_08') + $request->input('budget_09') + $request->input('budget_10') + $request->input('budget_11') + $request->input('budget_12');
-
-                    // $act = Activity::findOrFail($request->input('activity'));
-                    // $act->budget = $act->budget + $act_sum;
-
-                    // $act->save();
-
-                    // $pro_sum = Activity::where('program_id', $sub->activity->program->id)->sum('budget');
-
-                    // $pro = Program::findOrFail($sub->activity->program->id);
-                    // $pro->budget = $pro_sum;
-
-                    // $pro->save();
                 }
                 else
                 {
@@ -129,20 +115,6 @@ class RealizationController extends Controller
                     $rea->problem_description = $request->input('problem_description');
                     $rea->problem_solution = $request->input('problem_solution');
                     $rea->sub_activity_id = $request->input('subact');
-
-                    // $act_sum = $request->input('budget_01') + $request->input('budget_02') + $request->input('budget_03') + $request->input('budget_04') + $request->input('budget_05') + $request->input('budget_06') + $request->input('budget_07') + $request->input('budget_08') + $request->input('budget_09') + $request->input('budget_10') + $request->input('budget_11') + $request->input('budget_12');
-
-                    // $act = Activity::findOrFail($request->input('activity'));
-                    // $act->budget = $act->budget + $act_sum;
-
-                    // $act->save();
-
-                    // $pro_sum = Activity::where('program_id', $sub->activity->program->id)->sum('budget');
-
-                    // $pro = Program::findOrFail($sub->activity->program->id);
-                    // $pro->budget = $pro_sum;
-
-                    // $pro->save();
                 }
                 else
                 {
@@ -160,22 +132,24 @@ class RealizationController extends Controller
         return redirect()->route('realization')->with('success', 'Data Realisasi Berhasil Disimpan');
     }
 
+    public function show($id)
+    {
+        try {
+            $rea = Realization::where('id', $id)
+                ->select('*')
+                ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09 + budget_10 + budget_11 + budget_12) AS budget')
+                ->groupBy('id', 'sub_activity')
+                ->first();
+
+            return view('backend.realization.show')->with('rea', $rea);
+        } catch (\Exception $e) {
+            return back()->with('error', 'Maaf Data Tidak Sesuai');
+        }
+    }
+
     public function getTarget(Request $request)
     {
         $subId = $request->input('sub_id');
-
-        // $existingRetribution = Retribution::where('rent_id', $subId)->first();
-        // $sumAmount = Retribution::where('rent_id', $subId)->sum('amount');
-
-        // $start = Rent::where('id', $subId)->first()->start;
-        // $start = Carbon::parse($start);
-        // $end = Carbon::now();
-        // $difference = $start->diffInDays($end);
-
-        // $stall_id = Rent::where('id', $subId)->first()->stall_id;
-        // $stall_type_id = Stall::where('id', $stall_id)->first()->stall_type_id;
-        // $retribution = StallType::where('id', $stall_type_id)->first()->retribution;
-        // $due = $difference * $retribution;
 
         $existingBudget = Realization::where('sub_activity_id', $subId)->first();
         $performanceTarget = SubActivity::where('id', $subId)->first()->physic;
@@ -278,12 +252,5 @@ class RealizationController extends Controller
                 'budget_available' => $budget_available
                 ]);
         }
-
-        // if ($existingRetribution) {
-        //     $current_due = $due - $sumAmount;
-        //     return response()->json(['due_amount' => $current_due, 'daily_retibution' => $retribution]);
-        // } else {
-        //     return response()->json(['due_amount' => $due, 'daily_retibution' => $retribution]);
-        // }
     }
 }
