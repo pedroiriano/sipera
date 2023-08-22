@@ -46,7 +46,7 @@
                         <th class="text-center">Sub Kegiatan</th>
                         <th class="text-center">Realisasi Anggaran</th>
                         <th class="text-center">Realisasi Kinerja</th>
-                        <th class="text-center">Fisik</th>
+                        <th class="text-center">Fisik (%)</th>
                         <th class="text-center">Sisa Anggaran</th>
                         <th class="text-center">Bulan</th>
                         <th class="text-center">Tahun</th>
@@ -59,7 +59,7 @@
                         <th class="text-center">Sub Kegiatan</th>
                         <th class="text-center">Realisasi Anggaran</th>
                         <th class="text-center">Realisasi Kinerja</th>
-                        <th class="text-center">Fisik</th>
+                        <th class="text-center">Fisik (%)</th>
                         <th class="text-center">Sisa Anggaran</th>
                         <th class="text-center">Bulan</th>
                         <th class="text-center">Tahun</th>

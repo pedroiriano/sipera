@@ -163,10 +163,6 @@ $("#subact").change(function() {
         type: "POST",
         data: { sub_id: subId },
         success: function(response) {
-            // var formattedDueAmount = formatToRupiah(response.due_amount);
-            // var formattedDailyRetribution = formatToRupiah(response.daily_retribution);
-            // $('#due_amount').val(formattedDueAmount);
-            // $('#daily_retribution').val(formattedDailyRetribution);
             $('#physic').val(response.performance_target);
             $('#budget_cash').val(response.sum_budget);
             $('#realization_count').val(response.realization_count);
