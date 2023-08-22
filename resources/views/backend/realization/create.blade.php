@@ -73,6 +73,12 @@
                 </div>
             </div>
             <div class="card mb-4">
+                <div class="card-header">Anggaran yang Tersedia</div>
+                <div class="card-body">
+                    <input class="form-control" id="budget_available" name="budget_available" type="text" placeholder="Anggaran Kas Tersedia" disabled />
+                </div>
+            </div>
+            <div class="card mb-4">
                 <div class="card-header">Anggaran Kas yang Telah Digunakan</div>
                 <div class="card-body">
                     <input class="form-control" id="budget_cash" name="budget_cash" type="text" placeholder="Anggaran Kas Sampai dengan Bulan Realisasi" disabled />
@@ -164,6 +170,7 @@ $("#subact").change(function() {
             $('#physic').val(response.performance_target);
             $('#budget_cash').val(response.sum_budget);
             $('#realization_count').val(response.realization_count);
+            $('#budget_available').val(response.subs_sum);
         },
         error: function(xhr, status, error) {
             console.error(error);
