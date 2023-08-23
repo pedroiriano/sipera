@@ -21,9 +21,14 @@ class SubActivityController extends Controller
         $user = auth()->user();
 
         if(($user->role_id) == 1) {
-            $subs = SubActivity::select('id', 'sub_activity', 'budget_01', 'budget_02', 'budget_03', 'budget_04', 'budget_05', 'budget_06', 'budget_07', 'budget_08', 'budget_09', 'budget_10', 'budget_11', 'budget_12', 'physic', 'activity_id')
-                ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09 + budget_10 + budget_11 + budget_12) AS budget')
-                ->groupBy('id')
+            // $subs = SubActivity::select('id', 'sub_activity', 'budget_01', 'budget_02', 'budget_03', 'budget_04', 'budget_05', 'budget_06', 'budget_07', 'budget_08', 'budget_09', 'budget_10', 'budget_11', 'budget_12', 'physic', 'activity_id')
+            //     ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09 + budget_10 + budget_11 + budget_12) AS budget')
+            //     ->groupBy('id')
+            //     ->get();
+
+            $subs = DB::table('sub_activities')
+                ->select('*', DB::raw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09 + budget_10 + budget_11 + budget_12) AS budget'))
+                ->groupBy('id', 'sub_activity')
                 ->get();
 
             return view('backend.subactivity.index')->with('user', $user)->with('subs', $subs);
