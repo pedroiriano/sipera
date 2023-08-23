@@ -23,7 +23,7 @@ class SubActivityController extends Controller
         if(($user->role_id) == 1) {
             $subs = SubActivity::select('*')
                 ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09 + budget_10 + budget_11 + budget_12) AS budget')
-                ->groupBy('id', 'sub_activity')
+                ->groupBy('id')
                 ->get();
 
             return view('backend.subactivity.index')->with('user', $user)->with('subs', $subs);
@@ -124,7 +124,7 @@ class SubActivityController extends Controller
             $sub = SubActivity::where('id', $id)
                 ->select('*')
                 ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09 + budget_10 + budget_11 + budget_12) AS budget')
-                ->groupBy('id', 'sub_activity')
+                ->groupBy('id')
                 ->first();
 
             return view('backend.subactivity.show')->with('sub', $sub);
@@ -195,7 +195,7 @@ class SubActivityController extends Controller
             $sub_sum = SubActivity::where('id', $id)
                 ->select('*')
                 ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09 + budget_10 + budget_11 + budget_12) AS budget')
-                ->groupBy('id', 'sub_activity')
+                ->groupBy('id')
                 ->first();
 
             $act_sum = $request->input('budget_01') + $request->input('budget_02') + $request->input('budget_03') + $request->input('budget_04') + $request->input('budget_05') + $request->input('budget_06') + $request->input('budget_07') + $request->input('budget_08') + $request->input('budget_09') + $request->input('budget_10') + $request->input('budget_11') + $request->input('budget_12');
@@ -238,7 +238,7 @@ class SubActivityController extends Controller
                 $sub_sum = SubActivity::where('id', $id)
                     ->select('*')
                     ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09 + budget_10 + budget_11 + budget_12) AS budget')
-                    ->groupBy('id', 'sub_activity')
+                    ->groupBy('id')
                     ->first();
 
                 $act_sum = $request->input('budget_01') + $request->input('budget_02') + $request->input('budget_03') + $request->input('budget_04') + $request->input('budget_05') + $request->input('budget_06') + $request->input('budget_07') + $request->input('budget_08') + $request->input('budget_09') + $request->input('budget_10') + $request->input('budget_11') + $request->input('budget_12');
