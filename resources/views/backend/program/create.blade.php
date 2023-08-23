@@ -49,7 +49,7 @@
             <div class="card mb-4">
                 <div class="card-header">Perangkat Daerah</div>
                 <div class="card-body">
-                    <select class="form-control" id="region" name="region">
+                    <select class="form-control js-example-basic-single" id="region" name="region">
                         @foreach ($regs as $reg_id => $reg)
                         <option value="{{ $reg_id }}">{{ $reg }}</option>
                         @endforeach
@@ -78,4 +78,12 @@
     </div>
 </div>
 </form>
+@endsection
+
+@section('js')
+<script>
+$(document).ready(function() {
+    $('.js-example-basic-single').select2();
+});
+</script>
 @endsection

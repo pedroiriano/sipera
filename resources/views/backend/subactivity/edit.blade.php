@@ -148,7 +148,7 @@
             <div class="card mb-4">
                 <div class="card-header">Kegiatan</div>
                 <div class="card-body">
-                    <select class="form-control" id="activity" name="activity">
+                    <select class="form-control js-example-basic-single" id="activity" name="activity">
                         @foreach ($acts as $act_id => $act)
                         <option value="{{ $act_id }}" {{ $act_id == $sub->activity_id ? 'selected' : '' }}>{{ $act }}</option>
                         @endforeach
@@ -177,4 +177,12 @@
     </div>
 </div>
 </form>
+@endsection
+
+@section('js')
+<script>
+$(document).ready(function() {
+    $('.js-example-basic-single').select2();
+});
+</script>
 @endsection

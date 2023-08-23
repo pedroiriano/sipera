@@ -37,7 +37,7 @@
             <div class="card mb-4">
                 <div class="card-header">Sub Kegiatan</div>
                 <div class="card-body">
-                    <select class="form-control" id="subact" name="subact">
+                    <select class="form-control js-example-basic-single" id="subact" name="subact">
                         @foreach ($subs as $sub_id => $sub)
                         <option value="{{ $sub_id }}">{{ $sub }}</option>
                         @endforeach
@@ -181,5 +181,11 @@ $("#subact").trigger("change");
 function formatToRupiah(number) {
     return number.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' });
 }
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('.js-example-basic-single').select2();
+    });
 </script>
 @endsection

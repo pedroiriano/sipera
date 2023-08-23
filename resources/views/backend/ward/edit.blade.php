@@ -37,7 +37,7 @@
             <div class="card mb-4">
                 <div class="card-header">Kecamatan</div>
                 <div class="card-body">
-                    <select class="form-control" id="district" name="district">
+                    <select class="form-control js-example-basic-single" id="district" name="district">
                         @foreach ($diss as $dis_id => $dis)
                         <option value="{{ $dis_id }}" {{ $dis_id == $war->parent_id ? 'selected' : '' }}>{{ $dis }}</option>
                         @endforeach
@@ -75,4 +75,12 @@
     </div>
 </div>
 </form>
+@endsection
+
+@section('js')
+<script>
+$(document).ready(function() {
+    $('.js-example-basic-single').select2();
+});
+</script>
 @endsection

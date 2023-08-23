@@ -60,7 +60,7 @@
             <div class="card mb-4">
                 <div class="card-header">Kecamatan atau Kelurahan</div>
                 <div class="card-body">
-                    <select class="form-control" id="region" name="region">
+                    <select class="form-control js-example-basic-single" id="region" name="region">
                         @foreach ($regs as $reg_id => $reg)
                         <option value="{{ $reg_id }}">{{ $reg }}</option>
                         @endforeach
@@ -70,7 +70,7 @@
             <div class="card mb-4">
                 <div class="card-header">Wewenang</div>
                 <div class="card-body">
-                    <select class="form-control" id="role" name="role">
+                    <select class="form-control js-example-basic-single" id="role" name="role">
                         @if (count($rols) > 0)
                             @foreach ($rols as $rol)
                                 <option value="{{ $rol->id }}">{{ $rol->name }}</option>
@@ -82,7 +82,7 @@
             <div class="card mb-4">
                 <div class="card-header">Status</div>
                 <div class="card-body">
-                    <select class="form-control" id="status" name="status">
+                    <select class="form-control js-example-basic-single" id="status" name="status">
                         <option value="Aktif" selected>Aktif</option>
                         <option value="Tidak Aktif">Tidak Aktif</option>
                     </select>
@@ -107,4 +107,12 @@
     </div>
 </div>
 </form>
+@endsection
+
+@section('js')
+<script>
+$(document).ready(function() {
+    $('.js-example-basic-single').select2();
+});
+</script>
 @endsection

@@ -22,6 +22,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.24.1/feather.min.js" crossorigin="anonymous"></script>
 {{-- END::Feather Icons --}}
 
+{{-- BEGIN::Select 2 --}}
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+{{-- END::Select 2 --}}
+
 {{-- BEGIN::CSRF Token --}}
 <meta name="csrf-token" content="{{ csrf_token() }}">
 {{-- END::CSRF Token --}}
