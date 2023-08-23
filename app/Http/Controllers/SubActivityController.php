@@ -21,8 +21,7 @@ class SubActivityController extends Controller
         $user = auth()->user();
 
         if(($user->role_id) == 1) {
-            $subs = SubActivity::select('*')
-                ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09 + budget_10 + budget_11 + budget_12) AS budget')
+            $subs = SubActivity::select('*', DB::raw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09 + budget_10 + budget_11 + budget_12) AS budget'))
                 ->groupBy('id')
                 ->get();
 
