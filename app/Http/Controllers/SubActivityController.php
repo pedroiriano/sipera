@@ -121,8 +121,6 @@ class SubActivityController extends Controller
     public function show($id)
     {
         try {
-            // $sub = SubActivity::where('id', $id)->first();
-
             $sub = SubActivity::where('id', $id)
                 ->select('*')
                 ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09 + budget_10 + budget_11 + budget_12) AS budget')
