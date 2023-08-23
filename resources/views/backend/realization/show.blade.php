@@ -53,10 +53,42 @@
                         </div>
                         <div class="row small text-muted fw-bold">
                             <div class="col-6">
+                                Perangkat Daerah
+                            </div>
+                            <div class="col-6">
+                                {{ $rea->subactivity->activity->program->region->name }}
+                            </div>
+                        </div>
+                        <div class="row small text-muted fw-bold">
+                            <div class="col-6">
                                 Sub Kegiatan
                             </div>
                             <div class="col-6">
                                 {{ $rea->subactivity->sub_activity }}
+                            </div>
+                        </div>
+                        <div class="row small text-muted fw-bold">
+                            <div class="col-6">
+                                Tahun Anggaran
+                            </div>
+                            <div class="col-6">
+                                {{ $rea->subactivity->activity->program->year }}
+                            </div>
+                        </div>
+                        <div class="row small text-muted fw-bold">
+                            <div class="col-6">
+                                Bulan
+                            </div>
+                            <div class="col-6">
+                                {{ $rea->month }}
+                            </div>
+                        </div>
+                        <div class="row small text-muted fw-bold">
+                            <div class="col-6">
+                                Realisasi Anggaran (Rp.)
+                            </div>
+                            <div class="col-6">
+                                {{ $rea->budget_use }}
                             </div>
                         </div>
                         <div class="row small text-muted fw-bold">
@@ -77,26 +109,35 @@
                         </div>
                         <div class="row small text-muted fw-bold">
                             <div class="col-6">
-                                Bulan
+                                Sisa Anggaran (Rp.)
                             </div>
                             <div class="col-6">
-                                {{ $rea->month }}
+                                {{ $rea->budget_remaining }}
+                            </div>
+                        </div>
+
+                        <div class="row small text-muted fw-bold">
+                            <div class="col-6">
+                                Kategori Masalah
+                            </div>
+                            <div class="col-6">
+                                {{ $rea->problem_category }}
                             </div>
                         </div>
                         <div class="row small text-muted fw-bold">
                             <div class="col-6">
-                                Tahun
+                                Deskripsi Masalah
                             </div>
                             <div class="col-6">
-                                {{ $rea->subactivity->activity->program->year }}
+                                {{ $rea->problem_description }}
                             </div>
                         </div>
                         <div class="row small text-muted fw-bold">
                             <div class="col-6">
-                                Perangkat Daerah
+                                Solusi Masalah
                             </div>
                             <div class="col-6">
-                                {{ $rea->subactivity->activity->program->region->name }}
+                                {{ $rea->problem_solution }}
                             </div>
                         </div>
                     </div>

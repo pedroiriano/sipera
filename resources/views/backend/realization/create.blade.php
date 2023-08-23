@@ -78,6 +78,7 @@
                     <input class="form-control" id="budget_available" name="budget_available" type="text" placeholder="Anggaran Kas Tersedia" disabled />
                 </div>
             </div>
+            <input type="hidden" id="available" name="available" />
             <div class="card mb-4">
                 <div class="card-header">Anggaran Kas yang Telah Digunakan</div>
                 <div class="card-body">
@@ -167,6 +168,7 @@ $("#subact").change(function() {
             $('#budget_cash').val(response.sum_budget);
             $('#realization_count').val(response.realization_count);
             $('#budget_available').val(response.budget_available);
+            $('#available').val(response.budget_available);
         },
         error: function(xhr, status, error) {
             console.error(error);

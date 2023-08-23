@@ -68,6 +68,7 @@ class RealizationController extends Controller
         {
             $max = Realization::where('sub_activity_id', $subId)->max('month');
             $maxx = $max + 1;
+            $budget_remaining = $request->input('available') - $request->input('budget_use');
             if ($month == $maxx)
             {
                 if ((DB::table('realizations')
@@ -80,7 +81,7 @@ class RealizationController extends Controller
                     $rea->budget_use = $request->input('budget_use');
                     $rea->physic_use = $request->input('physic_use');
                     $rea->performance = $request->input('performance');
-                    $rea->budget_remaining = 0;
+                    $rea->budget_remaining = $budget_remaining;
                     $rea->problem_category = $request->input('problem_category');
                     $rea->problem_description = $request->input('problem_description');
                     $rea->problem_solution = $request->input('problem_solution');
@@ -98,6 +99,7 @@ class RealizationController extends Controller
         }
         else
         {
+            $budget_remaining = $request->input('available') - $request->input('budget_use');
             if ($month == 1)
             {
                 if ((DB::table('realizations')
@@ -110,7 +112,7 @@ class RealizationController extends Controller
                     $rea->budget_use = $request->input('budget_use');
                     $rea->physic_use = $request->input('physic_use');
                     $rea->performance = $request->input('performance');
-                    $rea->budget_remaining = 0;
+                    $rea->budget_remaining = $budget_remaining;
                     $rea->problem_category = $request->input('problem_category');
                     $rea->problem_description = $request->input('problem_description');
                     $rea->problem_solution = $request->input('problem_solution');
