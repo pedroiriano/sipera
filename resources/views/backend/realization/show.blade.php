@@ -115,7 +115,6 @@
                                 {{ $rea->budget_remaining }}
                             </div>
                         </div>
-
                         <div class="row small text-muted fw-bold">
                             <div class="col-6">
                                 Kategori Masalah

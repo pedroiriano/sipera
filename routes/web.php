@@ -83,3 +83,4 @@ Route::get('/realization/{realization}/edit', [RealizationController::class, 'ed
 Route::put('/realization/{realization}', [RealizationController::class, 'update'])->name('realization-update');
 Route::delete('/realization/{realization}', [RealizationController::class, 'destroy'])->name('realization-delete');
 Route::post('/get-target', [RealizationController::class, 'getTarget'])->name('get-target');
+Route::post('/get-budget', [RealizationController::class, 'getBudget'])->name('get-budget');

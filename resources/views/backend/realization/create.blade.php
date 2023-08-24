@@ -167,6 +167,29 @@ $("#subact").change(function() {
             $('#physic').val(response.performance_target);
             $('#budget_cash').val(response.sum_budget);
             $('#realization_count').val(response.realization_count);
+            // $('#budget_available').val(response.budget_available);
+            // $('#available').val(response.budget_available);
+        },
+        error: function(xhr, status, error) {
+            console.error(error);
+        }
+    });
+});
+
+$("#subact").trigger("change");
+
+$("#month").change(function() {
+    var subId = $("#subact").val();
+    var monthId = $(this).val();
+
+    $.ajax({
+        url: "{{ route('get-budget') }}",
+        type: "POST",
+        data: { sub_id: subId, month_id: monthId },
+        success: function(response) {
+            // $('#physic').val(response.performance_target);
+            // $('#budget_cash').val(response.sum_budget);
+            // $('#realization_count').val(response.realization_count);
             $('#budget_available').val(response.budget_available);
             $('#available').val(response.budget_available);
         },
@@ -176,7 +199,7 @@ $("#subact").change(function() {
     });
 });
 
-$("#subact").trigger("change");
+$("#month").trigger("change");
 
 function formatToRupiah(number) {
     return number.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' });
