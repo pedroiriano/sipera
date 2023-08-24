@@ -167,8 +167,6 @@ $("#subact").change(function() {
             $('#physic').val(response.performance_target);
             $('#budget_cash').val(response.sum_budget);
             $('#realization_count').val(response.realization_count);
-            // $('#budget_available').val(response.budget_available);
-            // $('#available').val(response.budget_available);
         },
         error: function(xhr, status, error) {
             console.error(error);
@@ -187,9 +185,6 @@ $("#month").change(function() {
         type: "POST",
         data: { sub_id: subId, month_id: monthId },
         success: function(response) {
-            // $('#physic').val(response.performance_target);
-            // $('#budget_cash').val(response.sum_budget);
-            // $('#realization_count').val(response.realization_count);
             $('#budget_available').val(response.budget_available);
             $('#available').val(response.budget_available);
         },
