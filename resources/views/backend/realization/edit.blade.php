@@ -49,31 +49,13 @@
             {{-- Other Users --}}
             @endif
             <div class="card mb-4">
-                <div class="card-header">Jumlah Bulan yang Telah Diinput Realisasi</div>
-                <div class="card-body">
-                    <input class="form-control" id="realization_count" name="realization_count" type="number" placeholder="Jumlah Bulan yang Sudah Realisasi (contoh: 3)" disabled />
-                </div>
-            </div>
-            <div class="card mb-4">
                 <div class="card-header">Bulan</div>
                 <div class="card-body">
-                    <select class="form-control" id="month" name="month">
-                        <option value="1">Januari</option>
-                        <option value="2">Februari</option>
-                        <option value="3">Maret</option>
-                        <option value="4">April</option>
-                        <option value="5">Mei</option>
-                        <option value="6">Juni</option>
-                        <option value="7">Juli</option>
-                        <option value="8">Agustus</option>
-                        <option value="9">September</option>
-                        <option value="10">Oktober</option>
-                        <option value="11">November</option>
-                        <option value="12">Desember</option>
-                    </select>
+                    <input class="form-control" id="month_show" name="month_show" type="text" value="{{ $rea->month }}" disabled />
                 </div>
             </div>
-            <div class="card mb-4">
+            <input type="hidden" id="month" name="month" value="{{ $rea->month }}" />
+            {{-- <div class="card mb-4">
                 <div class="card-header">Anggaran yang Tersedia</div>
                 <div class="card-body">
                     <input class="form-control" id="budget_available" name="budget_available" type="text" placeholder="Anggaran Kas Tersedia" disabled />
@@ -85,7 +67,7 @@
                 <div class="card-body">
                     <input class="form-control" id="budget_cash" name="budget_cash" type="text" placeholder="Anggaran Kas Sampai dengan Bulan Realisasi" disabled />
                 </div>
-            </div>
+            </div> --}}
             <div class="card mb-4">
                 <div class="card-header">Realisasi Anggaran</div>
                 <div class="card-body">
@@ -101,31 +83,31 @@
             <div class="card mb-4">
                 <div class="card-header">Realisasi Kinerja</div>
                 <div class="card-body">
-                    <input class="form-control" id="physic_use" name="physic_use" type="text" placeholder="Masukkan Realisasi Kinerja (contoh: 17 Dokumen atau 45 Pegawai)" />
+                    <input class="form-control" id="physic_use" name="physic_use" type="text" placeholder="Masukkan Realisasi Kinerja (contoh: 17 Dokumen atau 45 Pegawai)" value="{{ $rea->physic_use }}" />
                 </div>
             </div>
             <div class="card mb-4">
                 <div class="card-header">Fisik (%)</div>
                 <div class="card-body">
-                    <input class="form-control" id="performance" name="performance" type="number" placeholder="Masukkan Realisasi Fisik dalam Persentase (contoh: 15)" />
+                    <input class="form-control" id="performance" name="performance" type="number" placeholder="Masukkan Realisasi Fisik dalam Persentase (contoh: 15)" value="{{ $rea->performance }}" />
                 </div>
             </div>
             <div class="card mb-4">
                 <div class="card-header">Kategori Masalah</div>
                 <div class="card-body">
-                    <input class="form-control" id="problem_category" name="problem_category" type="text" placeholder="Masukkan Kategori Masalah (contoh: Lain-lain)" />
+                    <input class="form-control" id="problem_category" name="problem_category" type="text" placeholder="Masukkan Kategori Masalah (contoh: Lain-lain)" value="{{ $rea->problem_category }}" />
                 </div>
             </div>
             <div class="card mb-4">
                 <div class="card-header">Deskripsi Masalah</div>
                 <div class="card-body">
-                    <input class="form-control" id="problem_description" name="problem_description" type="text" placeholder="Masukkan Deskripsi Masalah (contoh: Dibayarkan sesuai kebutuhan)" />
+                    <input class="form-control" id="problem_description" name="problem_description" type="text" placeholder="Masukkan Deskripsi Masalah (contoh: Dibayarkan sesuai kebutuhan)" value="{{ $rea->problem_description }}" />
                 </div>
             </div>
             <div class="card mb-4">
                 <div class="card-header">Solusi Masalah</div>
                 <div class="card-body">
-                    <input class="form-control" id="problem_solution" name="problem_solution" type="text" placeholder="Masukkan Solusi Masalah (contoh: Dibayarkan sesuai kebutuhan)" />
+                    <input class="form-control" id="problem_solution" name="problem_solution" type="text" placeholder="Masukkan Solusi Masalah (contoh: Dibayarkan sesuai kebutuhan)" value="{{ $rea->problem_solution }}" />
                 </div>
             </div>
         </div>
