@@ -27,8 +27,9 @@
     </div>
 </header>
 <!-- Main page content-->
-<form action="{{ route('realization-store') }}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('realization-update', $rea->id) }}" method="POST" enctype="multipart/form-data">
 @csrf
+@method('PUT')
 <div class="container-fluid px-4">
     @include('inc.alert-message')
     <div class="row gx-4">
@@ -39,7 +40,7 @@
                 <div class="card-body">
                     <select class="form-control js-example-basic-single" id="subact" name="subact">
                         @foreach ($subs as $sub_id => $sub)
-                        <option value="{{ $sub_id }}">{{ $sub }}</option>
+                        <option value="{{ $sub_id }}" {{ $sub_id == $rea->sub_activity_id ? 'selected' : '' }}>{{ $sub }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -88,7 +89,7 @@
             <div class="card mb-4">
                 <div class="card-header">Realisasi Anggaran</div>
                 <div class="card-body">
-                    <input class="form-control" id="budget_use" name="budget_use" type="number" placeholder="Masukkan Realisasi Anggaran (contoh: 15000000)" />
+                    <input class="form-control" id="budget_use" name="budget_use" type="number" placeholder="Masukkan Realisasi Anggaran (contoh: 15000000)" value="{{ $rea->budget_use }}" />
                 </div>
             </div>
             <div class="card mb-4">

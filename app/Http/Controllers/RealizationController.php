@@ -150,7 +150,7 @@ class RealizationController extends Controller
         $user = auth()->user();
 
         if(($user->role_id) == 1) {
-            $sub = SubActivity::findOrFail($id);
+            $rea = Realization::findOrFail($id);
 
             $subs = SubActivity::select(
                 DB::raw("CONCAT(sub_activities.sub_activity, ' - ', activities.activity, ' - ', programs.program, ' - ', programs.year, ' - ', regions.name) AS sub_activity_info"), 'sub_activities.id')
@@ -159,7 +159,7 @@ class RealizationController extends Controller
                 ->leftJoin('regions', 'programs.region_id', '=', 'regions.id')
                 ->pluck('sub_activity_info', 'sub_activities.id');
 
-            return view('backend.subactivity.edit')->with('user', $user)->with('sub', $sub)->with('subs', $subs);
+            return view('backend.realization.edit')->with('user', $user)->with('rea', $rea)->with('subs', $subs);
         }
         else {
             return back()->with('status', 'Tidak Punya Akses');
