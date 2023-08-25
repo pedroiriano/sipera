@@ -34,20 +34,12 @@
     @include('inc.alert-message')
     <div class="row gx-4">
         <div class="col-lg-8">
-            @if ($user->role_id == 1)
             <div class="card mb-4">
                 <div class="card-header">Sub Kegiatan</div>
                 <div class="card-body">
-                    <select class="form-control js-example-basic-single" id="subact" name="subact">
-                        @foreach ($subs as $sub_id => $sub)
-                        <option value="{{ $sub_id }}" {{ $sub_id == $rea->sub_activity_id ? 'selected' : '' }}>{{ $sub }}</option>
-                        @endforeach
-                    </select>
+                    <input class="form-control" id="subact_show" name="subact_show" type="text" value="{{ $rea->subactivity->sub_activity }} - {{ $rea->subactivity->activity->activity }} - {{ $rea->subactivity->activity->program->program }} - {{ $rea->subactivity->activity->program->year }}" disabled />
                 </div>
             </div>
-            @else
-            {{-- Other Users --}}
-            @endif
             <div class="card mb-4">
                 <div class="card-header">Bulan</div>
                 <div class="card-body">
@@ -55,10 +47,10 @@
                 </div>
             </div>
             <input type="hidden" id="month" name="month" value="{{ $rea->month }}" />
-            {{-- <div class="card mb-4">
+            <div class="card mb-4">
                 <div class="card-header">Anggaran yang Tersedia</div>
                 <div class="card-body">
-                    <input class="form-control" id="budget_available" name="budget_available" type="text" placeholder="Anggaran Kas Tersedia" disabled />
+                    <input class="form-control" id="budget_available" name="budget_available" type="text" placeholder="Anggaran Kas Tersedia" value="{{ $budget_available }}" disabled />
                 </div>
             </div>
             <input type="hidden" id="available" name="available" />
@@ -67,7 +59,7 @@
                 <div class="card-body">
                     <input class="form-control" id="budget_cash" name="budget_cash" type="text" placeholder="Anggaran Kas Sampai dengan Bulan Realisasi" disabled />
                 </div>
-            </div> --}}
+            </div>
             <div class="card mb-4">
                 <div class="card-header">Realisasi Anggaran</div>
                 <div class="card-body">
@@ -132,7 +124,7 @@
 @endsection
 
 @section('js')
-<script>
+{{-- <script>
 $.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -182,7 +174,7 @@ $("#month").trigger("change");
 function formatToRupiah(number) {
     return number.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' });
 }
-</script>
+</script> --}}
 
 <script>
     $(document).ready(function() {
