@@ -322,14 +322,14 @@ class RealizationController extends Controller
         $subId = $request->input('sub_id');
         $monthId = $request->input('month_id');
 
-        $sumBudget = Realization::where('sub_activity_id', $subId)->sum('budget_use');
+        $sumBudget = Realization::where('sub_activity_id', $subId)->where('month', '<=', $monthId)->sum('budget_use');
 
         switch ($monthId) {
             case 1:
                 $subs_sum = SubActivity::where('id', $subId)
                     ->selectRaw('SUM(budget_01) AS budget')
                     ->first();
-                $budget_available = $subs_sum->budget;
+                $budget_available = ($subs_sum->budget) - $sumBudget;
                 break;
             case 2:
                 $subs_sum = SubActivity::where('id', $subId)
