@@ -158,8 +158,10 @@ class RealizationController extends Controller
                 ->leftJoin('programs', 'activities.program_id', '=', 'programs.id')
                 ->leftJoin('regions', 'programs.region_id', '=', 'regions.id')
                 ->pluck('sub_activity_info', 'sub_activities.id');
-            
+
             $subId = $rea->sub_activity_id;
+
+            $performanceTarget = SubActivity::where('id', $subId)->first()->physic;
 
             $sumBudget = Realization::where('sub_activity_id', $subId)->where('month', '<', $rea->month)->sum('budget_use');
 
@@ -241,7 +243,7 @@ class RealizationController extends Controller
                     break;
             }
 
-            return view('backend.realization.edit')->with('user', $user)->with('rea', $rea)->with('subs', $subs)->with('budget_available', $budget_available);
+            return view('backend.realization.edit')->with('user', $user)->with('rea', $rea)->with('subs', $subs)->with('budget_available', $budget_available)->with('sumBudget', $sumBudget)->with('performanceTarget', $performanceTarget);
         }
         else {
             return back()->with('status', 'Tidak Punya Akses');
@@ -259,87 +261,7 @@ class RealizationController extends Controller
         $subId = $request->input('subact');
         $month = $request->input('month');
 
-        $sumBudget = Realization::where('sub_activity_id', $subId)->sum('budget_use');
-
-        switch ($month) {
-            case 1:
-                $subs_sum = SubActivity::where('id', $subId)
-                    ->selectRaw('SUM(budget_01) AS budget')
-                    ->first();
-                $budget_available = $subs_sum->budget;
-                break;
-            case 2:
-                $subs_sum = SubActivity::where('id', $subId)
-                    ->selectRaw('SUM(budget_01 + budget_02) AS budget')
-                    ->first();
-                $budget_available = ($subs_sum->budget) - $sumBudget;
-                break;
-            case 3:
-                $subs_sum = SubActivity::where('id', $subId)
-                    ->selectRaw('SUM(budget_01 + budget_02 + budget_03) AS budget')
-                    ->first();
-                $budget_available = ($subs_sum->budget) - $sumBudget;
-                break;
-            case 4:
-                $subs_sum = SubActivity::where('id', $subId)
-                    ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04) AS budget')
-                    ->first();
-                $budget_available = ($subs_sum->budget) - $sumBudget;
-                break;
-            case 5:
-                $subs_sum = SubActivity::where('id', $subId)
-                    ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05) AS budget')
-                    ->first();
-                $budget_available = ($subs_sum->budget) - $sumBudget;
-                break;
-            case 6:
-                $subs_sum = SubActivity::where('id', $subId)
-                    ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06) AS budget')
-                    ->first();
-                $budget_available = ($subs_sum->budget) - $sumBudget;
-                break;
-            case 7:
-                $subs_sum = SubActivity::where('id', $subId)
-                    ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07) AS budget')
-                    ->first();
-                $budget_available = ($subs_sum->budget) - $sumBudget;
-                break;
-            case 8:
-                $subs_sum = SubActivity::where('id', $subId)
-                    ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08) AS budget')
-                    ->first();
-                $budget_available = ($subs_sum->budget) - $sumBudget;
-                break;
-            case 9:
-                $subs_sum = SubActivity::where('id', $subId)
-                    ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09) AS budget')
-                    ->first();
-                $budget_available = ($subs_sum->budget) - $sumBudget;
-                break;
-            case 10:
-                $subs_sum = SubActivity::where('id', $subId)
-                    ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09 + budget_10) AS budget')
-                    ->first();
-                $budget_available = ($subs_sum->budget) - $sumBudget;
-                break;
-            case 11:
-                $subs_sum = SubActivity::where('id', $subId)
-                    ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09 + budget_10 + budget_11) AS budget')
-                    ->first();
-                $budget_available = ($subs_sum->budget) - $sumBudget;
-                break;
-            case 12:
-                $subs_sum = SubActivity::where('id', $subId)
-                    ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09 + budget_10 + budget_11 + budget_12) AS budget')
-                    ->first();
-                $budget_available = ($subs_sum->budget) - $sumBudget;
-                break;
-            default:
-                $budget_available = 'Terjadi Kesalahan Data';
-                break;
-        }
-
-        $budget_remaining = $budget_available - $request->input('budget_use');
+        $budget_remaining = $request->input('available') - $request->input('budget_use');
 
         $rea = Realization::findOrFail($id);
         $rea->month = $request->input('month');

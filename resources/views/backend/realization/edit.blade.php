@@ -40,6 +40,7 @@
                     <input class="form-control" id="subact_show" name="subact_show" type="text" value="{{ $rea->subactivity->sub_activity }} - {{ $rea->subactivity->activity->activity }} - {{ $rea->subactivity->activity->program->program }} - {{ $rea->subactivity->activity->program->year }}" disabled />
                 </div>
             </div>
+            <input type="hidden" id="subact" name="subact" value="{{ $rea->sub_activity_id }}" />
             <div class="card mb-4">
                 <div class="card-header">Bulan</div>
                 <div class="card-body">
@@ -53,11 +54,11 @@
                     <input class="form-control" id="budget_available" name="budget_available" type="text" placeholder="Anggaran Kas Tersedia" value="{{ $budget_available }}" disabled />
                 </div>
             </div>
-            <input type="hidden" id="available" name="available" />
+            <input type="hidden" id="available" name="available" value="{{ $budget_available }}" />
             <div class="card mb-4">
                 <div class="card-header">Anggaran Kas yang Telah Digunakan</div>
                 <div class="card-body">
-                    <input class="form-control" id="budget_cash" name="budget_cash" type="text" placeholder="Anggaran Kas Sampai dengan Bulan Realisasi" disabled />
+                    <input class="form-control" id="budget_cash" name="budget_cash" type="text" placeholder="Anggaran Kas Sampai dengan Bulan Realisasi" value="{{ $sumBudget }}" disabled />
                 </div>
             </div>
             <div class="card mb-4">
@@ -69,7 +70,7 @@
             <div class="card mb-4">
                 <div class="card-header">Target Kinerja</div>
                 <div class="card-body">
-                    <input class="form-control" id="physic" name="physic" type="text" placeholder="Target Kinerja" disabled />
+                    <input class="form-control" id="physic" name="physic" type="text" placeholder="Target Kinerja" value="{{ $performanceTarget }}" disabled />
                 </div>
             </div>
             <div class="card mb-4">
@@ -124,64 +125,6 @@
 @endsection
 
 @section('js')
-{{-- <script>
-$.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-});
-
-$("#subact").change(function() {
-    var subId = $(this).val();
-
-    $.ajax({
-        url: "{{ route('get-target') }}",
-        type: "POST",
-        data: { sub_id: subId },
-        success: function(response) {
-            $('#physic').val(response.performance_target);
-            $('#budget_cash').val(response.sum_budget);
-            $('#realization_count').val(response.realization_count);
-        },
-        error: function(xhr, status, error) {
-            console.error(error);
-        }
-    });
-});
-
-$("#subact").trigger("change");
-
-$("#month").change(function() {
-    var subId = $("#subact").val();
-    var monthId = $(this).val();
-
-    $.ajax({
-        url: "{{ route('get-budget') }}",
-        type: "POST",
-        data: { sub_id: subId, month_id: monthId },
-        success: function(response) {
-            $('#budget_available').val(response.budget_available);
-            $('#available').val(response.budget_available);
-        },
-        error: function(xhr, status, error) {
-            console.error(error);
-        }
-    });
-});
-
-$("#month").trigger("change");
-
-function formatToRupiah(number) {
-    return number.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' });
-}
-</script> --}}
-
-<script>
-    $(document).ready(function() {
-        $('.js-example-basic-single').select2();
-    });
-</script>
-
 <script>
 var budgetUseInput = document.getElementById("budget_use");
 var budgetAvailableInput = document.getElementById("budget_available");
