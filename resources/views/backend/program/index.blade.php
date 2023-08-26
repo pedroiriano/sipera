@@ -60,7 +60,7 @@
                     </tr>
                 </tfoot>
                 <tbody>
-                    @if ((auth()->user()->role_id) == 1)
+                    @if (((auth()->user()->role_id) == 1) || ((auth()->user()->role_id) == 2))
                         @if (count($pros) > 0)
                             @foreach ($pros as $pro)
                                 <tr>

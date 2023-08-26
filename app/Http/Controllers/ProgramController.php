@@ -18,10 +18,27 @@ class ProgramController extends Controller
     {
         $user = auth()->user();
 
-        if(($user->role_id) == 1) {
+        if (($user->role_id) == 1) {
             $pros = Program::all();
 
             return view('backend.program.index')->with('user', $user)->with('pros', $pros);
+        }
+        else if (($user->role_id) == 2) {
+            if (($user->region->parent_id) == NULL) {
+                $regionIds = DB::table('regions')
+                ->where('id', '=', $user->region->id)
+                ->orWhere('parent_id', '=', $user->region->id)
+                ->pluck('id');
+
+                $pros = Program::whereIn('region_id', $regionIds)->get();
+
+                return view('backend.program.index')->with('user', $user)->with('pros', $pros);
+            }
+            else {
+                $pros = Program::where('region_id', $user->region->id)->get();
+
+                return view('backend.program.index')->with('user', $user)->with('pros', $pros);
+            }
         }
         else {
             return back()->with('status', 'Tidak Punya Akses');
@@ -32,7 +49,8 @@ class ProgramController extends Controller
     {
         $user = auth()->user();
 
-        $pars = Region::select(
+        if (($user->role_id) == 1) {
+            $pars = Region::select(
                 'regions.id',
                 'regions.name',
                 'regions.address',
@@ -42,20 +60,47 @@ class ProgramController extends Controller
                 ->leftJoin('regions as parent', 'regions.parent_id', '=', 'parent.id')
                 ->get();
 
-        $regs = collect();
+            $regs = collect();
 
-        foreach ($pars as $par) {
-            if ($par->parent_id !== null) {
-                $districtInfo = "Kelurahan {$par->name} - Kecamatan {$par->parent_name}";
-                $regs->put($par->id, $districtInfo);
+            foreach ($pars as $par) {
+                if ($par->parent_id !== null) {
+                    $districtInfo = "Kelurahan {$par->name} - Kecamatan {$par->parent_name}";
+                    $regs->put($par->id, $districtInfo);
+                }
+                else {
+                    $districtInfo = "Kecamatan {$par->name}";
+                    $regs->put($par->id, $districtInfo);
+                }
             }
-            else {
-                $districtInfo = "Kecamatan {$par->name}";
-                $regs->put($par->id, $districtInfo);
-            }
+
+            return view('backend.program.create')->with('user', $user)->with('regs', $regs);
         }
+        else if (($user->role_id) == 2) {
+            $pars = Region::select(
+                'regions.id',
+                'regions.name',
+                'regions.address',
+                'regions.parent_id',
+                DB::raw("IFNULL(parent.name, '') as parent_name")
+                )
+                ->leftJoin('regions as parent', 'regions.parent_id', '=', 'parent.id')
+                ->where('regions.id', '=', $user->region->id)
+                ->orWhere('regions.parent_id', '=', $user->region->id)
+                ->get();
 
-        if(($user->role_id) == 1) {
+            $regs = collect();
+
+            foreach ($pars as $par) {
+                if ($par->parent_id !== null) {
+                    $districtInfo = "Kelurahan {$par->name} - Kecamatan {$par->parent_name}";
+                    $regs->put($par->id, $districtInfo);
+                }
+                else {
+                    $districtInfo = "Kecamatan {$par->name}";
+                    $regs->put($par->id, $districtInfo);
+                }
+            }
+
             return view('backend.program.create')->with('user', $user)->with('regs', $regs);
         }
         else {

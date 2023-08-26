@@ -45,7 +45,7 @@
                     <input class="form-control" id="year" name="year" type="number" placeholder="Masukkan Tahun Anggaran (contoh: 2023)" required />
                 </div>
             </div>
-            @if ($user->role_id == 1)
+            @if (($user->role_id == 1) || ($user->role_id == 2))
             <div class="card mb-4">
                 <div class="card-header">Perangkat Daerah</div>
                 <div class="card-body">
