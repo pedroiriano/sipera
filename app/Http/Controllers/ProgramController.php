@@ -181,6 +181,36 @@ class ProgramController extends Controller
 
             return view('backend.program.edit')->with('user', $user)->with('pro', $pro)->with('regs', $regs);
         }
+        else if (($user->role_id) == 2) {
+            $pro = Program::findOrFail($id);
+
+            $pars = Region::select(
+                'regions.id',
+                'regions.name',
+                'regions.address',
+                'regions.parent_id',
+                DB::raw("IFNULL(parent.name, '') as parent_name")
+                )
+                ->leftJoin('regions as parent', 'regions.parent_id', '=', 'parent.id')
+                ->where('regions.id', '=', $user->region->id)
+                ->orWhere('regions.parent_id', '=', $user->region->id)
+                ->get();
+
+            $regs = collect();
+
+            foreach ($pars as $par) {
+                if ($par->parent_id !== null) {
+                    $districtInfo = "Kelurahan {$par->name} - Kecamatan {$par->parent_name}";
+                    $regs->put($par->id, $districtInfo);
+                }
+                else {
+                    $districtInfo = "Kecamatan {$par->name}";
+                    $regs->put($par->id, $districtInfo);
+                }
+            }
+
+            return view('backend.program.edit')->with('user', $user)->with('pro', $pro)->with('regs', $regs);
+        }
         else {
             return back()->with('status', 'Tidak Punya Akses');
         }
