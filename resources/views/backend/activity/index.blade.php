@@ -62,15 +62,15 @@
                     </tr>
                 </tfoot>
                 <tbody>
-                    @if ((auth()->user()->role_id) == 1)
+                    @if (((auth()->user()->role_id) == 1) || ((auth()->user()->role_id) == 2))
                         @if (count($acts) > 0)
                             @foreach ($acts as $act)
                                 <tr>
                                     <td>{{ $act->activity }}</td>
                                     <td>{{ $act->budget }}</td>
-                                    <td>{{ $act->program->program }}</td>
-                                    <td>{{ $act->program->year }}</td>
-                                    <td>{{ $act->program->region->name }}</td>
+                                    <td>{{ $act->program }}</td>
+                                    <td>{{ $act->year }}</td>
+                                    <td>{{ $act->name }}</td>
                                     <td class="text-center">
                                         <button class="btn btn-datatable btn-icon btn-transparent-dark ms-2 me-2">
                                             <a class="text-decoration-none text-muted" href="/activity/{{ $act->id }}">

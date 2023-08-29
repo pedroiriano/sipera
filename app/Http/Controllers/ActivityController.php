@@ -24,6 +24,27 @@ class ActivityController extends Controller
 
             return view('backend.activity.index')->with('user', $user)->with('acts', $acts);
         }
+        else if (($user->role_id) == 2) {
+            if (($user->region->parent_id) == NULL) {
+                $regionIds = DB::table('regions')
+                ->where('id', '=', $user->region->id)
+                ->orWhere('parent_id', '=', $user->region->id)
+                ->pluck('id');
+
+                $acts = Activity::whereIn('region_id', $regionIds)
+                ->leftJoin('programs', 'activities.program_id', '=', 'programs.id')
+                ->leftJoin('regions', 'programs.region_id', '=', 'regions.id')
+                ->select('activities.*', 'programs.*', 'regions.name')
+                ->get();
+
+                return view('backend.activity.index')->with('user', $user)->with('acts', $acts);
+            }
+            else {
+                $acts = Activity::where('region_id', $user->region->id)->get();
+
+                return view('backend.activity.index')->with('user', $user)->with('acts', $acts);
+            }
+        }
         else {
             return back()->with('status', 'Tidak Punya Akses');
         }
