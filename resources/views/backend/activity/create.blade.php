@@ -39,7 +39,7 @@
                     <input class="form-control" id="activity" name="activity" type="text" placeholder="Masukkan Nama Kegiatan (contoh: Penyediaan Gaji)" />
                 </div>
             </div>
-            @if ($user->role_id == 1)
+            @if (($user->role_id == 1) || ($user->role_id == 2))
             <div class="card mb-4">
                 <div class="card-header">Program</div>
                 <div class="card-body">

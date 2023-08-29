@@ -40,7 +40,11 @@ class ActivityController extends Controller
                 return view('backend.activity.index')->with('user', $user)->with('acts', $acts);
             }
             else {
-                $acts = Activity::where('region_id', $user->region->id)->get();
+                $acts = Activity::where('region_id', $user->region->id)
+                ->leftJoin('programs', 'activities.program_id', '=', 'programs.id')
+                ->leftJoin('regions', 'programs.region_id', '=', 'regions.id')
+                ->select('activities.*', 'programs.*', 'regions.name')
+                ->get();
 
                 return view('backend.activity.index')->with('user', $user)->with('acts', $acts);
             }
@@ -54,13 +58,38 @@ class ActivityController extends Controller
     {
         $user = auth()->user();
 
-        $pros = Program::select(
+        if(($user->role_id) == 1) {
+            $pros = Program::select(
             DB::raw("CONCAT(programs.program, ' - ', programs.year, ' - ', regions.name) AS program_info"), 'programs.id')
             ->leftJoin('regions', 'programs.region_id', '=', 'regions.id')
             ->pluck('program_info', 'programs.id');
 
-        if(($user->role_id) == 1) {
             return view('backend.activity.create')->with('user', $user)->with('pros', $pros);
+        }
+        else if (($user->role_id) == 2) {
+            if (($user->region->parent_id) == NULL) {
+                $regionIds = DB::table('regions')
+                ->where('id', '=', $user->region->id)
+                ->orWhere('parent_id', '=', $user->region->id)
+                ->pluck('id');
+
+                $pros = Program::select(
+                DB::raw("CONCAT(programs.program, ' - ', programs.year, ' - ', regions.name) AS program_info"), 'programs.id')
+                ->leftJoin('regions', 'programs.region_id', '=', 'regions.id')
+                ->whereIn('programs.region_id', $regionIds)
+                ->pluck('program_info', 'programs.id');
+
+                return view('backend.activity.create')->with('user', $user)->with('pros', $pros);
+            }
+            else {
+                $pros = Program::select(
+                DB::raw("CONCAT(programs.program, ' - ', programs.year, ' - ', regions.name) AS program_info"), 'programs.id')
+                ->leftJoin('regions', 'programs.region_id', '=', 'regions.id')
+                ->where('programs.region_id', $user->region->id)
+                ->pluck('program_info', 'programs.id');
+
+                return view('backend.activity.create')->with('user', $user)->with('pros', $pros);
+            }
         }
         else {
             return back()->with('status', 'Tidak Punya Akses');
