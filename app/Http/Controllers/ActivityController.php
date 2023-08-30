@@ -139,12 +139,25 @@ class ActivityController extends Controller
     {
         $user = auth()->user();
 
-        if(($user->role_id) == 1) {
+        if (($user->role_id) == 1) {
             $act = Activity::findOrFail($id);
 
             $pros = Program::select(
                 DB::raw("CONCAT(programs.program, ' - ', programs.year, ' - ', regions.name) AS program_info"), 'programs.id')
                 ->leftJoin('regions', 'programs.region_id', '=', 'regions.id')
+                ->pluck('program_info', 'programs.id');
+
+            return view('backend.activity.edit')->with('user', $user)->with('act', $act)->with('pros', $pros);
+        }
+        else if (($user->role_id) == 2) {
+            $act = Activity::findOrFail($id);
+
+            $pros = Program::select(
+                DB::raw("CONCAT(programs.program, ' - ', programs.year, ' - ', regions.name) AS program_info"), 'programs.id')
+                ->leftJoin('regions', 'programs.region_id', '=', 'regions.id')
+                ->leftJoin('regions as parent', 'regions.parent_id', '=', 'parent.id')
+                ->where('regions.id', '=', $user->region->id)
+                ->orWhere('regions.parent_id', '=', $user->region->id)
                 ->pluck('program_info', 'programs.id');
 
             return view('backend.activity.edit')->with('user', $user)->with('act', $act)->with('pros', $pros);
