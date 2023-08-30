@@ -276,7 +276,7 @@ class SubActivityController extends Controller
 
             $act = Activity::findOrFail($request->input('activity'));
             // dd($act->budget);
-            $act->budget = $act->budget - $sub_sum->budget_total + $act_sum;
+            $act->budget = ($act->budget - $sub_sum->budget_total) + $act_sum;
 
             $act->save();
 
