@@ -315,14 +315,14 @@ class SubActivityController extends Controller
                     ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09 + budget_10 + budget_11 + budget_12) AS budget_total')
                     ->groupBy('id')
                     ->first();
-                dd($sub_sum->budget_total);
+                // dd($sub_sum->budget_total);
 
                 $act_sum = $request->input('budget_01') + $request->input('budget_02') + $request->input('budget_03') + $request->input('budget_04') + $request->input('budget_05') + $request->input('budget_06') + $request->input('budget_07') + $request->input('budget_08') + $request->input('budget_09') + $request->input('budget_10') + $request->input('budget_11') + $request->input('budget_12');
-                dd($act_sum);
+                // dd($act_sum);
 
                 $act = Activity::findOrFail($request->input('activity'));
-                dd($act->budget);
-                $act->budget = $act->budget - $sub_sum->budget_total + $act_sum;
+                // dd($act->budget);
+                $act->budget = ($act->budget - $sub_sum->budget_total) + $act_sum;
 
                 $act->save();
 
