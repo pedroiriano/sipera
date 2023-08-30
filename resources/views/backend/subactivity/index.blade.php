@@ -66,17 +66,17 @@
                     </tr>
                 </tfoot>
                 <tbody>
-                    @if ((auth()->user()->role_id) == 1)
+                    @if (((auth()->user()->role_id) == 1) || ((auth()->user()->role_id) == 2))
                         @if (count($subs) > 0)
                             @foreach ($subs as $sub)
                                 <tr>
                                     <td>{{ $sub->sub_activity }}</td>
                                     <td>{{ $sub->budget }}</td>
                                     <td>{{ $sub->physic }}</td>
-                                    <td>{{ $sub->activity->activity }}</td>
-                                    <td>{{ $sub->activity->program->program }}</td>
-                                    <td>{{ $sub->activity->program->year }}</td>
-                                    <td>{{ $sub->activity->program->region->name }}</td>
+                                    <td>{{ $sub->activity }}</td>
+                                    <td>{{ $sub->program }}</td>
+                                    <td>{{ $sub->year }}</td>
+                                    <td>{{ $sub->name }}</td>
                                     <td class="text-center">
                                         <button class="btn btn-datatable btn-icon btn-transparent-dark ms-2 me-2">
                                             <a class="text-decoration-none text-muted" href="/sub/{{ $sub->id }}">
