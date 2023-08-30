@@ -310,6 +310,105 @@ class RealizationController extends Controller
 
             return view('backend.realization.edit')->with('user', $user)->with('rea', $rea)->with('subs', $subs)->with('budget_available', $budget_available)->with('sumBudget', $sumBudget)->with('performanceTarget', $performanceTarget);
         }
+        else if (($user->role_id) == 2) {
+            $rea = Realization::findOrFail($id);
+
+            $subs = SubActivity::select(
+                DB::raw("CONCAT(sub_activities.sub_activity, ' - ', activities.activity, ' - ', programs.program, ' - ', programs.year, ' - ', regions.name) AS sub_activity_info"), 'sub_activities.id')
+                ->leftJoin('activities', 'sub_activities.activity_id', '=', 'activities.id')
+                ->leftJoin('programs', 'activities.program_id', '=', 'programs.id')
+                ->leftJoin('regions', 'programs.region_id', '=', 'regions.id')
+                ->leftJoin('regions as parent', 'regions.parent_id', '=', 'parent.id')
+                ->where('regions.id', '=', $user->region->id)
+                ->orWhere('regions.parent_id', '=', $user->region->id)
+                ->pluck('sub_activity_info', 'sub_activities.id');
+
+            $subId = $rea->sub_activity_id;
+
+            $performanceTarget = SubActivity::where('id', $subId)->first()->physic;
+
+            $sumBudget = Realization::where('sub_activity_id', $subId)->where('month', '<', $rea->month)->sum('budget_use');
+
+            switch ($rea->month) {
+                case 1:
+                    $subs_sum = SubActivity::where('id', $subId)
+                        ->selectRaw('SUM(budget_01) AS budget')
+                        ->first();
+                    $budget_available = $subs_sum->budget;
+                    break;
+                case 2:
+                    $subs_sum = SubActivity::where('id', $subId)
+                        ->selectRaw('SUM(budget_01 + budget_02) AS budget')
+                        ->first();
+                    $budget_available = ($subs_sum->budget) - $sumBudget;
+                    break;
+                case 3:
+                    $subs_sum = SubActivity::where('id', $subId)
+                        ->selectRaw('SUM(budget_01 + budget_02 + budget_03) AS budget')
+                        ->first();
+                    $budget_available = ($subs_sum->budget) - $sumBudget;
+                    break;
+                case 4:
+                    $subs_sum = SubActivity::where('id', $subId)
+                        ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04) AS budget')
+                        ->first();
+                    $budget_available = ($subs_sum->budget) - $sumBudget;
+                    break;
+                case 5:
+                    $subs_sum = SubActivity::where('id', $subId)
+                        ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05) AS budget')
+                        ->first();
+                    $budget_available = ($subs_sum->budget) - $sumBudget;
+                    break;
+                case 6:
+                    $subs_sum = SubActivity::where('id', $subId)
+                        ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06) AS budget')
+                        ->first();
+                    $budget_available = ($subs_sum->budget) - $sumBudget;
+                    break;
+                case 7:
+                    $subs_sum = SubActivity::where('id', $subId)
+                        ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07) AS budget')
+                        ->first();
+                    $budget_available = ($subs_sum->budget) - $sumBudget;
+                    break;
+                case 8:
+                    $subs_sum = SubActivity::where('id', $subId)
+                        ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08) AS budget')
+                        ->first();
+                    $budget_available = ($subs_sum->budget) - $sumBudget;
+                    break;
+                case 9:
+                    $subs_sum = SubActivity::where('id', $subId)
+                        ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09) AS budget')
+                        ->first();
+                    $budget_available = ($subs_sum->budget) - $sumBudget;
+                    break;
+                case 10:
+                    $subs_sum = SubActivity::where('id', $subId)
+                        ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09 + budget_10) AS budget')
+                        ->first();
+                    $budget_available = ($subs_sum->budget) - $sumBudget;
+                    break;
+                case 11:
+                    $subs_sum = SubActivity::where('id', $subId)
+                        ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09 + budget_10 + budget_11) AS budget')
+                        ->first();
+                    $budget_available = ($subs_sum->budget) - $sumBudget;
+                    break;
+                case 12:
+                    $subs_sum = SubActivity::where('id', $subId)
+                        ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09 + budget_10 + budget_11 + budget_12) AS budget')
+                        ->first();
+                    $budget_available = ($subs_sum->budget) - $sumBudget;
+                    break;
+                default:
+                    $budget_available = 'Terjadi Kesalahan Data';
+                    break;
+            }
+
+            return view('backend.realization.edit')->with('user', $user)->with('rea', $rea)->with('subs', $subs)->with('budget_available', $budget_available)->with('sumBudget', $sumBudget)->with('performanceTarget', $performanceTarget);
+        }
         else {
             return back()->with('status', 'Tidak Punya Akses');
         }
