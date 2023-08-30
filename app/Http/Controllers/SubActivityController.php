@@ -87,12 +87,6 @@ class SubActivityController extends Controller
                 ->orWhere('parent_id', '=', $user->region->id)
                 ->pluck('id');
 
-                // $pros = Program::select(
-                // DB::raw("CONCAT(programs.program, ' - ', programs.year, ' - ', regions.name) AS program_info"), 'programs.id')
-                // ->leftJoin('regions', 'programs.region_id', '=', 'regions.id')
-                // ->whereIn('programs.region_id', $regionIds)
-                // ->pluck('program_info', 'programs.id');
-
                 $acts = Activity::select(
                 DB::raw("CONCAT(activities.activity, ' - ', programs.program, ' - ', programs.year, ' - ', regions.name) AS activity_info"), 'activities.id')
                 ->leftJoin('programs', 'activities.program_id', '=', 'programs.id')
@@ -103,11 +97,12 @@ class SubActivityController extends Controller
                 return view('backend.subactivity.create')->with('user', $user)->with('acts', $acts);
             }
             else {
-                $pros = Program::select(
-                DB::raw("CONCAT(programs.program, ' - ', programs.year, ' - ', regions.name) AS program_info"), 'programs.id')
+                $acts = Activity::select(
+                DB::raw("CONCAT(activities.activity, ' - ', programs.program, ' - ', programs.year, ' - ', regions.name) AS activity_info"), 'activities.id')
+                ->leftJoin('programs', 'activities.program_id', '=', 'programs.id')
                 ->leftJoin('regions', 'programs.region_id', '=', 'regions.id')
                 ->where('programs.region_id', $user->region->id)
-                ->pluck('program_info', 'programs.id');
+                ->pluck('activity_info', 'activities.id');
 
                 return view('backend.subactivity.create')->with('user', $user)->with('acts', $acts);
             }

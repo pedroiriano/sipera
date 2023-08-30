@@ -143,7 +143,7 @@
                     <input class="form-control" id="physic" name="physic" type="text" placeholder="Masukkan Target Kinerja (contoh: 83 Orang atau 17 Dokumen)" required />
                 </div>
             </div>
-            @if ($user->role_id == 1)
+            @if (($user->role_id == 1) || ($user->role_id == 2))
             <div class="card mb-4">
                 <div class="card-header">Kegiatan</div>
                 <div class="card-body">
