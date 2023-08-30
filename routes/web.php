@@ -12,6 +12,7 @@ use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\SubActivityController;
 use App\Http\Controllers\RealizationController;
+use App\Http\Controllers\MonitoringController;
 
 Route::get('/', [PagesController::class, 'index'])->name('home');
 
@@ -84,3 +85,6 @@ Route::put('/realization/{realization}', [RealizationController::class, 'update'
 Route::delete('/realization/{realization}', [RealizationController::class, 'destroy'])->name('realization-delete');
 Route::post('/get-target', [RealizationController::class, 'getTarget'])->name('get-target');
 Route::post('/get-budget', [RealizationController::class, 'getBudget'])->name('get-budget');
+
+Route::get('/monitoring/performance', [MonitoringController::class, 'performance'])->name('performance');
+Route::get('/monitoring/problem', [MonitoringController::class, 'problem'])->name('problem');

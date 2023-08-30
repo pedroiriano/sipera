@@ -7,16 +7,16 @@
                 <!-- Sidenav Accordion (Dashboard)-->
                 <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseDashboards" aria-expanded="false" aria-controls="collapseDashboards">
                     <div class="nav-link-icon"><i data-feather="activity"></i></div>
-                    Dasbor
+                    Monitoring
                     <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
                 <div class="collapse" id="collapseDashboards" data-bs-parent="#accordionSidenav">
                     <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavDashboards">
-                        <a class="nav-link" href="">
-                            Statistik Umum
+                        <a class="nav-link" href="{{ route('performance') }}">
+                            Capaian Kinerja Kegiatan
                         </a>
-                        <a class="nav-link" href="">
-                            Statistik Capaian Kinerja
+                        <a class="nav-link" href="{{ route('problem') }}">
+                            Permasalahan Penyerapan Anggaran Kegiatan
                         </a>
                     </nav>
                 </div>
