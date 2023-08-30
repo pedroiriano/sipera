@@ -91,11 +91,11 @@
                                                 <i data-feather="edit"></i>
                                             </a>
                                         </button>
-                                        {{-- <button class="btn btn-datatable btn-icon btn-transparent-dark ms-2 me-2 delete-realization" data-bs-toggle="modal" data-bs-target="#deleteModal" data-url="{{ route('realization-delete', $rea->id) }}">
+                                        <button class="btn btn-datatable btn-icon btn-transparent-dark ms-2 me-2 delete-realization" data-bs-toggle="modal" data-bs-target="#deleteModal" data-url="{{ route('realization-delete', $rea->id) }}">
                                             <a class="text-decoration-none text-muted">
                                                 <i data-feather="trash-2"></i>
                                             </a>
-                                        </button> --}}
+                                        </button>
                                     </td>
                                 </tr>
                             @endforeach

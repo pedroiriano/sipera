@@ -21,10 +21,10 @@
                         <i class="me-1" data-feather="edit"></i>
                         Ubah
                     </a>
-                    {{-- <a class="btn btn-sm btn-light text-primary" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                    <a class="btn btn-sm btn-light text-primary" data-bs-toggle="modal" data-bs-target="#deleteModal">
                         <i class="me-1" data-feather="trash-2"></i>
                         Hapus
-                    </a> --}}
+                    </a>
                     <a class="btn btn-sm btn-light text-primary" href="{{ route('activity') }}">
                         <i class="me-1" data-feather="arrow-left"></i>
                         Kembali ke Tabel Kegiatan
