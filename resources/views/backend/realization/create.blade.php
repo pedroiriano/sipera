@@ -33,7 +33,7 @@
     @include('inc.alert-message')
     <div class="row gx-4">
         <div class="col-lg-8">
-            @if ($user->role_id == 1)
+            @if (((auth()->user()->role_id) == 1) || ((auth()->user()->role_id) == 2))
             <div class="card mb-4">
                 <div class="card-header">Sub Kegiatan</div>
                 <div class="card-body">

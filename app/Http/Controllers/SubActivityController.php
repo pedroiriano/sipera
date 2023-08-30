@@ -25,7 +25,7 @@ class SubActivityController extends Controller
             ->leftJoin('programs', 'activities.program_id', '=', 'programs.id')
             ->leftJoin('regions', 'programs.region_id', '=', 'regions.id')
             ->select('sub_activities.*', 'activities.activity', 'activities.budget', 'programs.program', 'programs.year', 'regions.name', DB::raw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09 + budget_10 + budget_11 + budget_12) AS budget'))
-            ->groupBy('sub_activities.id', 'activities.id', 'programs.id', 'regions.name')
+            ->groupBy('sub_activities.id')
             ->get();
 
             return view('backend.subactivity.index')->with('user', $user)->with('subs', $subs);
@@ -42,7 +42,7 @@ class SubActivityController extends Controller
                 ->leftJoin('programs', 'activities.program_id', '=', 'programs.id')
                 ->leftJoin('regions', 'programs.region_id', '=', 'regions.id')
                 ->select('sub_activities.*', 'activities.activity', 'activities.budget', 'programs.program', 'programs.year', 'regions.name', DB::raw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09 + budget_10 + budget_11 + budget_12) AS budget'))
-                ->groupBy('sub_activities.id', 'activities.id', 'programs.id', 'regions.name')
+                ->groupBy('sub_activities.id')
                 ->get();
 
                 return view('backend.subactivity.index')->with('user', $user)->with('subs', $subs);
@@ -53,7 +53,7 @@ class SubActivityController extends Controller
                 ->leftJoin('programs', 'activities.program_id', '=', 'programs.id')
                 ->leftJoin('regions', 'programs.region_id', '=', 'regions.id')
                 ->select('sub_activities.*', 'activities.activity', 'activities.budget', 'programs.program', 'programs.year', 'regions.name', DB::raw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09 + budget_10 + budget_11 + budget_12) AS budget'))
-                ->groupBy('sub_activities.id', 'activities.id', 'programs.id', 'regions.name')
+                ->groupBy('sub_activities.id')
                 ->get();
 
                 return view('backend.subactivity.index')->with('user', $user)->with('subs', $subs);

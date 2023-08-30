@@ -24,7 +24,43 @@ class RealizationController extends Controller
         if(($user->role_id) == 1) {
             $reas = Realization::all();
 
+            $reas = Realization::leftJoin('sub_activities', 'realizations.sub_activity_id', '=', 'sub_activities.id')
+            ->leftJoin('activities', 'sub_activities.activity_id', '=', 'activities.id')
+            ->leftJoin('programs', 'activities.program_id', '=', 'programs.id')
+            ->leftJoin('regions', 'programs.region_id', '=', 'regions.id')
+            ->select('realizations.*', 'sub_activities.sub_activity', 'sub_activities.physic', 'activities.activity', 'activities.budget', 'programs.program', 'programs.year', 'regions.name')
+            ->get();
+
             return view('backend.realization.index')->with('user', $user)->with('reas', $reas);
+        }
+        else if (($user->role_id) == 2) {
+            if (($user->region->parent_id) == NULL) {
+                $regionIds = DB::table('regions')
+                ->where('id', '=', $user->region->id)
+                ->orWhere('parent_id', '=', $user->region->id)
+                ->pluck('id');
+
+                $reas = Realization::whereIn('region_id', $regionIds)
+                ->leftJoin('sub_activities', 'realizations.sub_activity_id', '=', 'sub_activities.id')
+                ->leftJoin('activities', 'sub_activities.activity_id', '=', 'activities.id')
+                ->leftJoin('programs', 'activities.program_id', '=', 'programs.id')
+                ->leftJoin('regions', 'programs.region_id', '=', 'regions.id')
+                ->select('realizations.*', 'sub_activities.sub_activity', 'sub_activities.physic', 'activities.activity', 'activities.budget', 'programs.program', 'programs.year', 'regions.name')
+                ->get();
+
+                return view('backend.realization.index')->with('user', $user)->with('reas', $reas);
+            }
+            else {
+                $reas = Realization::where('region_id', $user->region->id)
+                ->leftJoin('sub_activities', 'realizations.sub_activity_id', '=', 'sub_activities.id')
+                ->leftJoin('activities', 'sub_activities.activity_id', '=', 'activities.id')
+                ->leftJoin('programs', 'activities.program_id', '=', 'programs.id')
+                ->leftJoin('regions', 'programs.region_id', '=', 'regions.id')
+                ->select('realizations.*', 'sub_activities.sub_activity', 'sub_activities.physic', 'activities.activity', 'activities.budget', 'programs.program', 'programs.year', 'regions.name')
+                ->get();
+
+                return view('backend.realization.index')->with('user', $user)->with('reas', $reas);
+            }
         }
         else {
             return back()->with('status', 'Tidak Punya Akses');
@@ -35,15 +71,44 @@ class RealizationController extends Controller
     {
         $user = auth()->user();
 
-        $subs = SubActivity::select(
+        if(($user->role_id) == 1) {
+            $subs = SubActivity::select(
             DB::raw("CONCAT(sub_activities.sub_activity, ' - ', activities.activity, ' - ', programs.program, ' - ', programs.year, ' - ', regions.name) AS sub_activity_info"), 'sub_activities.id')
             ->leftJoin('activities', 'sub_activities.activity_id', '=', 'activities.id')
             ->leftJoin('programs', 'activities.program_id', '=', 'programs.id')
             ->leftJoin('regions', 'programs.region_id', '=', 'regions.id')
             ->pluck('sub_activity_info', 'sub_activities.id');
 
-        if(($user->role_id) == 1) {
             return view('backend.realization.create')->with('user', $user)->with('subs', $subs);
+        }
+        else if (($user->role_id) == 2) {
+            if (($user->region->parent_id) == NULL) {
+                $regionIds = DB::table('regions')
+                ->where('id', '=', $user->region->id)
+                ->orWhere('parent_id', '=', $user->region->id)
+                ->pluck('id');
+
+                $subs = SubActivity::select(
+                DB::raw("CONCAT(sub_activities.sub_activity, ' - ', activities.activity, ' - ', programs.program, ' - ', programs.year, ' - ', regions.name) AS sub_activity_info"), 'sub_activities.id')
+                ->leftJoin('activities', 'sub_activities.activity_id', '=', 'activities.id')
+                ->leftJoin('programs', 'activities.program_id', '=', 'programs.id')
+                ->leftJoin('regions', 'programs.region_id', '=', 'regions.id')
+                ->whereIn('programs.region_id', $regionIds)
+                ->pluck('sub_activity_info', 'sub_activities.id');
+
+                return view('backend.realization.create')->with('user', $user)->with('subs', $subs);
+            }
+            else {
+                $subs = SubActivity::select(
+                DB::raw("CONCAT(sub_activities.sub_activity, ' - ', activities.activity, ' - ', programs.program, ' - ', programs.year, ' - ', regions.name) AS sub_activity_info"), 'sub_activities.id')
+                ->leftJoin('activities', 'sub_activities.activity_id', '=', 'activities.id')
+                ->leftJoin('programs', 'activities.program_id', '=', 'programs.id')
+                ->leftJoin('regions', 'programs.region_id', '=', 'regions.id')
+                ->where('programs.region_id', $user->region->id)
+                ->pluck('sub_activity_info', 'sub_activities.id');
+
+                return view('backend.realization.create')->with('user', $user)->with('subs', $subs);
+            }
         }
         else {
             return back()->with('status', 'Tidak Punya Akses');

@@ -68,18 +68,18 @@
                     </tr>
                 </tfoot>
                 <tbody>
-                    @if ((auth()->user()->role_id) == 1)
+                    @if (((auth()->user()->role_id) == 1) || ((auth()->user()->role_id) == 2))
                         @if (count($reas) > 0)
                             @foreach ($reas as $rea)
                                 <tr>
-                                    <td>{{ $rea->subactivity->sub_activity }}</td>
+                                    <td>{{ $rea->sub_activity }}</td>
                                     <td>{{ $rea->budget_use }}</td>
                                     <td>{{ $rea->physic_use }}</td>
                                     <td>{{ $rea->performance }}</td>
                                     <td>{{ $rea->budget_remaining }}</td>
                                     <td>{{ $rea->month }}</td>
-                                    <td>{{ $rea->subactivity->activity->program->year }}</td>
-                                    <td>{{ $rea->subactivity->activity->program->region->name }}</td>
+                                    <td>{{ $rea->year }}</td>
+                                    <td>{{ $rea->name }}</td>
                                     <td class="text-center">
                                         <button class="btn btn-datatable btn-icon btn-transparent-dark ms-2 me-2">
                                             <a class="text-decoration-none text-muted" href="/realization/{{ $rea->id }}">
