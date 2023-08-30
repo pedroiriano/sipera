@@ -24,7 +24,7 @@ class SubActivityController extends Controller
             $subs = SubActivity::leftJoin('activities', 'sub_activities.activity_id', '=', 'activities.id')
             ->leftJoin('programs', 'activities.program_id', '=', 'programs.id')
             ->leftJoin('regions', 'programs.region_id', '=', 'regions.id')
-            ->select('sub_activities.*', 'activities.activity', 'activities.budget', 'programs.program', 'programs.year', 'regions.name', DB::raw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09 + budget_10 + budget_11 + budget_12) AS budget'))
+            ->select('sub_activities.*', 'activities.activity', 'activities.budget', 'programs.program', 'programs.year', 'regions.name', DB::raw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09 + budget_10 + budget_11 + budget_12) AS budget_total'))
             ->groupBy('sub_activities.id')
             ->get();
 
@@ -41,7 +41,7 @@ class SubActivityController extends Controller
                 ->leftJoin('activities', 'sub_activities.activity_id', '=', 'activities.id')
                 ->leftJoin('programs', 'activities.program_id', '=', 'programs.id')
                 ->leftJoin('regions', 'programs.region_id', '=', 'regions.id')
-                ->select('sub_activities.*', 'activities.activity', 'activities.budget', 'programs.program', 'programs.year', 'regions.name', DB::raw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09 + budget_10 + budget_11 + budget_12) AS budget'))
+                ->select('sub_activities.*', 'activities.activity', 'activities.budget', 'programs.program', 'programs.year', 'regions.name', DB::raw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09 + budget_10 + budget_11 + budget_12) AS budget_total'))
                 ->groupBy('sub_activities.id')
                 ->get();
 
@@ -52,7 +52,7 @@ class SubActivityController extends Controller
                 ->leftJoin('activities', 'sub_activities.activity_id', '=', 'activities.id')
                 ->leftJoin('programs', 'activities.program_id', '=', 'programs.id')
                 ->leftJoin('regions', 'programs.region_id', '=', 'regions.id')
-                ->select('sub_activities.*', 'activities.activity', 'activities.budget', 'programs.program', 'programs.year', 'regions.name', DB::raw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09 + budget_10 + budget_11 + budget_12) AS budget'))
+                ->select('sub_activities.*', 'activities.activity', 'activities.budget', 'programs.program', 'programs.year', 'regions.name', DB::raw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09 + budget_10 + budget_11 + budget_12) AS budget_total'))
                 ->groupBy('sub_activities.id')
                 ->get();
 
@@ -181,8 +181,8 @@ class SubActivityController extends Controller
         try {
             $sub = SubActivity::where('id', $id)
                 ->select('*')
-                ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09 + budget_10 + budget_11 + budget_12) AS budget')
-                ->groupBy('id', 'sub_activity')
+                ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09 + budget_10 + budget_11 + budget_12) AS budget_total')
+                ->groupBy('id')
                 ->first();
 
             return view('backend.subactivity.show')->with('sub', $sub);
@@ -266,8 +266,8 @@ class SubActivityController extends Controller
 
             $sub_sum = SubActivity::where('id', $id)
                 ->select('*')
-                ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09 + budget_10 + budget_11 + budget_12) AS budget')
-                ->groupBy('id', 'sub_activity')
+                ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09 + budget_10 + budget_11 + budget_12) AS budget_total')
+                ->groupBy('id')
                 ->first();
 
             $act_sum = $request->input('budget_01') + $request->input('budget_02') + $request->input('budget_03') + $request->input('budget_04') + $request->input('budget_05') + $request->input('budget_06') + $request->input('budget_07') + $request->input('budget_08') + $request->input('budget_09') + $request->input('budget_10') + $request->input('budget_11') + $request->input('budget_12');
@@ -309,8 +309,8 @@ class SubActivityController extends Controller
 
                 $sub_sum = SubActivity::where('id', $id)
                     ->select('*')
-                    ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09 + budget_10 + budget_11 + budget_12) AS budget')
-                    ->groupBy('id', 'sub_activity')
+                    ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09 + budget_10 + budget_11 + budget_12) AS budget_total')
+                    ->groupBy('id')
                     ->first();
 
                 $act_sum = $request->input('budget_01') + $request->input('budget_02') + $request->input('budget_03') + $request->input('budget_04') + $request->input('budget_05') + $request->input('budget_06') + $request->input('budget_07') + $request->input('budget_08') + $request->input('budget_09') + $request->input('budget_10') + $request->input('budget_11') + $request->input('budget_12');

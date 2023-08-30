@@ -71,7 +71,7 @@
                             @foreach ($subs as $sub)
                                 <tr>
                                     <td>{{ $sub->sub_activity }}</td>
-                                    <td>{{ $sub->budget }}</td>
+                                    <td>{{ $sub->budget_total }}</td>
                                     <td>{{ $sub->physic }}</td>
                                     <td>{{ $sub->activity }}</td>
                                     <td>{{ $sub->program }}</td>

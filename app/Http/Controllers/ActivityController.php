@@ -37,7 +37,7 @@ class ActivityController extends Controller
                 $acts = Activity::whereIn('region_id', $regionIds)
                 ->leftJoin('programs', 'activities.program_id', '=', 'programs.id')
                 ->leftJoin('regions', 'programs.region_id', '=', 'regions.id')
-                ->select('activities.*', 'programs.*', 'regions.name')
+                ->select('activities.*', 'programs.program', 'programs.year', 'regions.name')
                 ->get();
 
                 return view('backend.activity.index')->with('user', $user)->with('acts', $acts);
@@ -46,7 +46,7 @@ class ActivityController extends Controller
                 $acts = Activity::where('region_id', $user->region->id)
                 ->leftJoin('programs', 'activities.program_id', '=', 'programs.id')
                 ->leftJoin('regions', 'programs.region_id', '=', 'regions.id')
-                ->select('activities.*', 'programs.*', 'regions.name')
+                ->select('activities.*', 'programs.program', 'programs.year', 'regions.name')
                 ->get();
 
                 return view('backend.activity.index')->with('user', $user)->with('acts', $acts);
