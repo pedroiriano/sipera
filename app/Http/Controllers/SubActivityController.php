@@ -26,6 +26,14 @@ class SubActivityController extends Controller
                 ->groupBy('id')
                 ->get();
 
+            $subs = SubActivity::leftJoin('activities', 'sub_activities.activity_id', '=', 'activities.id')
+            ->leftJoin('programs', 'activities.program_id', '=', 'programs.id')
+            ->leftJoin('regions', 'programs.region_id', '=', 'regions.id')
+            ->select('sub_activities.*', 'activities.*', 'programs.*', 'regions.name')
+            ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09 + budget_10 + budget_11 + budget_12) AS budget')
+            ->groupBy('sub_activities.id')
+            ->get();
+
             return view('backend.subactivity.index')->with('user', $user)->with('subs', $subs);
         }
         else if (($user->role_id) == 2) {
@@ -68,14 +76,46 @@ class SubActivityController extends Controller
     {
         $user = auth()->user();
 
-        $acts = Activity::select(
+        if(($user->role_id) == 1) {
+            $acts = Activity::select(
             DB::raw("CONCAT(activities.activity, ' - ', programs.program, ' - ', programs.year, ' - ', regions.name) AS activity_info"), 'activities.id')
             ->leftJoin('programs', 'activities.program_id', '=', 'programs.id')
             ->leftJoin('regions', 'programs.region_id', '=', 'regions.id')
             ->pluck('activity_info', 'activities.id');
 
-        if(($user->role_id) == 1) {
             return view('backend.subactivity.create')->with('user', $user)->with('acts', $acts);
+        }
+        else if (($user->role_id) == 2) {
+            if (($user->region->parent_id) == NULL) {
+                $regionIds = DB::table('regions')
+                ->where('id', '=', $user->region->id)
+                ->orWhere('parent_id', '=', $user->region->id)
+                ->pluck('id');
+
+                // $pros = Program::select(
+                // DB::raw("CONCAT(programs.program, ' - ', programs.year, ' - ', regions.name) AS program_info"), 'programs.id')
+                // ->leftJoin('regions', 'programs.region_id', '=', 'regions.id')
+                // ->whereIn('programs.region_id', $regionIds)
+                // ->pluck('program_info', 'programs.id');
+
+                $acts = Activity::select(
+                DB::raw("CONCAT(activities.activity, ' - ', programs.program, ' - ', programs.year, ' - ', regions.name) AS activity_info"), 'activities.id')
+                ->leftJoin('programs', 'activities.program_id', '=', 'programs.id')
+                ->leftJoin('regions', 'programs.region_id', '=', 'regions.id')
+                ->whereIn('programs.region_id', $regionIds)
+                ->pluck('activity_info', 'activities.id');
+
+                return view('backend.subactivity.create')->with('user', $user)->with('acts', $acts);
+            }
+            else {
+                $pros = Program::select(
+                DB::raw("CONCAT(programs.program, ' - ', programs.year, ' - ', regions.name) AS program_info"), 'programs.id')
+                ->leftJoin('regions', 'programs.region_id', '=', 'regions.id')
+                ->where('programs.region_id', $user->region->id)
+                ->pluck('program_info', 'programs.id');
+
+                return view('backend.subactivity.create')->with('user', $user)->with('acts', $acts);
+            }
         }
         else {
             return back()->with('status', 'Tidak Punya Akses');

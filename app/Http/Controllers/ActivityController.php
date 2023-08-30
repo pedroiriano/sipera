@@ -20,7 +20,10 @@ class ActivityController extends Controller
         $user = auth()->user();
 
         if(($user->role_id) == 1) {
-            $acts = Activity::all();
+            $acts = Activity::leftJoin('programs', 'activities.program_id', '=', 'programs.id')
+            ->leftJoin('regions', 'programs.region_id', '=', 'regions.id')
+            ->select('activities.*', 'programs.*', 'regions.name')
+            ->get();
 
             return view('backend.activity.index')->with('user', $user)->with('acts', $acts);
         }
