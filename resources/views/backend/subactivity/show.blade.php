@@ -64,7 +64,7 @@
                                 Anggaran Sub Kegiatan
                             </div>
                             <div class="col-6">
-                                {{ $sub->budget }}
+                                {{ $sub->budget_total }}
                             </div>
                         </div>
                         <div class="row small text-muted fw-bold">

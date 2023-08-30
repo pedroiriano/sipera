@@ -273,7 +273,7 @@ class SubActivityController extends Controller
             $act_sum = $request->input('budget_01') + $request->input('budget_02') + $request->input('budget_03') + $request->input('budget_04') + $request->input('budget_05') + $request->input('budget_06') + $request->input('budget_07') + $request->input('budget_08') + $request->input('budget_09') + $request->input('budget_10') + $request->input('budget_11') + $request->input('budget_12');
 
             $act = Activity::findOrFail($request->input('activity'));
-            $act->budget = $act->budget - $sub_sum->budget + $act_sum;
+            $act->budget = $act->budget - $sub_sum->budget_total + $act_sum;
 
             $act->save();
 
@@ -316,7 +316,7 @@ class SubActivityController extends Controller
                 $act_sum = $request->input('budget_01') + $request->input('budget_02') + $request->input('budget_03') + $request->input('budget_04') + $request->input('budget_05') + $request->input('budget_06') + $request->input('budget_07') + $request->input('budget_08') + $request->input('budget_09') + $request->input('budget_10') + $request->input('budget_11') + $request->input('budget_12');
 
                 $act = Activity::findOrFail($request->input('activity'));
-                $act->budget = $act->budget - $sub_sum->budget + $act_sum;
+                $act->budget = $act->budget - $sub_sum->budget_total + $act_sum;
 
                 $act->save();
 
