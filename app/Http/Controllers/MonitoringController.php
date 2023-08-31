@@ -17,54 +17,83 @@ class MonitoringController extends Controller
         $this->middleware('auth');
     }
 
-    public function performance(Request $request)
+    public function performance()
     {
         $user = auth()->user();
 
         if(($user->role_id) == 1) {
-            $reas = Realization::all();
+            $pars = Region::select(
+                'regions.id',
+                'regions.name',
+                'regions.address',
+                'regions.parent_id',
+                DB::raw("IFNULL(parent.name, '') as parent_name")
+                )
+                ->leftJoin('regions as parent', 'regions.parent_id', '=', 'parent.id')
+                ->get();
 
-            $reas = Realization::leftJoin('sub_activities', 'realizations.sub_activity_id', '=', 'sub_activities.id')
-            ->leftJoin('activities', 'sub_activities.activity_id', '=', 'activities.id')
-            ->leftJoin('programs', 'activities.program_id', '=', 'programs.id')
-            ->leftJoin('regions', 'programs.region_id', '=', 'regions.id')
-            ->select('realizations.*', 'sub_activities.sub_activity', 'sub_activities.physic', 'activities.activity', 'activities.budget', 'programs.program', 'programs.year', 'regions.name')
-            ->get();
+            $regs = collect();
 
-            return view('backend.monitoring.performance')->with('user', $user)->with('reas', $reas);
+            foreach ($pars as $par) {
+                if ($par->parent_id !== null) {
+                    $districtInfo = "Kelurahan {$par->name} - Kecamatan {$par->parent_name}";
+                    $regs->put($par->id, $districtInfo);
+                }
+                else {
+                    $districtInfo = "Kecamatan {$par->name}";
+                    $regs->put($par->id, $districtInfo);
+                }
+            }
+
+            return view('backend.monitoring.performance')->with('user', $user)->with('regs', $regs);
         }
         else if (($user->role_id) == 2) {
-            if (($user->region->parent_id) == NULL) {
-                $regionIds = DB::table('regions')
-                ->where('id', '=', $user->region->id)
-                ->orWhere('parent_id', '=', $user->region->id)
-                ->pluck('id');
-
-                $reas = Realization::whereIn('region_id', $regionIds)
-                ->leftJoin('sub_activities', 'realizations.sub_activity_id', '=', 'sub_activities.id')
-                ->leftJoin('activities', 'sub_activities.activity_id', '=', 'activities.id')
-                ->leftJoin('programs', 'activities.program_id', '=', 'programs.id')
-                ->leftJoin('regions', 'programs.region_id', '=', 'regions.id')
-                ->select('realizations.*', 'sub_activities.sub_activity', 'sub_activities.physic', 'activities.activity', 'activities.budget', 'programs.program', 'programs.year', 'regions.name')
+            $pars = Region::select(
+                'regions.id',
+                'regions.name',
+                'regions.address',
+                'regions.parent_id',
+                DB::raw("IFNULL(parent.name, '') as parent_name")
+                )
+                ->leftJoin('regions as parent', 'regions.parent_id', '=', 'parent.id')
+                ->where('regions.id', '=', $user->region->id)
+                ->orWhere('regions.parent_id', '=', $user->region->id)
                 ->get();
 
-                return view('backend.monitoring.performance')->with('user', $user)->with('reas', $reas);
-            }
-            else {
-                $reas = Realization::where('region_id', $user->region->id)
-                ->leftJoin('sub_activities', 'realizations.sub_activity_id', '=', 'sub_activities.id')
-                ->leftJoin('activities', 'sub_activities.activity_id', '=', 'activities.id')
-                ->leftJoin('programs', 'activities.program_id', '=', 'programs.id')
-                ->leftJoin('regions', 'programs.region_id', '=', 'regions.id')
-                ->select('realizations.*', 'sub_activities.sub_activity', 'sub_activities.physic', 'activities.activity', 'activities.budget', 'programs.program', 'programs.year', 'regions.name')
-                ->get();
+            $regs = collect();
 
-                return view('backend.monitoring.performance')->with('user', $user)->with('reas', $reas);
+            foreach ($pars as $par) {
+                if ($par->parent_id !== null) {
+                    $districtInfo = "Kelurahan {$par->name} - Kecamatan {$par->parent_name}";
+                    $regs->put($par->id, $districtInfo);
+                }
+                else {
+                    $districtInfo = "Kecamatan {$par->name}";
+                    $regs->put($par->id, $districtInfo);
+                }
             }
+
+            return view('backend.monitoring.performance')->with('user', $user)->with('regs', $regs);
         }
         else {
             return back()->with('status', 'Tidak Punya Akses');
         }
+    }
+
+    public function getPerformance(Request $request)
+    {
+        $user = auth()->user();
+
+        $reas = Realization::where('region_id', $request->input('region'))
+        ->where('month', $request->input('month'))
+        ->leftJoin('sub_activities', 'realizations.sub_activity_id', '=', 'sub_activities.id')
+        ->leftJoin('activities', 'sub_activities.activity_id', '=', 'activities.id')
+        ->leftJoin('programs', 'activities.program_id', '=', 'programs.id')
+        ->leftJoin('regions', 'programs.region_id', '=', 'regions.id')
+        ->select('realizations.*', 'sub_activities.sub_activity', 'sub_activities.physic', 'activities.activity', 'activities.budget', 'programs.program', 'programs.year', 'regions.name')
+        ->get();
+
+        return view('backend.monitoring.performance-result')->with('user', $user)->with('reas', $reas);
     }
 
     public function problem(Request $request)
