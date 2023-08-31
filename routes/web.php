@@ -89,3 +89,4 @@ Route::post('/get-budget', [RealizationController::class, 'getBudget'])->name('g
 Route::get('/monitoring/performance', [MonitoringController::class, 'performance'])->name('performance');
 Route::post('/monitoring/get-performance', [MonitoringController::class, 'getPerformance'])->name('get-performance');
 Route::get('/monitoring/problem', [MonitoringController::class, 'problem'])->name('problem');
+Route::post('/monitoring/get-problem', [MonitoringController::class, 'getProblem'])->name('get-problem');

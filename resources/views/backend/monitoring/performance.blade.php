@@ -17,9 +17,9 @@
                     </h1>
                 </div>
                 <div class="col-12 col-xl-auto mb-3">
-                    <a class="btn btn-sm btn-light text-primary" href="{{ route('realization') }}">
+                    <a class="btn btn-sm btn-light text-primary" href="{{ route('performance') }}">
                         <i class="me-1" data-feather="arrow-left"></i>
-                        Kembali ke Tabel Realisasi
+                        Kembali ke Tabel Monitoring
                     </a>
                 </div>
             </div>
@@ -27,7 +27,7 @@
     </div>
 </header>
 <!-- Main page content-->
-<form action="{{ route('get-performance') }}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('get-problem') }}" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="container-fluid px-4">
         @include('inc.alert-message')
