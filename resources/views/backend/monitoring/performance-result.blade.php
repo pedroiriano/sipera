@@ -124,7 +124,7 @@
                                         <td>{{ $rea->sub_activity }}</td>
                                         <td>{{ $rea->budget_total }}</td>
                                         <td>{{ $rea->budget_plan }}</td>
-                                        <td>{{ $sum }}</td>
+                                        <td>{{ $rea->budget_use }}</td>
                                         <td>{{ $rea->budget_real }}</td>
                                         <td>{{ $rea->problem_category }}</td>
                                         <td>{{ $rea->problem_description }}</td>
