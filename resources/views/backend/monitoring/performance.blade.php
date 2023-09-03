@@ -27,7 +27,7 @@
     </div>
 </header>
 <!-- Main page content-->
-<form action="{{ route('get-problem') }}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('get-performance') }}" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="container-fluid px-4">
         @include('inc.alert-message')

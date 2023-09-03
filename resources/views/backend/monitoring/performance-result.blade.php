@@ -2,6 +2,14 @@
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/backend/styles.css') }}">
+<!-- Include DataTables CSS and JavaScript libraries -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+<!-- Include DataTables Buttons extension -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.1.0/css/buttons.dataTables.min.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.1.0/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.1.0/js/buttons.html5.min.js"></script>
 @endsection
 
 @section('content')
@@ -33,7 +41,7 @@
             </div>
         </div>
         <div class="card-body">
-            <table id="datatablesSimple">
+            <table id="datatablesPrint">
                 <thead>
                     <tr>
                         <th class="text-center">Nama Kegiatan</th>
@@ -132,4 +140,17 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('js')
+<script>
+$(document).ready(function () {
+    $('#datatablesPrint').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'excel'
+        ]
+    });
+});
+</script>
 @endsection
