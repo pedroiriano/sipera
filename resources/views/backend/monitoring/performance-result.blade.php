@@ -122,10 +122,10 @@
                                     @endphp
                                     <tr>
                                         <td>{{ $rea->sub_activity }}</td>
-                                        <td>{{ $rea->budget }}</td>
-                                        <td>{{ $rea->physic }}</td>
-                                        <td>{{ $rea->physic_use }}</td>
-                                        <td>{{ $rea->performance }}</td>
+                                        <td>{{ $rea->budget_total }}</td>
+                                        <td>{{ $rea->budget_plan }}</td>
+                                        <td>{{ $sum }}</td>
+                                        <td>{{ $rea->budget_real }}</td>
                                         <td>{{ $rea->problem_category }}</td>
                                         <td>{{ $rea->problem_description }}</td>
                                         <td>{{ $rea->problem_solution }}</td>
