@@ -106,6 +106,7 @@ class MonitoringController extends Controller
                 ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09 + budget_10 + budget_11 + budget_12) AS budget_total')
                 ->selectRaw('SUM(budget_01) AS budget_plan')
                 ->selectRaw('(((budget_use) / (budget_01)) * 100) AS budget_real')
+                ->groupBy('sub_activities.id')
                 ->get();
                 break;
             case 2:
