@@ -28,17 +28,17 @@
                         </span>
                     </p> --}}
                     <h1 class="page-header-ui-title fw-bold text-black">
-                        <span style="background-color: rgba(128, 128, 128, 0.5); display: inline; border-radius: 10px">
+                        <span style="background-color: rgba(256, 256, 256, 0.9); display: inline; border-radius: 10px">
                             SIPERA
                         </span>
                     </h1>
                     <p class="page-header-ui-text fw-bold mb-5 text-black">
-                        <span style="background-color: rgba(128, 128, 128, 0.5); display: inline; border-radius: 10px">
+                        <span style="background-color: rgba(256, 256, 256, 0.9); display: inline; border-radius: 10px">
                             Sistem Informasi Pelaporan Capaian Kinerja
                         </span>
                     </p>
                     <p class="page-header-ui-text fw-bold mb-5 text-black">
-                        <span style="background-color: rgba(128, 128, 128, 0.5); display: inline; border-radius: 10px">
+                        <span style="background-color: rgba(256, 256, 256, 0.9); display: inline; border-radius: 10px">
                             Kecamatan Pancoran Mas
                         </span>
                     </p>
