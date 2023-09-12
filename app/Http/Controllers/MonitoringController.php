@@ -106,7 +106,7 @@ class MonitoringController extends Controller
                 ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09 + budget_10 + budget_11 + budget_12) AS budget_total')
                 ->selectRaw('SUM(budget_01) AS budget_plan')
                 ->selectRaw('(((budget_use) / (budget_01)) * 100) AS budget_real')
-                ->groupBy('sub_activities.id')
+                ->groupBy('programs.id', 'activities.id', 'sub_activities.id')
                 ->get();
                 break;
             case 2:
@@ -120,7 +120,7 @@ class MonitoringController extends Controller
                 ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09 + budget_10 + budget_11 + budget_12) AS budget_total')
                 ->selectRaw('SUM(budget_01 + budget_02) AS budget_plan')
                 ->selectRaw('(((budget_use) / (budget_01 + budget_02)) * 100) AS budget_real')
-                ->groupBy('sub_activities.id')
+                ->groupBy('programs.id', 'activities.id', 'sub_activities.id')
                 ->get();
                 break;
             case 3:
@@ -134,7 +134,7 @@ class MonitoringController extends Controller
                 ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09 + budget_10 + budget_11 + budget_12) AS budget_total')
                 ->selectRaw('SUM(budget_01 + budget_02 + budget_03) AS budget_plan')
                 ->selectRaw('(((budget_use) / (budget_01 + budget_02 + budget_03)) * 100) AS budget_real')
-                ->groupBy('sub_activities.id')
+                ->groupBy('programs.id', 'activities.id', 'sub_activities.id')
                 ->get();
                 break;
             case 4:
@@ -148,7 +148,7 @@ class MonitoringController extends Controller
                 ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09 + budget_10 + budget_11 + budget_12) AS budget_total')
                 ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04) AS budget_plan')
                 ->selectRaw('(((budget_use) / (budget_01 + budget_02 + budget_03 + budget_04)) * 100) AS budget_real')
-                ->groupBy('sub_activities.id')
+                ->groupBy('programs.id', 'activities.id', 'sub_activities.id')
                 ->get();
                 break;
             case 5:
@@ -162,7 +162,7 @@ class MonitoringController extends Controller
                 ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09 + budget_10 + budget_11 + budget_12) AS budget_total')
                 ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05) AS budget_plan')
                 ->selectRaw('(((budget_use) / (budget_01 + budget_02 + budget_03 + budget_04 + budget_05)) * 100) AS budget_real')
-                ->groupBy('sub_activities.id')
+                ->groupBy('programs.id', 'activities.id', 'sub_activities.id')
                 ->get();
                 break;
             case 6:
@@ -176,7 +176,7 @@ class MonitoringController extends Controller
                 ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09 + budget_10 + budget_11 + budget_12) AS budget_total')
                 ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06) AS budget_plan')
                 ->selectRaw('(((budget_use) / (budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06)) * 100) AS budget_real')
-                ->groupBy('sub_activities.id')
+                ->groupBy('programs.id', 'activities.id', 'sub_activities.id')
                 ->get();
                 break;
             case 7:
@@ -190,7 +190,7 @@ class MonitoringController extends Controller
                 ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09 + budget_10 + budget_11 + budget_12) AS budget_total')
                 ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07) AS budget_plan')
                 ->selectRaw('(((budget_use) / (budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07)) * 100) AS budget_real')
-                ->groupBy('sub_activities.id')
+                ->groupBy('programs.id', 'activities.id', 'sub_activities.id')
                 ->get();
                 break;
             case 8:
@@ -204,7 +204,7 @@ class MonitoringController extends Controller
                 ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09 + budget_10 + budget_11 + budget_12) AS budget_total')
                 ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08) AS budget_plan')
                 ->selectRaw('(((budget_use) / (budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08)) * 100) AS budget_real')
-                ->groupBy('sub_activities.id')
+                ->groupBy('programs.id', 'activities.id', 'sub_activities.id')
                 ->get();
                 break;
             case 9:
@@ -218,7 +218,7 @@ class MonitoringController extends Controller
                 ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09 + budget_10 + budget_11 + budget_12) AS budget_total')
                 ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09) AS budget_plan')
                 ->selectRaw('(((budget_use) / (budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09)) * 100) AS budget_real')
-                ->groupBy('sub_activities.id')
+                ->groupBy('programs.id', 'activities.id', 'sub_activities.id')
                 ->get();
                 break;
             case 10:
@@ -232,7 +232,7 @@ class MonitoringController extends Controller
                 ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09 + budget_10 + budget_11 + budget_12) AS budget_total')
                 ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09 + budget_10) AS budget_plan')
                 ->selectRaw('(((budget_use) / (budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09 + budget_10)) * 100) AS budget_real')
-                ->groupBy('sub_activities.id')
+                ->groupBy('programs.id', 'activities.id', 'sub_activities.id')
                 ->get();
                 break;
             case 11:
@@ -246,7 +246,7 @@ class MonitoringController extends Controller
                 ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09 + budget_10 + budget_11 + budget_12) AS budget_total')
                 ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09 + budget_10 + budget_11) AS budget_plan')
                 ->selectRaw('(((budget_use) / (budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09 + budget_10 + budget_11)) * 100) AS budget_real')
-                ->groupBy('sub_activities.id')
+                ->groupBy('programs.id', 'activities.id', 'sub_activities.id')
                 ->get();
                 break;
             case 12:
@@ -260,7 +260,7 @@ class MonitoringController extends Controller
                 ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09 + budget_10 + budget_11 + budget_12) AS budget_total')
                 ->selectRaw('SUM(budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09 + budget_10 + budget_11 + budget_12) AS budget_plan')
                 ->selectRaw('(((budget_use) / (budget_01 + budget_02 + budget_03 + budget_04 + budget_05 + budget_06 + budget_07 + budget_08 + budget_09 + budget_10 + budget_11 + budget_12)) * 100) AS budget_real')
-                ->groupBy('sub_activities.id')
+                ->groupBy('programs.id', 'activities.id', 'sub_activities.id')
                 ->get();
                 break;
             default:

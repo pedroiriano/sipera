@@ -45,7 +45,9 @@
                 <table id="datatablesPrint">
                     <thead>
                         <tr>
-                            <th class="text-center">Nama Kegiatan</th>
+                            <th class="text-center">Sub Kegiatan</th>
+                            <th class="text-center">Kegiatan</th>
+                            <th class="text-center">Program</th>
                             <th class="text-center">Anggaran</th>
                             <th class="text-center">Rencana Anggaran</th>
                             <th class="text-center">Realisasi</th>
@@ -60,7 +62,9 @@
                     </thead>
                     <tfoot>
                         <tr>
-                            <th class="text-center">Nama Kegiatan</th>
+                            <th class="text-center">Sub Kegiatan</th>
+                            <th class="text-center">Kegiatan</th>
+                            <th class="text-center">Program</th>
                             <th class="text-center">Anggaran</th>
                             <th class="text-center">Rencana Anggaran</th>
                             <th class="text-center">Realisasi</th>
@@ -122,6 +126,8 @@
                                     @endphp
                                     <tr>
                                         <td>{{ $rea->sub_activity }}</td>
+                                        <td>{{ $rea->activity }}</td>
+                                        <td>{{ $rea->program }}</td>
                                         <td>{{ $rea->budget_total }}</td>
                                         <td>{{ $rea->budget_plan }}</td>
                                         <td>{{ $rea->budget_use }}</td>
@@ -136,7 +142,7 @@
                                 @endforeach
                             @else
                             <tr>
-                                <td colspan="11" class="text-center">Data Masih Kosong</td>
+                                <td colspan="13" class="text-center">Data Masih Kosong</td>
                             </tr>
                             @endif
                         @else

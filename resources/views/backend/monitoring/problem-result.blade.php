@@ -45,7 +45,9 @@
                 <table id="datatablesPrint">
                     <thead>
                         <tr>
-                            <th class="text-center">Nama Kegiatan</th>
+                            <th class="text-center">Sub Kegiatan</th>
+                            <th class="text-center">Kegiatan</th>
+                            <th class="text-center">Program</th>
                             <th class="text-center">Target Kinerja Kegiatan</th>
                             <th class="text-center">Realisasi</th>
                             <th class="text-center">Fisik (%)</th>
@@ -59,7 +61,9 @@
                     </thead>
                     <tfoot>
                         <tr>
-                            <th class="text-center">Nama Kegiatan</th>
+                            <th class="text-center">Sub Kegiatan</th>
+                            <th class="text-center">Kegiatan</th>
+                            <th class="text-center">Program</th>
                             <th class="text-center">Target Kinerja Kegiatan</th>
                             <th class="text-center">Realisasi</th>
                             <th class="text-center">Fisik (%)</th>
@@ -120,6 +124,8 @@
                                     @endphp
                                     <tr>
                                         <td>{{ $rea->sub_activity }}</td>
+                                        <td>{{ $rea->activity }}</td>
+                                        <td>{{ $rea->program }}</td>
                                         <td>{{ $rea->physic }}</td>
                                         <td>{{ $rea->physic_use }}</td>
                                         <td>{{ $rea->performance }}</td>
@@ -133,7 +139,7 @@
                                 @endforeach
                             @else
                             <tr>
-                                <td colspan="10" class="text-center">Data Masih Kosong</td>
+                                <td colspan="12" class="text-center">Data Masih Kosong</td>
                             </tr>
                             @endif
                         @else
